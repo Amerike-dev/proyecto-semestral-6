@@ -20,3 +20,28 @@ Hay reglas que se deben de seguir para llevar un buen desarrollo en conjunto.
 4. Al hacer merge, borra tu rama.
 
 5. Se responsable, debes de probar tus cambions antes de mergear, asegurate que tu desarrollo no este destruyendo el trabajo de los demas. 
+
+6. TODOS LOS COMMITS deben tener un mensaje con la siguiente estructura:
+    ```
+    (feat|fix): {mensaje descriptivo}
+    ``` 
+    Por ejemplo, si estoy creando algo nuevo:
+
+    ```
+    (feat): clase player agregada
+    ```
+
+    Y si estoy corrigiendo un error:
+
+    ```
+    (fix): se arreglo un typo en la clase player
+    ```
+7. TODOS LOS PULL REQUEST deben tener la siguiente estructura de mensaje:
+    ```
+    GAW-{n}: {Descripcion general}
+    ```
+    donde `n` es el numero del ticket que esta relacionado a este pull request. Es decir, si tengo un ticket de creacion de una escena:
+
+    ```
+    GAW-5: Creacion de la escena de nivel 1
+    ```
