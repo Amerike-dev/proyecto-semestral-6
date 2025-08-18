@@ -45,3 +45,13 @@ Hay reglas que se deben de seguir para llevar un buen desarrollo en conjunto.
     ```
     GAW-5: Creacion de la escena de nivel 1
     ```
+8. TODAS LAS RAMAS deben tener la siguiente estructura:
+    ```
+    feat|fix/{n}-{descripcion-corta}
+    ```
+    Donde `{n}` es el numero del ticket y la descripcion corta no tiene espacios.
+    Es decir, si tengo una rama para crear una escena:
+
+    ```
+    feat/5-creacion-de-escena
+    ```
