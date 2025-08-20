@@ -1,5 +1,4 @@
 
-[Serializable]
 public class Player
 {
     public int PlayerID { get; private set; }
