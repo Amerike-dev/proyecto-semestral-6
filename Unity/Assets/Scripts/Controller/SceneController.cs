@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class scene_manager : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     // crea un objeto de tipo GameObject que se llame "scene_manager" y agrega este script a él
     // pon un botón en la ui y asignale la función changeSceneByIndex
@@ -14,4 +14,3 @@ public class scene_manager : MonoBehaviour
         }
     }
 }
-
