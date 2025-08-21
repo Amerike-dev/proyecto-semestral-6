@@ -21,7 +21,5 @@ public class PlayerController : MonoBehaviour
         
         Debug.Log($"Jugador inicializado: {PlayerData.PlayerName} (ID: {PlayerData.PlayerID})");
     }
-
-
 }
 
