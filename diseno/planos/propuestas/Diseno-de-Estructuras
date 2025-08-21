@@ -1,0 +1,76 @@
+# Propuesta de Diseños de Estructuras
+
+Este documento contiene la propuesta de **5 diseños de estantes** que los jugadores deberán recrear durante la partida.
+
+
+## Criterios de Aceptación
+- Se incluyen **5 planos** con estructuras diferentes.
+- Los planos están basados en el **estilo gráfico del player** (caricaturesco, modular, colores vivos).
+- Cada plano muestra:
+- **Diseño visual** del estante.
+- **Materiales requeridos** (madera, ladrillo, metal).
+- Los planos pueden aparecer **rotados o reflejados** en la partida.
+
+---
+
+## Propuesta de 5 Diseños de Estantes
+
+### 1. Estante Básico de Dos Niveles
+- **Materiales:** madera y ladrillo.
+- **Descripción:** dos columnas de ladrillo con dos tablones horizontales de madera.
+- **Dificultad:** baja.
+- **Objetivo:** enseñar al jugador la lógica básica de ensamblaje.
+
+<p align="center">
+  <img src="Estructuras/Estantes-img/1-Estante-basico.png" alt="Logo IEU" style="width: 50%; max-width: 1600px;">
+</p>
+
+---
+
+### 2. Estante en Forma de “L”
+- **Materiales:** ladrillo, madera, metal.
+- **Descripción:** base de ladrillo, columna lateral de metal, estante de madera en ángulo.
+- **Dificultad:** media.
+- **Variante:** puede aparecer rotado o espejado.
+
+<p align="center">
+  <img src="Estructuras/Estantes-img/2-Estante-en-L.png" alt="Logo IEU" style="width: 50%; max-width: 1600px;">
+</p>
+
+---
+
+### 3. Estante de Tres Pisos
+- **Materiales:** madera y metal.
+- **Descripción:** tres tablones paralelos de madera con soporte de columnas metálicas.
+- **Dificultad:** media-alta.
+- **Extra:** si se coloca mal un tablón, la estructura queda inestable.
+
+<p align="center">
+  <img src="Estructuras/Estantes-img/3- Estante-de-Tres-Pisos.png" alt="Logo IEU" style="width: 50%; max-width: 1600px;">
+</p>
+
+---
+
+### 4. Estante “Cruzado”
+- **Materiales:** madera y ladrillo.
+- **Descripción:** dos niveles con soporte diagonal en forma de cruz.
+- **Dificultad:** alta.
+- **Objetivo:** obliga a usar rotaciones y acomodos menos intuitivos.
+
+<p align="center">
+  <img src="Estructuras/Estantes-img/4-Estante-Cruzado.png" alt="Logo IEU" style="width: 50%; max-width: 1600px;">
+</p>
+
+---
+
+### 5. Estante Real de Oro
+- **Materiales:** madera, ladrillo y metal.
+- **Descripción:** diseño decorativo con tres niveles, columnas mixtas y adornos de madera.
+- **Dificultad:** muy alta.
+- **Objetivo:** pedido especial de clientes ricos, otorga mayor puntuación.
+
+<p align="center">
+  <img src="Estructuras/Estantes-img/5-Estante-Real-de-Oro.png" alt="Logo IEU" style="width: 50%; max-width: 1600px;">
+</p>
+
+---
