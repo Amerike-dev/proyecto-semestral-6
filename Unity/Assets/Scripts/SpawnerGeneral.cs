@@ -14,13 +14,24 @@ public class SpawnerGeneral
         {
             if (!bricksList[i].activeInHierarchy)
             {
-                bricksList[i].transform.position = position;
-                bricksList[i].SetActive(true);
-                return bricksList[i];
+                GameObject brick = bricksList[i];
+
+                // Reiniciar transform
+                brick.transform.position = position;
+                brick.transform.rotation = Quaternion.identity;
+
+                // Reiniciar Rigidbody (si tiene)
+                Rigidbody rb = brick.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+                brick.SetActive(true);
+                return brick;
             }
         }
-
-        // Si no hay objetos libres en el pool, regresa null
-        return null;
+        return null; // No hay objetos libres en el pool
     }
+
 }
