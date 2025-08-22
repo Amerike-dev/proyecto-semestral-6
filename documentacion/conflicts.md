@@ -20,7 +20,7 @@ Developer2
 ### Conflictos en el pull requests
 Es facil detectar que mi Pull requests tiene conflictos, se ve hasta el final del Pull Request. Si notas que hay conflictos, no te esperes a que te digan que debes resolverlos. Hazlos en cuanto los veas.
 
-![github conflicts](../img/conflicts.png)
+![github conflicts](./img/conflicts.png)
 
 
 ## Como resolver conflictos?
@@ -83,15 +83,15 @@ En seguida, se mostraran los pasos para resolver conflictos con VSCode y con la 
 
 5. En el menu de VSCode, puedo ver que hay un plugin de git. Como ya tendre unos camibos, tendra unos numeros. Hago click en esa extension.
 
-    ![github conflicts](../img/git_extension.png)
+    ![github conflicts](./img/git_extension.png)
 
 6. Vere que hay un registro de los cambios, los `Staged Changes` son los cambios en espera de ser registrados con un commit, los `Merge Changes` son los conflictos, a veces podre tener uno o muchos. Hago click sobre uno.
 
-    ![github conflicts](../img/conflicts_detected.png)
+    ![github conflicts](./img/conflicts_detected.png)
 
 7. Me abrira el archivo y en un principio no sabre donde estan los conflictos, pero, `VSCode` tiene un editor para ayudarnos a visualizarlos. Esta ubicado abajo a la derecha, hago click en ese boton.
 
-    ![github conflicts](../img/resolve_in_editor.png)
+    ![github conflicts](./img/resolve_in_editor.png)
 
 8. Abrira el editor de merge, en este debes enfocarte en las siguientes cosas:
     - La ventana superior izquierda es el `incoming` si tienes dudas de que rama es, ahi mismo te dira, en este caso es `refs/heads/main` es decir, lo mas actualizado de `main` donde `refs= origin/HEAD` es decir, lo mas actualizado de la rama main en github.
@@ -101,7 +101,7 @@ En seguida, se mostraran los pasos para resolver conflictos con VSCode y con la 
     - En cada ventana superior apareceran opciones como `Accept Current` o `Accept Incoming`.
     - En el slider de la derecha, hay unos bloques grises y amarillos, los bloques grises son las selecciones `Automaticas` que se pudieron hacer. Las selecciones `amarillas` son las que no se pudieron hacer de forma automatica.
  
-    ![github conflicts](../img/merge_editor_detail.png)
+    ![github conflicts](./img/merge_editor_detail.png)
 
 9. Desplazate hasta el primer bloque amarillo.Ahi debes observar que ya hay diferencias, diferencias que `git` no supo escoger, por lo que necestia de tu ayuda. Aqui hay varias opciones:
 
@@ -109,7 +109,7 @@ En seguida, se mostraran los pasos para resolver conflictos con VSCode y con la 
     - Accept Combinacion: agregara ambas, con un orden en especifico
     - Accept Current: Tomara la parte del codigo de current
 
-    ![github conflicts](../img/choosing_option.png)
+    ![github conflicts](./img/choosing_option.png)
 
 10. Escoge una opcion, ten en cuenta, que debemos darle prioridad a `main` pero abajo dejo las consideracionse.
     - Si Main tiene mas informacion, acepta lo de main.
@@ -120,11 +120,11 @@ En seguida, se mostraran los pasos para resolver conflictos con VSCode y con la 
 
 12. Una vez que hayas terminado, veras que el color del archivo pasara de rojo a amarillo.
 
-    ![github conflicts](../img/merge_completed.png)
+    ![github conflicts](./img/merge_completed.png)
 
 13. Despues, haz un commit con todos los cambios actualizados, veras que ya no hay nada que falte en el menu de cambios de git.
 
-    ![github conflicts](../img/no_conflicts.png)
+    ![github conflicts](./img/no_conflicts.png)
 
 14. Asegurate de agregar todos los cambios y hacer un commit, puedes ponerle algo como `(fix): merge main`
 
