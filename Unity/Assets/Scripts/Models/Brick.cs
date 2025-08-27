@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 using UnityEngine;
+=======
+ï»¿using UnityEngine;
+>>>>>>> Stashed changes
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -63,12 +67,20 @@ public class Brick : MonoBehaviour
         if (CurrentState == BrickState.Raw)
         {
             CurrentState = BrickState.Cut;
+<<<<<<< Updated upstream
             Debug.Log("Se cortó el ladrillo");
+=======
+            Debug.Log("Se cortï¿½ el ladrillo");
+>>>>>>> Stashed changes
         }
         else if (CurrentState == BrickState.Painted)
         {
             CurrentState = BrickState.CutAndPainted;
+<<<<<<< Updated upstream
             Debug.Log("se cortó el ladrillo despues de que se pintó");
+=======
+            Debug.Log("se cortï¿½ el ladrillo despues de que se pintï¿½");
+>>>>>>> Stashed changes
         }
     }
 
@@ -78,13 +90,21 @@ public class Brick : MonoBehaviour
         {
             CurrentState = BrickState.Painted;
             ApplyPaintColor();
+<<<<<<< Updated upstream
             Debug.Log("se pintó el ladrillo");
+=======
+            Debug.Log("se pintï¿½ el ladrillo");
+>>>>>>> Stashed changes
         }
         else if (CurrentState == BrickState.Cut)
         {
             CurrentState = BrickState.CutAndPainted;
             ApplyPaintColor();
+<<<<<<< Updated upstream
             Debug.Log("se pintó el ladrillo despues de que se haya cortado");
+=======
+            Debug.Log("se pintï¿½ el ladrillo despues de que se haya cortado");
+>>>>>>> Stashed changes
         }
     }
 
@@ -104,4 +124,8 @@ public class Brick : MonoBehaviour
             meshRenderer.material.color = originalColor;
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes
