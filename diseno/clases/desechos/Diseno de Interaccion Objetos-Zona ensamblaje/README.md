@@ -55,3 +55,7 @@ Se encarga de conectar la lógica de **BuildZone** con el motor Unity y los obje
 - `Start() : void` → Inicializa el controlador y prepara referencias.  
 - `OnTriggerEnter(other : Collider) : void` → Detecta cuándo un objeto entra en la zona.  
 - `TryFuse() : void` → Lanza manualmente el proceso de fusión (si `autoFuse` está en `false`).  
+
+#### Referencia visual
+
+![Diagrama de Clases](/proyecto-semestral-6/diseno/clases/desechos/Diseno%20de%20Interaccion%20Objetos-Zona%20ensamblaje/Zona%20de%20Desechos.png)
