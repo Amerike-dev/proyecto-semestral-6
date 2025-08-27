@@ -3,7 +3,7 @@ using UnityEngine;
 // Define los límites jugables del nivel y un punto de respawn.
 // Se puede configurar con un BoxCollider2D o con valores manuales.
 
-[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider))]
 public class LevelBounds : MonoBehaviour
 {
     [Header("Respawn Settings")]

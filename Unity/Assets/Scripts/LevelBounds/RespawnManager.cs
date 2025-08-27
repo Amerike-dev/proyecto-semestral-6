@@ -13,11 +13,11 @@ public class RespawnManager : MonoBehaviour
 
     public void RespawnPlayer(GameObject player, Vector3 respawnPoint)
     {
-        var rb = player.GetComponent<Rigidbody2D>();
+        var rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.position = respawnPoint;
-            rb.linearVelocity = Vector2.zero;
+            rb.linearVelocity = Vector3.zero;
         }
         else
         {

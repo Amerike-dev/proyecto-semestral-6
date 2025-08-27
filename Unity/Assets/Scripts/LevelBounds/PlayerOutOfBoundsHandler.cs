@@ -2,7 +2,6 @@ using UnityEngine;
 
 //Script unido al Player
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerOutOfBoundsHandler : MonoBehaviour
 {
     private Rigidbody rb;
@@ -38,7 +37,7 @@ public class PlayerOutOfBoundsHandler : MonoBehaviour
         // Reposicionar al jugador en el SpawnPoint
         Vector3 safePos = levelBounds.GetRespawnPoint();
         rb.position = safePos;
-        rb.linearVelocity = Vector2.zero;
+        rb.linearVelocity = Vector3.zero;
 
         Debug.Log($"Jugador {gameObject.name} respawneado en {safePos}");
     }
