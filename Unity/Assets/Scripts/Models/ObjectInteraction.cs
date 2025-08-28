@@ -3,9 +3,11 @@ using UnityEngine.InputSystem;
 
 public class ObjectInteraction : MonoBehaviour
 {
+    public PlayerController playerController;
     public GameObject handPoint;
     private GameObject pickedObject = null;
     private bool isPicking = false;
+    
 
     void Update()
     {
@@ -40,6 +42,8 @@ public class ObjectInteraction : MonoBehaviour
         obj.transform.position = handPoint.transform.position;
         obj.transform.SetParent(handPoint.transform);
         pickedObject = obj;
+
+        playerController.CanJump = false;
     }
 
     private void DropObject()
@@ -48,5 +52,7 @@ public class ObjectInteraction : MonoBehaviour
         pickedObject.GetComponent<Rigidbody>().isKinematic = false;
         pickedObject.transform.SetParent(null);
         pickedObject = null;
+
+        playerController.CanJump = true;
     }
 }
