@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     Vector2 moveInput;
     float verticalVel;
+    // Define si el jugador puede saltar
+    public bool CanJump { get; set; } = true;
 
 
     // Esto referencia al objeto Player
@@ -55,8 +57,10 @@ public class PlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext ctx) => moveInput = ctx.ReadValue<Vector2>();
     public void OnJump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && controller.isGrounded)
+        if (ctx.performed && controller.isGrounded && CanJump)
+        {
             verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
     }
 
     private void InitializePlayer()
