@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5899068316261195543}
   - component: {fileID: 5290109469751684793}
   - component: {fileID: 7746272226733070796}
+  - component: {fileID: 1094254873256382638}
   m_Layer: 0
   m_Name: Ladrillo 2
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,3 +91,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1094254873256382638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522482001035022091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a10887da13dade45a99ea7dc71bb2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'

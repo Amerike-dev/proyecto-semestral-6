@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8879fef97fdbcb04a97facb97d132d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerController
-  brickPrefab: {fileID: 7762607062830526824, guid: ce6f2fcda1825604c8733931cc6cb4aa, type: 3}
+  brickPrefab: {fileID: 7522482001035022091, guid: 6629d2f4da442f146b880670e84e6eef, type: 3}
   poolSize: 3
   spawnInterval: 2
 --- !u!23 &14452055
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8879fef97fdbcb04a97facb97d132d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerController
-  brickPrefab: {fileID: 1027135978024397219, guid: e316380dae525214f85110a64f9780b5, type: 3}
+  brickPrefab: {fileID: 7522482001035022091, guid: 69f1776415c666044bb2e9f4ca5ae917, type: 3}
   poolSize: 3
   spawnInterval: 5
 --- !u!23 &86601257

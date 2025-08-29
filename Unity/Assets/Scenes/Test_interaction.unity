@@ -119,52 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &285785834 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 52823245482210634, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
-  m_PrefabInstance: {fileID: 1078280044}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &285785837
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285785834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae7347c15e1066d4bbdf7e4d4fbb4350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObjectInteraction
-  playerController: {fileID: 1964824818}
-  handPoint: {fileID: 1059405448}
---- !u!54 &285785838
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285785834}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &302238380
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,11 +355,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1059405448 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7414740981514365660, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
-  m_PrefabInstance: {fileID: 1078280044}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1078280044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,13 +418,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 52823245482210634, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 285785837}
-    - targetCorrespondingSourceObject: {fileID: 52823245482210634, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 285785838}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
 --- !u!1 &1312874494
 GameObject:
@@ -681,17 +624,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1964824818 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5634173433881225749, guid: 2d354cbbbab5d6a42b1709d68f0ad74d, type: 3}
-  m_PrefabInstance: {fileID: 1078280044}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9f307333e7cc24e8c33f4624979fe9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
