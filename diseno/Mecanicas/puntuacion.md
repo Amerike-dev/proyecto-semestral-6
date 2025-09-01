@@ -1,14 +1,13 @@
 # Sistema de Puntuación por Nivel
 
-Este documento define las reglas de puntuación del juego en función de la **complejidad y las mecánicas** introducidas en cada nivel.  
-La idea es que la dificultad no solo incremente por las condiciones del escenario, sino que también la **evaluación de la construcción** se vuelva más estricta.
+En este documento se dan propuestas para las mecánicas de puntuación en cada nivel con respecto a la propuesta que está en el documento de "Complejidad.md"
 
 ---
 
 ## Nivel 1
 
 **Mecánicas:** Estructuras básicas  
-**Puntuación:** Se evalúa qué tan similar es la estructura al plano.
+**Puntuación:** Se evalúa si los jugadores unieron las piezas de manera correcta
 
 **Reglas de puntuación:**
 
