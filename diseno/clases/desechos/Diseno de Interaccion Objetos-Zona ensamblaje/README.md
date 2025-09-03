@@ -58,4 +58,4 @@ Se encarga de conectar la lógica de **BuildZone** con el motor Unity y los obje
 
 #### Referencia visual
 
-![Diagrama de Clases](/proyecto-semestral-6/diseno/clases/desechos/Diseno%20de%20Interaccion%20Objetos-Zona%20ensamblaje/Zona%20de%20Desechos.png)
+![Diagrama de clases](./Zona%20de%20Desechos.png)
