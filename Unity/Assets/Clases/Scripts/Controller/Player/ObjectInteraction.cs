@@ -1,58 +1,62 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ObjectInteraction : MonoBehaviour
 {
-    public PlayerController playerController;
     public GameObject handPoint;
     private GameObject pickedObject = null;
-    private bool isPicking = false;
-    
 
-    void Update()
+    // Llamado desde PlayerController cuando el jugador presiona el botón de interactuar
+    public void TryInteract(PlayerController player)
     {
-        
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        // Si ya tengo un objeto en mano → lo suelto
+        if (pickedObject != null)
         {
-            isPicking = true;
+            DropObject(player);
+            return;
         }
-        
-        if (Keyboard.current.rKey.wasPressedThisFrame && pickedObject != null)
-        {
-            DropObject();
-        }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Object"))
+        // Si no tengo nada en mano → busco algo cercano
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 1f); // radio de detección
+        foreach (var col in colliders)
         {
-            if (isPicking && pickedObject == null)
+            IInteractable interactable = col.GetComponent<IInteractable>();
+            if (interactable != null)
             {
-                PickUpObject(other.gameObject);
-                isPicking = false;
+                interactable.Interact(player); // Lógica del objeto
+                PickUpObject(col.gameObject, player); // Lo recojo
+                return;
             }
         }
     }
 
-    private void PickUpObject(GameObject obj)
+    private void PickUpObject(GameObject obj, PlayerController player)
     {
-        obj.GetComponent<Rigidbody>().useGravity = false;
-        obj.GetComponent<Rigidbody>().isKinematic = true;
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
+
         obj.transform.position = handPoint.transform.position;
         obj.transform.SetParent(handPoint.transform);
         pickedObject = obj;
 
-        playerController.CanJump = false;
+        player.CanJump = false;
     }
 
-    private void DropObject()
+    private void DropObject(PlayerController player)
     {
-        pickedObject.GetComponent<Rigidbody>().useGravity = true;
-        pickedObject.GetComponent<Rigidbody>().isKinematic = false;
+        Rigidbody rb = pickedObject.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = true;
+            rb.isKinematic = false;
+        }
+
         pickedObject.transform.SetParent(null);
         pickedObject = null;
 
-        playerController.CanJump = true;
+        player.CanJump = true;
     }
 }

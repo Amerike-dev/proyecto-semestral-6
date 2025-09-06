@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
-public class Brick : MonoBehaviour
+public class Brick : MonoBehaviour, IInteractable
 {
     public enum BrickState
     {
@@ -103,5 +103,12 @@ public class Brick : MonoBehaviour
         {
             meshRenderer.material.color = originalColor;
         }
+    }
+
+    public void Interact(PlayerController player)
+    {
+        Debug.Log("El jugador " + player.name + " interactuó con un ladrillo");
+
+        // Aqui debe ir la logica de interaccion
     }
 }
