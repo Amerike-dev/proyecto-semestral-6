@@ -49,6 +49,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Merge",
+            "id": "be162dcb-ec42-44fc-a865-b5a58c3fd5f6",
+            "actions": [
+                {
+                    "name": "merge",
+                    "type": "Button",
+                    "id": "14af41f7-1f5e-4025-b2a0-539a6e4ac647",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "144d46e3-7540-4e38-9a95-c1eac23a8249",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "merge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3bb06f50-f771-42dc-99f1-6b633656d262",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "merge",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
