@@ -10,10 +10,7 @@ public class BrickTests
     public void SetUp()
     {
         go = new GameObject("Brick-Test");
-        go.AddComponent<BoxCollider>();
-        go.AddComponent<Rigidbody>(); 
-        go.AddComponent<MeshRenderer>();    
-        brick = go.AddComponent<Brick>();           
+        brick = go.AddComponent<Brick>();
     }
 
     [TearDown]
@@ -23,52 +20,82 @@ public class BrickTests
     }
 
     [Test]
-    public void Brick_Constructor_IsInstanceOfBrick()
+    public void DefaultState_Is_Spawned()
     {
-        Assert.IsInstanceOf<Brick>(brick);
+        Assert.AreEqual(Brick.State.Spawned, brick.Current);
     }
 
     [Test]
-    public void Brick_DefaultState_IsRaw()
+    public void Spawned_To_PickedUp()
     {
-        Assert.AreEqual(Brick.BrickState.Raw, brick.CurrentState);
+        Assert.IsTrue(brick.TryPickUp());
+        Assert.AreEqual(Brick.State.PickedUp, brick.Current);
     }
 
     [Test]
-    public void Brick_Cut_ChangesStateToCut()
+    public void PickedUp_To_Free()
     {
-        brick.Cut();
-        Assert.AreEqual(Brick.BrickState.Cut, brick.CurrentState);
+        brick.TryPickUp();
+        Assert.IsTrue(brick.TryDropToFree());
+        Assert.AreEqual(Brick.State.Free, brick.Current);
     }
 
     [Test]
-    public void Brick_Paint_ChangesStateToPainted()
+    public void Free_To_PickedUp()
     {
-        brick.Paint();
-        Assert.AreEqual(Brick.BrickState.Painted, brick.CurrentState);
+        brick.TryPickUp();
+        brick.TryDropToFree();
+        Assert.IsTrue(brick.TryPickUp());
+        Assert.AreEqual(Brick.State.PickedUp, brick.Current);
     }
 
     [Test]
-    public void Brick_CutAfterPaint_ChangesStateToCutAndPainted()
+    public void PickedUp_To_InAssembly()
     {
-        brick.Paint();
-        brick.Cut();
-        Assert.AreEqual(Brick.BrickState.CutAndPainted, brick.CurrentState);
+        brick.TryPickUp();
+        Assert.IsTrue(brick.TryEnterAssembly());
+        Assert.AreEqual(Brick.State.InAssembly, brick.Current);
     }
 
     [Test]
-    public void Brick_PaintAfterCut_ChangesStateToCutAndPainted()
+    public void Free_To_InAssembly()
     {
-        brick.Cut();
-        brick.Paint();
-        Assert.AreEqual(Brick.BrickState.CutAndPainted, brick.CurrentState);
+        brick.TryPickUp();
+        brick.TryDropToFree();
+        Assert.IsTrue(brick.TryEnterAssembly());
+        Assert.AreEqual(Brick.State.InAssembly, brick.Current);
     }
 
     [Test]
-    public void Brick_Reset_RestoresStateToRaw()
+    public void InAssembly_To_Merged()
     {
-        brick.Cut();
-        brick.ResetBrick();
-        Assert.AreEqual(Brick.BrickState.Raw, brick.CurrentState);
+        brick.TryPickUp();
+        brick.TryEnterAssembly();
+        Assert.IsTrue(brick.TryMerge());
+        Assert.AreEqual(Brick.State.Merged, brick.Current);
+    }
+
+    [Test]
+    public void PickedUp_To_ThrowAway()
+    {
+        brick.TryPickUp();
+        Assert.IsTrue(brick.TryThrowAway());
+        Assert.AreEqual(Brick.State.ThrowAway, brick.Current);
+    }
+
+    [Test]
+    public void Merged_Is_Terminal()
+    {
+        brick.TryPickUp();
+        brick.TryEnterAssembly();
+        brick.TryMerge();
+        Assert.AreEqual(Brick.State.Merged, brick.Current);
+
+        Assert.IsFalse(brick.TryPickUp());
+        Assert.IsFalse(brick.TryDropToFree());
+        Assert.IsFalse(brick.TryEnterAssembly());
+        Assert.IsFalse(brick.TryMerge());
+        Assert.IsFalse(brick.TryThrowAway());
+        Assert.AreEqual(Brick.State.Merged, brick.Current);
     }
 }
