@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(ObjectInteraction))]
 public class PlayerController : MonoBehaviour
 {
     [Header("Configuración del Jugador")]
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public bool isGrounded = true;
 
+    private ObjectInteraction objectInteraction;
 
 
     void Awake()
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-
+        objectInteraction = GetComponent<ObjectInteraction>();
         // <<< asignacion de dispositivos
         InputDevicePolicy.Assign(playerInput);
     }
@@ -71,6 +73,12 @@ public class PlayerController : MonoBehaviour
 
         //Esta es una prueba para la conexión de los jugadores usando el nuevo InputSystem
         if (gamepad == null) return;
+
+        // Interacción (ejemplo con el botón "X" del gamepad)
+        if (gamepad.buttonWest.wasPressedThisFrame) // Botón X / cuadrado / E en teclado
+        {
+            objectInteraction.TryInteract(this);
+        }
 
         // Salto con física
         if (gamepad.buttonSouth.wasPressedThisFrame && isGrounded)
