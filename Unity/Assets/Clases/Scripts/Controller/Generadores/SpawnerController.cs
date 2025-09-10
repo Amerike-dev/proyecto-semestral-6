@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class SpawnerController : MonoBehaviour
 {
+    [Header("Zona de Spawn")]
+    [SerializeField] private SpawnZone spawnZone;
+
     [Header("Prefab a Instanciar")]
     public GameObject brickPrefab;
 
@@ -44,7 +47,12 @@ public class SpawnerController : MonoBehaviour
     //Pide un objeto del pool en la posición del spawner
     public GameObject SpawnObject()
     {
-        return spawner.AskForObject(transform.position);
+        // Solo spawnea si hay espacio en la zona de spawn
+        if (spawnZone == null || spawnZone.IsEmpty)
+        {
+            return spawner.AskForObject(transform.position);
+        }
+        return null;
     }
 
     // Corutina que genera objetos automáticamente
