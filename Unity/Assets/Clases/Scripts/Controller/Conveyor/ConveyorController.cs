@@ -6,6 +6,9 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInput))]
 public class ConveyorController : MonoBehaviour
 {
+    [Header("Zona de Spawn")]
+    [SerializeField] private SpawnZone spawnZone;
+    [SerializeField] private float baseSpawnZoneLength = 2f;
     [SerializeField] private float initialSpeed = 2f;
     [SerializeField] private Vector3 initialDirection = Vector3.right;
     [SerializeField] private float decelRate = 2f; 
@@ -13,7 +16,6 @@ public class ConveyorController : MonoBehaviour
 
     private Conveyor conveyor;
     private bool reversing = false;
-
     private InputAction reverseAction;
 
     private void Awake()
@@ -27,7 +29,30 @@ public class ConveyorController : MonoBehaviour
         // Obtener el PlayerInput y buscar la acción "Reverse"
         var playerInput = GetComponent<PlayerInput>();
         reverseAction = playerInput.actions["Reverse"];
+
+        // Si no se asignó manualmente, buscar el SpawnZone en hijos
+        if (spawnZone == null)
+        {
+            spawnZone = GetComponentInChildren<SpawnZone>();
+        }
     }
+    private void Update()
+    {
+        // Actualizar tamaño de la zona de spawn según la velocidad
+        if (spawnZone != null && conveyor != null)
+        {
+            BoxCollider zoneCollider = spawnZone.GetComponent<BoxCollider>();
+            if (zoneCollider != null)
+            {
+                float length = baseSpawnZoneLength * (conveyor.Speed / initialSpeed);
+                length = Mathf.Max(baseSpawnZoneLength, length); // Nunca menor al base
+                Vector3 size = zoneCollider.size;
+                size.z = length;
+                zoneCollider.size = size;
+            }
+        }
+    }
+    // ...existing code...
 
     private void OnEnable()
     {
