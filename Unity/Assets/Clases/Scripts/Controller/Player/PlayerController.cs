@@ -3,127 +3,110 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
-[RequireComponent(typeof(ObjectInteraction))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("Configuración del Jugador")]
+    [Header("Jugador")]
     [SerializeField] private int playerID = 1;
     [SerializeField] private string playerName = "Player";
-
-    /*
-    [Header("Movimiento")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpHeight = 2.2f;
-    [SerializeField] private float gravity = -9.81f * 2f;*/
-
-    CharacterController controller;
-    PlayerInput playerInput;
-    Vector2 moveInput;
-    float verticalVel;
-    // Define si el jugador puede saltar
-    public bool CanJump { get; set; } = true;
-
-
-    // Esto referencia al objeto Player
     public Player PlayerData { get; private set; }
 
-    public Gamepad gamepad; // ← ESTA línea es clave
-    public float velocidad = 15f;
-    public float fuerzaSalto = 7f;
+    [Header("Movimiento")]
+    public float moveSpeed = 5f;
+    public float jumpHeight = 1.5f;
+    public float gravity = -9.81f;
 
-    private Rigidbody rb;
-    public bool isGrounded = true;
+    [Header("Rotación (Look)")]
+    public float lookSensitivity = 200f;
+    public Transform cameraRoot;
 
-    private ObjectInteraction objectInteraction;
+    // --- Dispositivo que asigna PlayerManager ---
+    [HideInInspector] public Gamepad gamepad;
 
+    // Para ObjectInteraction
+    public bool CanJump { get; set; } = true;
+
+    // Internos
+    CharacterController controller;
+    PlayerInput playerInput;
+    Vector2 moveInput;       // Move (Vector2)
+    Vector2 lookInput;       // Look (Vector2)
+    float verticalVel;       // gravedad acumulada
+    bool jumpQueued;         // se activa desde OnJump
+    bool devicePaired;       // si ya pareamos el gamepad asignado
 
     void Awake()
     {
-        InitializePlayer();
-
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
-        objectInteraction = GetComponent<ObjectInteraction>();
-        // <<< asignacion de dispositivos
-        InputDevicePolicy.Assign(playerInput);
-    }
+        PlayerData = new Player(playerID, playerName);
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
+        // Asegura que sólo el map "Player" esté activo
+        var asset = playerInput.actions;
+        foreach (var map in asset.actionMaps) map.Disable();
+        asset.FindActionMap("Player", throwIfNotFound: true).Enable();
+
+        // Evita que cambie de scheme solo si no quieres autoswitch (opcional)
+        playerInput.neverAutoSwitchControlSchemes = false;
     }
 
     void Update()
     {
-        /*
-        var dt = Time.deltaTime;
 
-        // Permitir que el dueno del teclado adopte un pad libre (si presiona un boton)
-        InputDevicePolicy.TryAdoptFreePadIfKeyboardOwner(playerInput);
+        TryPairAssignedGamepad();
 
-        Vector3 forward = Vector3.forward, right = Vector3.right;
-        
-        Vector3 moveXZ = (right * moveInput.x + forward * moveInput.y) * moveSpeed;
+        //Rotación
+        float yawDelta = lookInput.x * lookSensitivity * Time.deltaTime;
+        (cameraRoot ? cameraRoot : transform).Rotate(0f, yawDelta, 0f);
 
-        if (controller.isGrounded && verticalVel < 0f) verticalVel = -2f;
-        verticalVel += gravity * dt;
+        //Salto (grounding y gravedad)
+        if (controller.isGrounded && verticalVel < 0f)
+            verticalVel = -2f;  // pegado al piso
 
-        controller.Move(new Vector3(moveXZ.x, verticalVel, moveXZ.z) * dt);
-        */
+        if (jumpQueued && controller.isGrounded && CanJump)
+        {
+            verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity); // v = sqrt(2 g h)
+            jumpQueued = false;
+        }
 
-        //Esta es una prueba para la conexión de los jugadores usando el nuevo InputSystem
+        verticalVel += gravity * Time.deltaTime;
+
+        //Movimiento
+        Transform basis = cameraRoot ? cameraRoot : transform;
+        Vector3 fwd = basis.forward; fwd.y = 0f; fwd.Normalize();
+        Vector3 right = basis.right; right.y = 0f; right.Normalize();
+        Vector3 planar = (right * moveInput.x + fwd * moveInput.y) * moveSpeed;
+
+        //Aplicar con CharacterController
+        Vector3 velocity = planar + Vector3.up * verticalVel;
+        controller.Move(velocity * Time.deltaTime);
+    }
+
+    //Callbacks del PlayerInput
+    public void OnMove(InputValue value) { moveInput = value.Get<Vector2>(); }
+    public void OnLook(InputValue value) { lookInput = value.Get<Vector2>(); }
+    public void OnJump(InputValue value)
+    {
+        if (value.Get<float>() > 0.5f) jumpQueued = true;
+    }
+
+  
+    void TryPairAssignedGamepad()
+    {
+        if (devicePaired) return;
         if (gamepad == null) return;
+        if (playerInput == null) return;
 
-        // Interacción (ejemplo con el botón "X" del gamepad)
-        if (gamepad.buttonWest.wasPressedThisFrame) // Botón X / cuadrado / E en teclado
+        try
         {
-            objectInteraction.TryInteract(this);
+            playerInput.SwitchCurrentControlScheme("Gamepad", gamepad);
+        }
+        catch
+        {
+            Debug.LogWarning("No pude cambiar al scheme Gamepad");
         }
 
-        // Salto con física
-        if (gamepad.buttonSouth.wasPressedThisFrame && isGrounded)
-        {
-            rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
-            isGrounded = false;
-        }
+        devicePaired = true;
+        Debug.Log($"[Player {PlayerData.PlayerID}] usando gamepad: {gamepad.displayName}");
     }
 
-    void FixedUpdate()
-    {
-        if (gamepad == null) return;
-
-        // Movimiento horizontal con física
-        Vector2 input = gamepad.leftStick.ReadValue();
-        Vector3 direccion = new Vector3(input.x, 0, input.y);
-        Vector3 movimiento = direccion * velocidad;
-
-        rb.linearVelocity = new Vector3(movimiento.x, rb.linearVelocity.y, movimiento.z);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    //Aquí acaba la prueba usando el nuevo InputSystem
-    /*
-    public void OnMove(InputAction.CallbackContext ctx) => moveInput = ctx.ReadValue<Vector2>();
-    public void OnJump(InputAction.CallbackContext ctx)
-    {
-        if (ctx.performed && controller.isGrounded && CanJump)
-        {
-            verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-    }
-    */
-    private void InitializePlayer()
-    {
-        // Esto crea una nueva instancia del jugador con los datos configurados.
-        PlayerData = new Player(playerID, playerName);
-
-        Debug.Log($"Jugador inicializado: {PlayerData.PlayerName} (ID: {PlayerData.PlayerID})");
-    }
 }
