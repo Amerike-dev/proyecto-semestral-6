@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
-using BuildSystem;  // DIRECTIVA USING
+using BuildSystem; 
 
 public class BuildZoneControllerTests
 {
@@ -41,7 +41,7 @@ public class BuildZoneControllerTests
         controller.OnTriggerEnter(c2);
 
         // Assert
-        Assert.AreEqual(0, controller.zone.Count());
+        Assert.AreEqual(0, controller.zone.Count);  
         Assert.AreEqual(1, fuseCount);
 
         Object.DestroyImmediate(o1);
@@ -53,7 +53,7 @@ public class BuildZoneControllerTests
     {
         // Arrange
         var o1 = new GameObject("Solo");
-        controller.zone.Add(o1);
+        controller.zone.Accept(o1);      
 
         int fuseCount = 0;
         controller.onFuse.AddListener(() => fuseCount++);
@@ -62,7 +62,7 @@ public class BuildZoneControllerTests
         controller.TryFuse();
 
         // Assert
-        Assert.AreEqual(1, controller.zone.Count());
+        Assert.AreEqual(1, controller.zone.Count);   
         Assert.AreEqual(0, fuseCount);
 
         Object.DestroyImmediate(o1);
