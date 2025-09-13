@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "ModelsPlayerCore",
-        "ModelsBrickCore"
+        "ModelsBrickCore",
+        "ModelsConveyor.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
