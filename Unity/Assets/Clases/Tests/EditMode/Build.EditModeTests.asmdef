@@ -1,20 +1,25 @@
 {
     "name": "Build.EditmodeTests",
+    "rootNamespace": "",
     "references": [
-        "Build.Core"  
-    ],
-    "optionalUnityReferences": [
-        "TestAssemblies"
+        "Build.Core",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "Language.Core"
     ],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
     "autoReferenced": false,
-    "defineConstraints": [],
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
     "versionDefines": [],
     "noEngineReferences": false
 }
