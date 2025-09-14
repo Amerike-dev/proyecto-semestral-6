@@ -1,0 +1,48 @@
+```mermaid
+classDiagram
+    class BuildingZoneArea {
+        +Color gizmoColor
+        +Bounds WorldBounds
+        +Vector3 ClampInside(Vector3 position, Vector3 halfExtents)
+    }
+
+    class SnappingPieceController {
+        +float moveSpeed
+        +float rotationSpeedDegPerSec
+        +float positionSmoothTime
+        +float hoverHeight
+        +bool enableGridSnap
+        +float cellSize
+        +bool IsRotationFixed
+        +float snapAngle
+        +float snapRepeatDelay
+        +ManipulationModeSnap mode
+        +Vector3Int CurrentGridCell
+        +void Activate(BuildingZoneArea zone, Vector3 spawnPos, Quaternion spawnRot)
+        +void HandleArrows(Vector2 arrows, float deltaTime)
+        +void HandleVertical(float yInput, float deltaTime)
+        +void Tick(float deltaTime)
+        +void SetMode(ManipulationModeSnap newMode)
+        +void BeginDrop()
+        <<event OnPlaced(SnappingPieceController)>>
+    }
+
+    class SnapAssemblyPieceManager {
+        +BuildingZoneArea buildingZone
+        +Transform spawnPoint
+        +List<GameObject> piecePrefabs
+        +bool randomOrder
+        +float defaultMoveSpeed
+        +float defaultRotSpeed
+        +float defaultHover
+        +bool defaultGridSnap
+        +float defaultCellSize
+        +bool defaultIsRotationFixed
+        +ManipulationModeSnap startMode
+        +void SpawnNextPiece()
+        +void HandlePlaced(SnappingPieceController placed)
+    }
+
+    %% Relaciones
+    SnapAssemblyPieceManager --> SnappingPieceController : "Instancia y controla"
+    SnappingPieceController --> BuildingZoneArea : "Usa para límites y snapping"
