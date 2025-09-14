@@ -1,4 +1,7 @@
 ```mermaid
+---
+title: Snapping de piezas
+---
 classDiagram
     class BuildingZoneArea {
         +Color gizmoColor
