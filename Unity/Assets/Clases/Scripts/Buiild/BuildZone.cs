@@ -3,48 +3,75 @@ using UnityEngine;
 
 namespace BuildSystem
 {
-    // Clase de dominio (no es MonoBehaviour)
-    public class BuildZone
+    public class BuildZone : IZone
     {
         public int Id { get; private set; }
-        public int Capacity { get; private set; }
+        public int Capacity { get; private set; } 
+        public bool IsComplete { get; private set; }
 
         private readonly List<GameObject> objects = new List<GameObject>();
-        public bool IsComplete { get; private set; }
 
         public BuildZone(int id, int capacity)
         {
             Id = id;
-            Capacity = Mathf.Max(0, capacity);
+            Capacity = Mathf.Max(1, capacity);
             IsComplete = false;
         }
 
-        public bool CanAccept() => objects.Count < Capacity;
+        public int Count => objects.Count;
 
-        public bool Add(GameObject obj)
+        public void Accept(GameObject piece)
         {
-            if (obj == null) return false;
-            if (!CanAccept()) return false;
-            objects.Add(obj);
-            return true;
+            if (piece == null) return;
+            ClearDestroyedPieces();
+            if (IsComplete) return;
+            if (objects.Contains(piece)) return;
+            if (objects.Count >= Capacity) return; 
+            objects.Add(piece);
         }
 
-        public bool Remove(GameObject obj) => obj != null && objects.Remove(obj);
+        public void Remove(GameObject piece)
+        {
+            if (piece == null) return;
+            objects.Remove(piece);
+            ClearDestroyedPieces();
+        }
 
-        public int Count() => objects.Count;
+        public void ClearDestroyedPieces()
+        {
+            objects.RemoveAll(p => p == null);
+        }
 
-        // Regla simple: se puede fusionar si hay 2 o más piezas.
-        public bool CanFuse() => objects.Count >= 2;
+        public bool CanFuse()
+        {
+            ClearDestroyedPieces();
+            return !IsComplete && objects.Count > 0;
+        }
 
-        // Devuelve un GameObject "fusionado", vacía la zona y marca IsComplete.
         public GameObject FuseAll()
         {
             if (!CanFuse()) return null;
 
-            var fused = new GameObject("Fused");
+
+            Vector3 center = Vector3.zero;
+            int validCount = 0;
             foreach (var o in objects)
             {
-                if (o != null) o.transform.SetParent(fused.transform, worldPositionStays: true);
+                if (o == null) continue;
+                center += o.transform.position;
+                validCount++;
+            }
+            if (validCount > 0) center /= validCount;
+
+            var fused = new GameObject($"FusedPiece_{Id}");
+            fused.transform.position = center;
+            fused.transform.rotation = Quaternion.identity;
+
+            // Reparentar todas las piezas a la nueva raíz
+            foreach (var o in objects)
+            {
+                if (o == null) continue;
+                o.transform.SetParent(fused.transform, worldPositionStays: true);
             }
 
             objects.Clear();

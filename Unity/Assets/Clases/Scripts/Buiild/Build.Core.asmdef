@@ -1,8 +1,10 @@
 {
     "name": "Build.Core",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.UI",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Build.Abstractions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
