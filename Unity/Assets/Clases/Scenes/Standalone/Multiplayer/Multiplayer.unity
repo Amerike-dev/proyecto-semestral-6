@@ -338,9 +338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
   modelos:
-  - {fileID: 8666252173137544377, guid: 3a0af3c4774dce945b3ea634f0b3e808, type: 3}
-  - {fileID: 8666252173137544377, guid: 394b857248d17d04a8770b4c887bf353, type: 3}
-  - {fileID: 8666252173137544377, guid: 1008b07b91dfa014498904bdc7c95902, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
 --- !u!4 &1933254938
 Transform:
   m_ObjectHideFlags: 0
