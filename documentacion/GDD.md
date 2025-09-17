@@ -6,11 +6,11 @@
 
 **Género:** Party, Cooperativo, Top Down
 
-**Plataforma:** PC, Nintendo Switch
+**Plataforma:** Nintendo Switch, Steam Deck
 
-*Justificación:* Estas plataformas fueron seleccionadas por su enfoque en juegos multijugador locales y portabilidad, ideales para experiencias party cooperativas. Nintendo Switch y PC permiten jugar en grupo fácilmente y tienen una base de usuarios que disfruta este tipo de juegos.
+*Justificación:* Estas plataformas fueron seleccionadas por su enfoque en juegos multijugador locales y portabilidad, ideales para experiencias party cooperativas. Nintendo Switch y Steam Deck permiten jugar en grupo fácilmente y tienen una base de usuarios que disfruta este tipo de juegos.
 
-**Versión:** TBD
+**Versión:** 1.0
 
 **Sinopsis:**
 Gob's at Work es un videojuego cooperativo local para hasta 4 jugadores, donde los participantes toman el rol de goblins que deben construir estantes para guardar monedas de oro, siguiendo diseños específicos bajo presión de tiempo y con recursos limitados. El juego combina trabajo en equipo, resolución de retos y diversión en una temática party.
@@ -20,14 +20,46 @@ Desarrollar un juego multijugador local con mecánicas de construcción, interac
 
 **Categoría:** Entretenimiento
 
-**Licencia:** TBD
+**Licencia:** Pietaria
 
 ## Guion
-TBD
+### Visión General
+Juego cooperativo de construcción rápida donde una cooperativa de goblins fabrica estanterías especializadas para clientes impacientes. El valor del pago desciende en tiempo real, forzando coordinación y trabajo en equipo.
+
+### Mundo y Contexto
+Talleres subterráneos y entornos que cada vez van requiriendo mayor dificultad y menor margen d eerror por parte de los jugadores. Ambientación industrial.
+
+### Premisa Narrativa
+Cada contrato es un pedido urgente con planos que pueden llegar con distintos grados de dificultad o requisitos como tipo de material o diseño. La reputación se construye entregando diseños exactos antes de que el pago sea menor  no púedan conseguir todas las estrellas de un nivel.
+
+### Objetivo del Jugador
+Completar el diseño con exactitud, sin cometer tatos errores y en el menor tiempo posible para maximizar estrellas y mantener mejores pagos.
+
+### Bucle de Juego
+1. Mostrar plano.
+2. Lectura y reparto de tareas (quién trae qué / quién ensambla / quién despeja).
+3. Transporte de materiales (madera, ladrillo, metal).
+4. Colocación y corrección  de piezas erróneas.
+5. Validación automática del estante y cálculo de pago + estrellas.
+6. Paso al siguiente plano / nivel / mundo.
+
+### Escalado de Dificultad
+- Básico:Planos simple, un solo material.
+- Intermedio: Diseños mas complejos y uso de otros materiales como ladrillo.
+- Avanzado: Diseños variandos entre sencillo y complejo e uso de 3 diferentes tipos de materiales (madera,ladrillo y metal)
+
+### Tono y Estilo
+Caótico pero divertido. Fallos generan humor entre frustacion y diversion al mismo tiempo.
+
+### Diferenciadores / Gancho
+- Construcción detallada (no recetas abstractas).
+- Pago decreciente crea urgencia.
+- Variación de planos y materiales mantiene rejugabilidad.
+- Claridad: Pasar de solucionar a optimizar rutas y tiempos para lograr la mejor puntuacion posible.
 
 ## Mecánicas
 - Multijugador local cooperativo para hasta 4 personas.
-- Construcción de estantes siguiendo diseños.
+- Construcción de estantes siguiendo diseños que pueden estar rotados.
 - Uso de materiales: ladrillos, madera, metal según el nivel.
 - Personajes pueden agarrar objetos, saltar y dar emojis.
 - Interacción con objetos que pueden tener acciones específicas.
@@ -36,13 +68,16 @@ TBD
 - Sistema de puntuación de 3 estrellas basado en desempeño y tiempo.
 
 ## Interfaces
--Menu Incial
--Inicio de Juego
--Inicio de Nivel
--Fin de Nivel
+- Pantalla de carga.
+- Interfaz de selección de nivel y diseño.
+- HUD con tiempo restante, materiales disponibles y puntuación.
+- Pantalla de resultados al finalizar el nivel.
+- Menús intuitivos y visuales, adaptados a la temática de goblins y construcción.
 
 ## Niveles
-TBD
+- Niveles con diferentes diseños de estantes y retos.
+- Variedad en materiales y dificultad según el avance.
+- Cada nivel tiene un tiempo específico para completarse.
 
 ## Progreso del juego
 - El progreso se mide por la cantidad de diseños completados y estrellas obtenidas.
