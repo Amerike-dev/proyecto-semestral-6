@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd4a31ac5ec0c2a4e9c2a0fc890127f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelContoller
-  prefab: {fileID: 8666252173137544377, guid: f8d460802c6cdf94aa685e178d6e02d9, type: 3}
+  prefab: {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
   spawnPoint: {fileID: 890044206}
 --- !u!4 &643364681
 Transform:
