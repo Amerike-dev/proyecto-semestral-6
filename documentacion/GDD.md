@@ -49,17 +49,6 @@ TBD
 - Desbloqueo de nuevos niveles y retos al avanzar.
 - Sistema de recompensas y logros por desempeño.
 
-
-
-
-# ASASAS
-
-
-
-
-
-
-
 ## Personajes
 ### Información General
 
@@ -95,7 +84,6 @@ TBD
 
 ---
 
-
 ### Requisitos Técnicos
 
 - **Animaciones necesarias:**  
@@ -114,5 +102,4 @@ TBD
   - Crafteando objetos 
 - **Interacciones con entorno:**  Puede agarrar, colocar, modificar y craftear objetos para venderlos
 
----
 
