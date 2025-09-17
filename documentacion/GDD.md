@@ -85,5 +85,56 @@ Caótico pero divertido. Fallos generan humor entre frustacion y diversion al mi
 - Sistema de recompensas y logros por desempeño.
 
 ## Personajes
-- Goblins constructores, cada uno con personalidad y apariencia única.
-- Clientes goblins adinerados que evalúan el desempeño.
+### Información General
+
+- **Nombre completo:**   No tienen
+- **Alias o apodo:**  Gob
+- **Edad:**  Indefinida
+- **Raza/Especie:**  Goblins
+- **Rol en la historia:** Personajes jugables 
+
+---
+
+### Jugabilidad
+
+- **Habilidades básicas:**  
+  - Moverse 
+  - Agarrar objetos  
+  - Modificar objetos 
+  - Craftear objetos  
+  - Desechar objetos
+  - Vender objetos 
+- **Estilo de juego:** Multijugador y con vista elevada   
+- **limitaciones:**  El jugador solo podrá llevar un objeto a la vez
+
+---
+
+### Diseño Visual
+
+- **Vestimenta:**  Usa un overol y un sombrero de copa
+- **Elementos icónicos:** Su vestimenta y la antorcha que tiene en la mano derecha 
+- **Referencias visuales:**  
+![GoblinA](./img/GoblinA.jpg)
+- **Cambios visuales a lo largo del juego:**  Cada jugador tendrá su propio color al entrar al juego
+
+---
+
+### Requisitos Técnicos
+
+- **Animaciones necesarias:**  
+  - Idle  
+  - Caminar  
+  - Saltar
+  - Agarrar objetos
+  - Cargar objetos  
+  - Colocar objetos  
+- **Estados del personaje:**  
+  - Idle  
+  - Moviendo  
+  - Saltando
+  - Cargando objetos  
+  - Colocando objetos  
+  - Crafteando objetos 
+- **Interacciones con entorno:**  Puede agarrar, colocar, modificar y craftear objetos para venderlos
+
+
