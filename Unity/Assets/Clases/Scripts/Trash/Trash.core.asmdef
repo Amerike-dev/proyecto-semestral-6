@@ -1,0 +1,16 @@
+{
+    "name": "Trash.core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9797b65f9d7946c44aa8cb8f7151aba2"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
