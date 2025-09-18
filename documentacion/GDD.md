@@ -75,9 +75,25 @@ Caótico pero divertido. Fallos generan humor entre frustacion y diversion al mi
 - Menús intuitivos y visuales, adaptados a la temática de goblins y construcción.
 
 ## Niveles
-- Niveles con diferentes diseños de estantes y retos.
-- Variedad en materiales y dificultad según el avance.
-- Cada nivel tiene un tiempo específico para completarse.
+El juego cuenta con **3 mundos**, cada uno con **3 biomas**, y cada bioma contiene **3 niveles**.  
+En total, el juego ofrece **27 niveles** con una progresión pensada para introducir mecánicas paso a paso: comienza con tutoriales básicos y culmina en una gran prueba final que combina todos los retos.
+### 🌍 Mundo 1: Talleres de Entrenamiento (Dificultad Baja)
+En este mundo los jugadores disfrutaran de escenarios en **Bosque, Cueva y Aldea Goblin.** Las Bases de aprendizaje para estos niveles son: aprender materiales, ensamblar y manejar tiempo.
+
+---
+
+### 🌍 Mundo 2: Retos de Construcción Avanzada (Dificultad Media)
+En este mundo los jugadores pasarán por escenarios mas hostiles que son: **Desierto de Chatarra, Volcán Mecánico y Montaña Helada.** La presión de tiempo, cooperación obligatoria y escenarios dinámicos son las características de los niveles de este mundo.
+
+---
+
+### 🌍 Mundo 3: El Caos del Tesoro (Dificultad Alta-Extrema)
+Estos niveles Finales pondrán a prueba a los mejores jugadores siendo este el ultimo mundo. Los biomas de este mundo son: **Fábrica Dorada, Sombras del Tesoro y Forja de Vapor.**
+Se mezclan mecánicas de mundos anteriores. Trabajo en equipo es se extrema importancia, en estos niveles aparecerán enemigos que estorban aun mas a los jugadores.
+
+Para ver a mayor detalle el interesante sistema de aumento de dificultad revise [Complejidad.md](../diseno/Secuencias/Mecanicas/Complejidad.md).
+
+
 
 ## Progreso del juego
 - El progreso se mide por la cantidad de diseños completados y estrellas obtenidas.
