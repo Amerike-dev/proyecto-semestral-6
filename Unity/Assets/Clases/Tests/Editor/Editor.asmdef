@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "ModelsPlayerCore",
         "ModelsBrickCore",
-        "ModelsConveyor.Core"
+        "ModelsConveyor.Core",
+        "Trash.core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
