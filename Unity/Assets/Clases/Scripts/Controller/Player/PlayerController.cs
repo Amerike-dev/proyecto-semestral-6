@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity = 200f;
     public Transform cameraRoot;
 
+    [Header("Sonido")]
+    public AudioSource AudioSource;
+    public AudioClip JumpSound;
+
     // --- Dispositivo que asigna PlayerManager ---
     [HideInInspector] public Gamepad gamepad;
 
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        AudioSource = GetComponent<AudioSource>();
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         PlayerData = new Player(playerID, playerName);
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
         if (jumpQueued && controller.isGrounded && CanJump)
         {
+            AudioSource.PlayOneShot(JumpSound);
             verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity); // v = sqrt(2 g h)
             jumpQueued = false;
         }
