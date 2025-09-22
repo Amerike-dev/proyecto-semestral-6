@@ -1,3 +1,4 @@
+// PlayerController.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
     // Para ObjectInteraction
     public bool CanJump { get; set; } = true;
 
-    // Internos
+    // Internos de movimiento
     CharacterController controller;
     PlayerInput playerInput;
     Vector2 moveInput;       // Move (Vector2)
@@ -37,6 +38,12 @@ public class PlayerController : MonoBehaviour
     float verticalVel;       // gravedad acumulada
     bool jumpQueued;         // se activa desde OnJump
     bool devicePaired;       // si ya pareamos el gamepad asignado
+
+    // NUEVO: reference al ObjectInteraction del jugador
+    [HideInInspector] public ObjectInteraction objectInteraction;
+
+    // NUEVO: booleano que confirma si la última interacción fue ejecutada
+    public bool InteractionConfirmed { get; private set; } = false;
 
     void Awake()
     {
@@ -52,11 +59,15 @@ public class PlayerController : MonoBehaviour
 
         // Evita que cambie de scheme solo si no quieres autoswitch (opcional)
         playerInput.neverAutoSwitchControlSchemes = false;
+
+        // Obtener ObjectInteraction (debe existir porque pusimos RequireComponent)
+        objectInteraction = GetComponent<ObjectInteraction>();
+        if (objectInteraction == null)
+            Debug.LogError("[PlayerController] falta ObjectInteraction en " + name);
     }
 
     void Update()
     {
-
         TryPairAssignedGamepad();
 
         //Rotación
@@ -69,7 +80,8 @@ public class PlayerController : MonoBehaviour
 
         if (jumpQueued && controller.isGrounded && CanJump)
         {
-            AudioSource.PlayOneShot(JumpSound);
+            if (AudioSource != null && JumpSound != null)
+                AudioSource.PlayOneShot(JumpSound);
             verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity); // v = sqrt(2 g h)
             jumpQueued = false;
         }
@@ -87,15 +99,53 @@ public class PlayerController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    //Callbacks del PlayerInput
+    // ----------------- Callbacks del PlayerInput -----------------
     public void OnMove(InputValue value) { moveInput = value.Get<Vector2>(); }
     public void OnLook(InputValue value) { lookInput = value.Get<Vector2>(); }
     public void OnJump(InputValue value)
     {
+            Debug.Log("OnJump fue llamado");
+
         if (value.Get<float>() > 0.5f) jumpQueued = true;
     }
 
-  
+    // MAPEAR una acción llamada EXACTAMENTE "interact" -> método OnInterat será invocado
+  public void OnInteract(InputValue value)
+{
+    Debug.Log("OnInteract fue llamado");
+    if (value.Get<float>() > 0.5f)
+    {
+        InteractionConfirmed = false;
+        if (objectInteraction != null)
+        {
+            bool result = objectInteraction.TryInteract(this);
+            InteractionConfirmed = result;
+            Debug.Log("Interacción realizada: " + result);
+        }
+    }
+}
+
+
+    // Si quieres acciones separadas para drop / throw, crea dos acciones llamadas "Drop" y "Throw"
+    public void OnDrop(InputValue value)
+    {
+        if (value.Get<float>() > 0.5f && objectInteraction != null)
+        {
+            bool result = objectInteraction.TryDrop(this);
+            InteractionConfirmed = result;
+        }
+    }
+
+    public void OnThrow(InputValue value)
+    {
+        if (value.Get<float>() > 0.5f && objectInteraction != null)
+        {
+            bool result = objectInteraction.TryThrow(this);
+            InteractionConfirmed = result;
+        }
+    }
+
+    // Intento de emparejar gamepad si se asignó desde PlayerManager
     void TryPairAssignedGamepad()
     {
         if (devicePaired) return;
@@ -115,4 +165,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log($"[Player {PlayerData.PlayerID}] usando gamepad: {gamepad.displayName}");
     }
 
+    // Util: saber si estoy sosteniendo algo
+    public bool HasPiece()
+    {
+        return objectInteraction != null && objectInteraction.PickedObject != null;
+    }
 }
