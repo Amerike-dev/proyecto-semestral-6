@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BrickTests
 {
-    private GameObject go;
+  /*   private GameObject go;
     private Brick brick;
 
     [SetUp]
@@ -97,5 +97,5 @@ public class BrickTests
         Assert.IsFalse(brick.TryMerge());
         Assert.IsFalse(brick.TryThrowAway());
         Assert.AreEqual(Brick.State.Merged, brick.Current);
-    }
+    }*/
 }

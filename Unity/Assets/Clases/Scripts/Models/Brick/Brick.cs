@@ -1,52 +1,44 @@
+// Brick.cs
 using UnityEngine;
 
-public class Brick : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Brick : MonoBehaviour, IInteractable
 {
-    public enum State
+    Rigidbody rb;
+    // Indica si actualmente está siendo sostenida
+    public bool IsHeld { get; private set; } = false;
+    // Referencia al jugador que la sostiene (si aplica)
+    public PlayerController CurrentHolder { get; private set; }
+
+    void Awake()
     {
-        Spawned,
-        PickedUp,
-        Free,
-        InAssembly,
-        Merged,
-        ThrowAway
+        rb = GetComponent<Rigidbody>();
     }
 
-    public State Current { get; private set; } = State.Spawned;
-
-    public bool TryPickUp() => TryGo(State.PickedUp);                                                                    // Spawned→PickedUp, Free→PickedUp
-    public bool TryDropToFree() => Current == State.PickedUp && TryGo(State.Free);                                       // PickedUp→Free
-    public bool TryEnterAssembly() => (Current == State.PickedUp || Current == State.Free) && TryGo(State.InAssembly);  // PickedUp/Free→InAssembly
-    public bool TryMerge() => (Current == State.InAssembly || Current == State.PickedUp) && TryGo(State.Merged);        // InAssembly/PickedUp→Merged
-    public bool TryThrowAway() => Current == State.PickedUp && TryGo(State.ThrowAway);                                  // PickedUp→ThrowAway
-
-    bool TryGo(State target)
+    // Método que se llama si un jugador "interactúa" con la pieza (desde OverlapSphere)
+    public void Interact(PlayerController player)
     {
-        if (!CanGo(target)) return false;
-        Current = target;
-        return true;
+        var oi = player.GetComponent<ObjectInteraction>();
+        if (oi != null) oi.ForcePickup(gameObject, player);
     }
 
-    bool CanGo(State target)
+    // Llamado cuando la pieza fue recogida
+    public void OnPickedUp(PlayerController player)
     {
-        switch (Current)
-        {
-            case State.Spawned:
-                return target == State.PickedUp || target == State.Free;
+        IsHeld = true;
+        CurrentHolder = player;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
 
-            case State.PickedUp:
-                return target == State.Free || target == State.InAssembly || target == State.ThrowAway;
-
-            case State.Free:
-                return target == State.PickedUp || target == State.InAssembly;
-
-            case State.InAssembly:
-                return target == State.Merged || target == State.PickedUp;
-
-            case State.Merged:
-            case State.ThrowAway:
-                return false;
-        }
-        return false;
+    // Llamado cuando la pieza fue soltada (por drop o por impacto)
+    public void OnDropped()
+    {
+        IsHeld = false;
+        CurrentHolder = null;
+        rb.isKinematic = false;
+        rb.useGravity = true;
     }
 }
