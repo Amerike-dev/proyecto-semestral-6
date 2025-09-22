@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;       // Move (Vector2)
     Vector2 lookInput;       // Look (Vector2)
     float verticalVel;       // gravedad acumulada
-    bool jumpQueued;         // se activa desde OnJump
     bool devicePaired;       // si ya pareamos el gamepad asignado
 
     void Awake()
@@ -56,24 +55,25 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         TryPairAssignedGamepad();
 
         //Rotación
         float yawDelta = lookInput.x * lookSensitivity * Time.deltaTime;
         (cameraRoot ? cameraRoot : transform).Rotate(0f, yawDelta, 0f);
 
-        //Salto (grounding y gravedad)
+        // 🔹 SALTO
         if (controller.isGrounded && verticalVel < 0f)
             verticalVel = -2f;  // pegado al piso
 
-        if (jumpQueued && controller.isGrounded && CanJump)
+        // Usamos WasPressedThisFrame para detectar SOLO la pulsación inicial
+        if (playerInput.actions["Jump"].WasPressedThisFrame() && controller.isGrounded && CanJump)
         {
             AudioSource.PlayOneShot(JumpSound);
-            verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity); // v = sqrt(2 g h)
-            jumpQueued = false;
+            verticalVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Debug.Log("Salto");
         }
 
+        // Aplicar gravedad
         verticalVel += gravity * Time.deltaTime;
 
         //Movimiento
@@ -90,12 +90,7 @@ public class PlayerController : MonoBehaviour
     //Callbacks del PlayerInput
     public void OnMove(InputValue value) { moveInput = value.Get<Vector2>(); }
     public void OnLook(InputValue value) { lookInput = value.Get<Vector2>(); }
-    public void OnJump(InputValue value)
-    {
-        if (value.Get<float>() > 0.5f) jumpQueued = true;
-    }
 
-  
     void TryPairAssignedGamepad()
     {
         if (devicePaired) return;
@@ -114,5 +109,4 @@ public class PlayerController : MonoBehaviour
         devicePaired = true;
         Debug.Log($"[Player {PlayerData.PlayerID}] usando gamepad: {gamepad.displayName}");
     }
-
 }
