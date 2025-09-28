@@ -13,14 +13,14 @@ public class GameManagerTester : MonoBehaviour
         gm.OnScoreUpdated += (score) => Debug.Log($"Score updated: {score}");
         gm.OnStarAchieved += (stars) => Debug.Log($"Stars achieved: {stars}");
 
-        // Simulación rápida:
+
         gm.StartGame();
         gm.ShowMenu();
         gm.SelectPlayers();
         gm.SelectLevel();
         gm.LoadLevel();
         gm.StartLevel(5f);
-        gm.AddScore(150);
+        gm.AddScore(150); 
         gm.CompleteDesign("design_1");
         gm.EndLevel();
         gm.ShowResults();
