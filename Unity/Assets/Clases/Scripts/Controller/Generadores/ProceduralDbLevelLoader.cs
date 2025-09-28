@@ -5,19 +5,17 @@ using UnityEngine;
 public class ProceduralDbLevelLoader : MonoBehaviour
 {
     [Header("JSON (Resources)")]
-    [Tooltip("Ruta en Resources SIN extensión. Ej: DB/levels_bd")]
     public string jsonResourcePath = "DB/levels_bd";
 
     [Header("Prefabs (Resources)")]
-    [Tooltip("Carpeta en Resources donde están los prefabs. Ej: Prefabs")]
-    public string prefabsFolderInResources = "Prefabs";
+    public string prefabsFolder = "Prefabs";
 
     [Header("Level")]
     public int levelId = 1;
     public bool buildOnStart = true;
     public bool clearBeforeBuild = true;
 
-    [Header("Parents (opcional)")]
+    [Header("Parents")]
     public Transform interactiveParent;
     public Transform staticParent;
 
@@ -90,10 +88,10 @@ public class ProceduralDbLevelLoader : MonoBehaviour
                 continue;
             }
 
-            var prefab = Resources.Load<GameObject>($"{prefabsFolderInResources}/{obj.prefab}");
+            var prefab = Resources.Load<GameObject>($"{prefabsFolder}/{obj.prefab}");
             if (prefab == null)
             {
-                Debug.LogError($"[ProceduralDbLevelLoader] Prefab '{obj.prefab}' no encontrado en Resources/{prefabsFolderInResources}.");
+                Debug.LogError($"[ProceduralDbLevelLoader] Prefab '{obj.prefab}' no encontrado en Resources/{prefabsFolder}.");
                 continue;
             }
 
@@ -104,11 +102,6 @@ public class ProceduralDbLevelLoader : MonoBehaviour
             Transform parent = ChooseParent(obj.type);
             var instance = Instantiate(prefab, pos, Quaternion.Euler(eul), parent);
             instance.transform.localScale = scl;
-
-            // (Opcional) marca por tipo: tags/layers si ya existen en tu proyecto
-            // if (IsInteractive(obj.type)) { instance.tag = "Interactive"; }
-            // else { instance.tag = "Static"; }
-
             _spawned.Add(instance);
         }
 
