@@ -1,3 +1,5 @@
+//si llegaste aqui busca los scripts LenguageManager y LocalizedText
+//para mas informacion
 using System.Collections.Generic;
 
 public enum SupportedLanguage //Lenguajes Soportados
@@ -32,7 +34,10 @@ public static class Language
                 dict["buttons"] = new Dictionary<string, string>
                 {
                     { "exit", "Exit" },
-                    { "start", "Start" }
+                    { "start", "Start" },
+                    { "options", "Options" },
+                    { "credits", "Credits" },
+                    { "addPlayer", "Add Player" }
                 };
                 break;
 
@@ -42,7 +47,10 @@ public static class Language
                 dict["buttons"] = new Dictionary<string, string>
                 {
                     { "exit", "Salir" },
-                    { "start", "Iniciar" }
+                    { "start", "Iniciar" },
+                    { "options", "Opciones" },
+                    { "credits", "Creditos" },
+                    { "addPlayer", "Añadir Jugadores" }
                 };
                 break;
         }
