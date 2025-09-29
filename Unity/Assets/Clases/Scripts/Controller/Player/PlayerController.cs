@@ -1,4 +1,3 @@
-// PlayerController.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,11 +32,11 @@ public class PlayerController : MonoBehaviour
     // Internos de movimiento
     CharacterController controller;
     PlayerInput playerInput;
-    Vector2 moveInput;       // Move (Vector2)
-    Vector2 lookInput;       // Look (Vector2)
-    float verticalVel;       // gravedad acumulada
-    bool jumpQueued;         // se activa desde OnJump
-    bool devicePaired;       // si ya pareamos el gamepad asignado
+    Vector2 moveInput;       
+    Vector2 lookInput;       
+    float verticalVel;      
+    bool jumpQueued;         
+    bool devicePaired;       
 
     // NUEVO: reference al ObjectInteraction del jugador
     [HideInInspector] public ObjectInteraction objectInteraction;

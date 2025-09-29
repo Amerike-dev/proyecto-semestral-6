@@ -4,9 +4,9 @@ using System.Collections;
 
 public class LevelController : MonoBehaviour
 {
-    public GameObject mapaPrefab;       // Prefab contenedor con piezas como hijos
-    public Canvas pantallaCarga;        // Canvas con fondo y barra
-    public Slider barraCarga;           // Slider UI que muestra progreso
+    public GameObject mapaPrefab;
+    public Canvas pantallaCarga;
+    public Slider barraCarga;
 
     void Start()
     {
@@ -18,7 +18,6 @@ public class LevelController : MonoBehaviour
         pantallaCarga.gameObject.SetActive(true);
         barraCarga.value = 0;
 
-        // Instanciar el contenedor temporalmente
         GameObject mapaTemp = Instantiate(mapaPrefab, Vector3.zero, Quaternion.identity);
         int totalPiezas = mapaTemp.transform.childCount;
 
@@ -26,16 +25,14 @@ public class LevelController : MonoBehaviour
         {
             Transform pieza = mapaTemp.transform.GetChild(i);
 
-            // Instanciar la pieza en su posición local
             Instantiate(pieza.gameObject, pieza.localPosition, pieza.localRotation);
 
-            // Actualizar barra de carga
             barraCarga.value = (float)(i + 1) / totalPiezas;
 
-            yield return new WaitForSeconds(0.05f); // Simula carga progresiva
+            yield return new WaitForSeconds(0.05f); 
         }
 
-        Destroy(mapaTemp); // Eliminar el contenedor original
+        Destroy(mapaTemp);
 
         pantallaCarga.gameObject.SetActive(false);
         Debug.Log("Mapa generado con progreso real.");

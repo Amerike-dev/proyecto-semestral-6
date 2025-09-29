@@ -39,14 +39,12 @@ public class GameState
         _dataPath = Path.Combine(Application.dataPath, "DB/gameState.json");
         _logPath = Path.Combine(Application.dataPath, "DB/gameLog.txt");
         
-        // Crear directorios si no existen
         Directory.CreateDirectory(Path.GetDirectoryName(_dataPath));
         Directory.CreateDirectory(Path.GetDirectoryName(_logPath));
         
         LoadGameState();
     }
 
-    // Método para pruebas unitarias
     public void InitializeForTests(string dataPath, string logPath)
     {
         _dataPath = dataPath;
@@ -85,7 +83,7 @@ public class GameState
         File.AppendAllText(_logPath, logMessage);
     }
 
-    // Métodos públicos para actualizar el estado del juego
+    // Mï¿½todos pï¿½blicos para actualizar el estado del juego
     public void UpdateLevelScore(string level, int score, int stars = 0)
     {
         string levelKey = $"level{level}";
@@ -93,7 +91,7 @@ public class GameState
         if (!_gameData.levelScores.ContainsKey(levelKey) || _gameData.levelScores[levelKey] < score)
         {
             _gameData.levelScores[levelKey] = score;
-            Log($"Se actualizó el score del nivel {level} a {score}");
+            Log($"Se actualiza el score del nivel {level} a {score}");
         }
 
         if (stars > 0 && (!_gameData.levelStars.ContainsKey(levelKey) || _gameData.levelStars[levelKey] < stars))
@@ -170,7 +168,7 @@ public class GameState
         SaveGameState();
     }
 
-    // Métodos para obtener datos
+    // Metodos para obtener datos
     public int GetUnlockedLevels() => _gameData.unlockedLevels;
     public float GetTotalPlayTime() => _gameData.totalPlayTime;
     public float GetGameCompletion() => _gameData.gameCompletion;

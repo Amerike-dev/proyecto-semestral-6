@@ -12,7 +12,7 @@ public class PieceManipulator : MonoBehaviour
     public float rotationSpeedDegPerSec = 240f;
 
     [Header("Smoothing")]
-    [Tooltip("Tiempo de suavizado (mayor = más suave)")]
+    [Tooltip("Tiempo de suavizado (mayor = mas suave)")]
     public float positionSmoothTime = 0.07f;
 
     [Header("Placement / Hover")]
@@ -24,10 +24,11 @@ public class PieceManipulator : MonoBehaviour
     public float cellSize = 0.5f;
 
     [Header("Rotation Mode")]
-    [Tooltip("Si true, rotará en pasos de 90°; si false, rotación libre suave")]
+    [Tooltip("Si true, rotara en pasos de 90 grados; si false, rotacion libre suave")]
     public bool IsRotationFixed = false;          
-    public float snapAngle = 90f;                 // usado sólo si IsRotationFixed = true
-    public float snapRepeatDelay = 1f;//0.25f;         // repetición al mantener tecla (modo fijo)
+    // usado solo si IsRotationFixed = true
+    public float snapAngle = 90f;                 
+    public float snapRepeatDelay = 1f;
 
     [NonSerialized] public ManipulationMode mode = ManipulationMode.Rotation;
 
@@ -41,10 +42,10 @@ public class PieceManipulator : MonoBehaviour
     Quaternion _targetRot;
     Vector3 _posVelRef;
 
-    // Acumulador crudo para traslación
+    // Acumulador crudo para traslacion
     Vector3 _rawTargetPos;
 
-    // Estado para rotación fija
+    // Estado para rotacion fija
     Vector2Int _lastSnapDir = Vector2Int.zero;
     float _snapCooldown = 0f;
 
@@ -135,7 +136,7 @@ public class PieceManipulator : MonoBehaviour
 
             _targetPos = dest;
         }
-        else // Rotation
+        else
         {
             if (!IsRotationFixed)
             {
@@ -226,7 +227,7 @@ public class PieceManipulator : MonoBehaviour
         OnPlaced?.Invoke(this);
     }
 
-    // Extents en mundo (considera rotación/escala)
+    // Extents en mundo (considera rotacion/escala)
     Vector3 GetHalfExtentsWorld()
     {
         var renderers = GetComponentsInChildren<Renderer>();

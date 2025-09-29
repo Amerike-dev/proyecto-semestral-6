@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public enum SupportedLanguage //Lenguajes Soportados
+public enum SupportedLanguage
 {
     esp,
     ing

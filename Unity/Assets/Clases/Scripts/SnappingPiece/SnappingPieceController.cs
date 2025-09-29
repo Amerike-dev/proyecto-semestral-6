@@ -12,7 +12,7 @@ public class SnappingPieceController : MonoBehaviour
     public float rotationSpeedDegPerSec = 240f;
 
     [Header("Smoothing")]
-    [Tooltip("Tiempo de suavizado (mayor = más suave)")]
+    [Tooltip("Tiempo de suavizado (mayor = mas suave)")]
     public float positionSmoothTime = 0.07f;
 
     [Header("Placement / Hover")]
@@ -24,10 +24,10 @@ public class SnappingPieceController : MonoBehaviour
     public float cellSize = 0.5f;
 
     [Header("Rotation Mode")]
-    [Tooltip("Si true, rotará en pasos de 90°; si false, rotación libre suave")]
+    [Tooltip("Si true, rotara en pasos de 90 grados; si false, rotacion libre suave")]
     public bool IsRotationFixed = false;
-    public float snapAngle = 90f;                 // usado sólo si IsRotationFixed = true
-    public float snapRepeatDelay = 1f;//0.25f;         // repetición al mantener tecla (modo fijo)
+    public float snapAngle = 90f;
+    public float snapRepeatDelay = 1f;
 
     [NonSerialized] public ManipulationModeSnap mode = ManipulationModeSnap.Rotation;
 
@@ -36,15 +36,12 @@ public class SnappingPieceController : MonoBehaviour
 
     BuildingZoneArea _zone;
 
-    // Destino interpolado
     Vector3 _targetPos;
     Quaternion _targetRot;
     Vector3 _posVelRef;
 
-    // Acumulador crudo para traslación
     Vector3 _rawTargetPos;
 
-    // Estado para rotación fija
     Vector2Int _lastSnapDir = Vector2Int.zero;
     float _snapCooldown = 0f;
 
@@ -112,7 +109,6 @@ public class SnappingPieceController : MonoBehaviour
 
         if (mode == ManipulationModeSnap.Translation)
         {
-            // Movimiento discretizado por celda
             int dx = arrows.x > 0.5f ? 1 : (arrows.x < -0.5f ? -1 : 0);
             int dz = arrows.y > 0.5f ? 1 : (arrows.y < -0.5f ? -1 : 0);
 
@@ -122,7 +118,6 @@ public class SnappingPieceController : MonoBehaviour
                 _rawTargetPos += step;
             }
 
-            // Snap directo
             Vector3 dest = _rawTargetPos;
 
             if (enableGridSnap && cellSize > 0.0001f)
@@ -133,7 +128,6 @@ public class SnappingPieceController : MonoBehaviour
 
             dest = _zone.ClampInside(dest, GetHalfExtentsWorldXZ());
 
-            // Clamp Y usando extents de la pieza
             var b = _zone.WorldBounds;
             float halfY = GetHalfExtentsWorld().y;
             float yMin = b.min.y + halfY;
@@ -142,12 +136,12 @@ public class SnappingPieceController : MonoBehaviour
 
             _targetPos = dest;
         }
-        else // Rotation
+        else 
         {
             if (!IsRotationFixed)
             {
                 float yaw = arrows.x * rotationSpeedDegPerSec * deltaTime;
-                float pitch = -arrows.y * rotationSpeedDegPerSec * deltaTime; // arriba = +X
+                float pitch = -arrows.y * rotationSpeedDegPerSec * deltaTime; 
                 _targetRot = Quaternion.Euler(pitch, yaw, 0f) * _targetRot;
             }
             else
@@ -166,8 +160,8 @@ public class SnappingPieceController : MonoBehaviour
                 else if (_snapCooldown <= 0f || dir != _lastSnapDir)
                 {
                     Quaternion step = Quaternion.identity;
-                    if (dx != 0) step = Quaternion.Euler(0f, dx * snapAngle, 0f) * step;   // yaw
-                    if (dy != 0) step = Quaternion.Euler(-dy * snapAngle, 0f, 0f) * step;   // pitch
+                    if (dx != 0) step = Quaternion.Euler(0f, dx * snapAngle, 0f) * step;  
+                    if (dy != 0) step = Quaternion.Euler(-dy * snapAngle, 0f, 0f) * step; 
 
                     _targetRot = step * _targetRot;
                     _lastSnapDir = dir;
@@ -234,7 +228,6 @@ public class SnappingPieceController : MonoBehaviour
         OnPlaced?.Invoke(this);
     }
 
-    // Coordenadas de la celda actual
     public Vector3Int CurrentGridCell
     {
         get
@@ -246,7 +239,6 @@ public class SnappingPieceController : MonoBehaviour
         }
     }
 
-    // Extents en mundo (considera rotación/escala)
     Vector3 GetHalfExtentsWorld()
     {
         var renderers = GetComponentsInChildren<Renderer>();

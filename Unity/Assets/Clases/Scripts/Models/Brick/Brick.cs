@@ -5,9 +5,7 @@ using UnityEngine;
 public class Brick : MonoBehaviour, IInteractable
 {
     Rigidbody rb;
-    // Indica si actualmente está siendo sostenida
     public bool IsHeld { get; private set; } = false;
-    // Referencia al jugador que la sostiene (si aplica)
     public PlayerController CurrentHolder { get; private set; }
 
     void Awake()
@@ -15,14 +13,11 @@ public class Brick : MonoBehaviour, IInteractable
         rb = GetComponent<Rigidbody>();
     }
 
-    // Método que se llama si un jugador "interactúa" con la pieza (desde OverlapSphere)
     public void Interact(PlayerController player)
     {
         var oi = player.GetComponent<ObjectInteraction>();
         if (oi != null) oi.ForcePickup(gameObject, player);
     }
-
-    // Llamado cuando la pieza fue recogida
     public void OnPickedUp(PlayerController player)
     {
         IsHeld = true;
@@ -32,8 +27,6 @@ public class Brick : MonoBehaviour, IInteractable
         rb.useGravity = false;
         rb.isKinematic = true;
     }
-
-    // Llamado cuando la pieza fue soltada (por drop o por impacto)
     public void OnDropped()
     {
         IsHeld = false;

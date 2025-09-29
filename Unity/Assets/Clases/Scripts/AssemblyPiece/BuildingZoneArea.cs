@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class BuildingZoneArea : MonoBehaviour
 {
-    [Tooltip("Color del gizmo del área de construcción.")]
+    [Tooltip("Color del gizmo del area de construccion.")]
     public Color gizmoColor = new Color(0f, 0.6f, 1f, 0.15f);
 
     BoxCollider _box;

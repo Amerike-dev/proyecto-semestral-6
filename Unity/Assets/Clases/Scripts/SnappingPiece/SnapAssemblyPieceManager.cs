@@ -6,7 +6,7 @@ public class SnapAssemblyPieceManager : MonoBehaviour
 {
     [Header("Scene References")]
     public BuildingZoneArea buildingZone;
-    [Tooltip("Punto base de aparición (si está vacío, se usa el centro del BuildingZone).")]
+    [Tooltip("Punto base de aparicion (si esta vacio, se usa el centro del BuildingZone).")]
     public Transform spawnPoint;
 
     [Header("Pieces")]
@@ -19,7 +19,7 @@ public class SnapAssemblyPieceManager : MonoBehaviour
     public float defaultHover = 0.2f;
     public bool defaultGridSnap = false;
     public float defaultCellSize = 0.5f;
-    [Tooltip("Si true, la rotación será por pasos de 90°")]
+    [Tooltip("Si true, la rotacion sera por pasos de 90 grados.")]
     public bool defaultIsRotationFixed = false;
 
     [Header("Input (New Input System)")]
@@ -72,7 +72,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
     {
         if (_current == null) return;
 
-        // T: Rotación <-> Traslación
         if (toggleModeAction != null && toggleModeAction.action.triggered)
         {
             var newMode = _current.mode == ManipulationModeSnap.Rotation
@@ -81,10 +80,8 @@ public class SnapAssemblyPieceManager : MonoBehaviour
             _current.SetMode(newMode);
         }
 
-        // Vector2 de flechas/WASD
         Vector2 arrows = moveAction != null ? moveAction.action.ReadValue<Vector2>() : Vector2.zero;
 
-        // Vertical (Space/Ctrl) sólo en Traslación
         float yInput = 0f;
         if (raiseAction != null && raiseAction.action.IsPressed()) yInput += 1f;
         if (lowerAction != null && lowerAction.action.IsPressed()) yInput -= 1f;
@@ -93,7 +90,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
         _current.HandleVertical(yInput, Time.deltaTime);
         _current.Tick(Time.deltaTime);
 
-        // Enter: soltar
         if (dropAction != null && dropAction.action.triggered)
             _current.BeginDrop();
     }
@@ -110,7 +106,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
             ? piecePrefabs[Random.Range(0, piecePrefabs.Count)]
             : piecePrefabs[_spawnIndex++ % piecePrefabs.Count];
 
-        // Punto de aparición
         Vector3 pos; Quaternion rot = Quaternion.identity;
         if (spawnPoint != null) { pos = spawnPoint.position; rot = spawnPoint.rotation; }
         else
@@ -123,7 +118,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
         var manip = go.GetComponent<SnappingPieceController>();
         if (manip == null) manip = go.AddComponent<SnappingPieceController>();
 
-        // Defaults
         manip.moveSpeed = defaultMoveSpeed;
         manip.rotationSpeedDegPerSec = defaultRotSpeed;
         manip.hoverHeight = defaultHover;

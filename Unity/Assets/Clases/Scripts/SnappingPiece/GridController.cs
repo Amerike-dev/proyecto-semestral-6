@@ -8,7 +8,7 @@ public class GridController : MonoBehaviour
 
     [Header("Ajustes del Grid")]
     public float cellSize = 1f;
-    public float yOffset = 0.01f;   // Para que no se superponga al suelo
+    public float yOffset = 0.01f;
 
     [Header("Opcional")]
     public bool followRotation = false;
@@ -26,14 +26,12 @@ public class GridController : MonoBehaviour
 
         Vector3Int cell = piece.CurrentGridCell;
 
-        // Convertir de celda a coordenadas del mundo
         Vector3 worldPos = new Vector3(
             cell.x * cellSize,
             cell.y * cellSize,
             cell.z * cellSize
         );
 
-        // Ajustar para quedar justo sobre el piso
         worldPos.y += yOffset;
 
         transform.position = worldPos;

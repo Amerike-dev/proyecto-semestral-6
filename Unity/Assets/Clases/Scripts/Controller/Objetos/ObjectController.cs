@@ -6,5 +6,6 @@ using UnityEngine;
 public class ObjectController : MonoBehaviour
 {
     [Header("ID del objeto / tipo de ladrillo")]
-    public int objectID; // 0 = madera, 1 = metal, 2 = roca, etc.
+    // 0 = madera, 1 = metal, 2 = roca, etc.
+    public int objectID; 
 }
