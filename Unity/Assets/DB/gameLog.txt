@@ -1,0 +1,12 @@
+29-09-2025:10:51:01 - Se actualizó el score del nivel 1 a 0
+29-09-2025:10:51:01 - Se actualizó el score del nivel 1 a 12
+29-09-2025:10:51:01 - Se agregaron 1 segundos al tiempo jugado. Total: 1
+29-09-2025:10:51:01 - Personaje desbloqueado: 12
+29-09-2025:10:51:44 - Se actualizó el score del nivel 12 a 0
+29-09-2025:10:51:49 - Se actualizó el score del nivel 10 a 0
+29-09-2025:10:51:55 - Se agregaron 10 segundos al tiempo jugado. Total: 11
+29-09-2025:10:52:03 - Se actualizó el score del nivel 1 a 100
+29-09-2025:10:52:03 - Se agregaron 10 segundos al tiempo jugado. Total: 21
+29-09-2025:10:52:04 - Se agregaron 10 segundos al tiempo jugado. Total: 31
+29-09-2025:10:52:04 - Se agregaron 10 segundos al tiempo jugado. Total: 41
+29-09-2025:10:52:05 - Se agregaron 10 segundos al tiempo jugado. Total: 51
