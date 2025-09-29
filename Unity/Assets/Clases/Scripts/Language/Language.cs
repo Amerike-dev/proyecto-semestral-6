@@ -1,3 +1,5 @@
+//si llegaste aqui busca los scripts LenguageManager y LocalizedText
+//para mas informacion
 using System.Collections.Generic;
 
 public enum SupportedLanguage //Lenguajes Soportados

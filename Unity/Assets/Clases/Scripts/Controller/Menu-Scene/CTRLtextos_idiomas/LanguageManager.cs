@@ -1,3 +1,4 @@
+// Este script es un singleton que busca a los objetos con LocalizedText y les dice que actualicen su texto
 using UnityEngine;
 using TMPro;
 

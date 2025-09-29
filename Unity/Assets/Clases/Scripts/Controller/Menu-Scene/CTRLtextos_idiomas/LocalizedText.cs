@@ -1,3 +1,4 @@
+// Este script lo agregas en el gameobject que tenga el TextMeshProUGUI y lle asignas un ID
 using UnityEngine;
 using TMPro;
 
