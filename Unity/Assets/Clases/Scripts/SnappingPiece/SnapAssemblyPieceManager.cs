@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class SnapAssemblyPieceManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class SnapAssemblyPieceManager : MonoBehaviour
 
     [Header("UI/Debug")]
     public ManipulationModeSnap startMode = ManipulationModeSnap.Translation;
+    public TextMeshProUGUI coordText;
 
     int _spawnIndex = 0;
     SnappingPieceController _current;
@@ -53,7 +55,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
             enabled = false; return;
         }
         SpawnNextPiece();
-
     }
 
     void Update()
@@ -70,6 +71,14 @@ public class SnapAssemblyPieceManager : MonoBehaviour
         {
             _current.BeginDrop();
         }
+
+        Vector3 pos = _current.transform.position;
+        string coords = $"Coords: ({pos.x:F2}, {pos.y:F2}, {pos.z:F2})";
+
+        if (coordText != null)
+            coordText.text = coords;
+
+        Debug.Log(coords);
     }
 
     void SpawnNextPiece()
@@ -98,7 +107,6 @@ public class SnapAssemblyPieceManager : MonoBehaviour
 
         if (manip == null) manip = go.AddComponent<SnappingPieceController>();
 
-        // Configurar defaults
         manip.cellSize = defaultCellSize;
         manip.manager = this;
         manip.buildingZone = buildingZone;
