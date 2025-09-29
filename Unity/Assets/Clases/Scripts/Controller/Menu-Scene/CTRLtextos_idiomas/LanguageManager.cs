@@ -30,6 +30,10 @@ public class LanguageManager : MonoBehaviour
     {
         SetLanguage(SupportedLanguage.ing);
     }
+    public void SetLanguagePor()
+    {
+        SetLanguage(SupportedLanguage.por);
+    }
 
     public void SetLanguage(SupportedLanguage lang)
     {
