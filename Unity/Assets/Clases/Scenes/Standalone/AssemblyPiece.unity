@@ -936,10 +936,16 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &2437894558117845332
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a5e8e1459e92448866306e6dd0ab62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingZoneArea
+  gizmoColor: {r: 0, g: 0.6, b: 1, a: 0.15}
+  gridCellSize: 1
+  showGrid: 1
+  gridLineColor: {r: 1, g: 1, b: 1, a: 0.2}
+  highlightColor: {r: 1, g: 0.9, b: 0.2, a: 0.35}
+--- !u!1 &361447774
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2806,6 +2812,58 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &2128658947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128658946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1601935429}
+  - {fileID: 133734499}
+  - {fileID: 1721161592}
+  - {fileID: 174810990}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2128658948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128658946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59888929669500740868e18fa5af19d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AssemblyPieceManager
+  buildingZone: {fileID: 174810995}
+  spawnPoint: {fileID: 44372245}
+  piecePrefabs:
+  - {fileID: 5464137990174701295, guid: cfe08c43adb00d245ae63028fd44b688, type: 3}
+  - {fileID: 8965177849490012903, guid: c6f734178aad0524eb93919e3ed4c113, type: 3}
+  - {fileID: 2751808844764466842, guid: 498c96a387d1fa446b78a809fdc35424, type: 3}
+  - {fileID: 2318576184381890332, guid: 142351d9470e6b648a45d2d3d8840039, type: 3}
+  - {fileID: 8235023031767878454, guid: e00a852790f23b54ba3a4b42a382797d, type: 3}
+  randomOrder: 1
+  defaultMoveSpeed: 6
+  defaultRotSpeed: 120
+  defaultHover: 0.2
+  defaultGridSnap: 1
+  defaultCellSize: 2
+  defaultIsRotationFixed: 1
+  moveAction: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  toggleModeAction: {fileID: 7404107289777399439, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  dropAction: {fileID: 1869356181525620513, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  raiseAction: {fileID: 1716426203398813167, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  lowerAction: {fileID: 8176843600659610542, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  startMode: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
