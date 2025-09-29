@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelContoller : MonoBehaviour
+public class RespawnContoller : MonoBehaviour
 {
     public GameObject prefab;
     public Transform spawnPoint;
