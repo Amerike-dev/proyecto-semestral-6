@@ -178,8 +178,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1089,8 +1089,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Salazar Ram\xEDrez Sergio Santiago"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1519,8 +1519,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "P\xE9rez Islas Jos\xE9 Antonio"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1655,8 +1655,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ram\xEDrez Monta\xF1o Diego Adrian"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1938,8 +1938,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Wolf Cruz Diego Ricardo
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2221,8 +2221,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Alexis Constantino Bauchan Hector
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2651,8 +2651,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Leos Tlatoa Fabian Antonio
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2787,8 +2787,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Primavera Garc\xEDa Juan Daniel"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3216,8 +3216,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Palacios Burguete Jorge Alberto
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3352,8 +3352,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Ram\xEDrez Gutierrez Leonardo"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3488,8 +3488,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Luan Dokins Damiao Rajid
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3970,8 +3970,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Arellano Tsimogianis Mauricio
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
