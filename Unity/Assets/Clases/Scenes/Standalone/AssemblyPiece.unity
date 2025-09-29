@@ -595,6 +595,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingZoneArea
   gizmoColor: {r: 0, g: 0.6, b: 1, a: 0.15}
+  gridCellSize: 1
+  showGrid: 1
+  gridLineColor: {r: 1, g: 1, b: 1, a: 0.2}
+  highlightColor: {r: 1, g: 0.9, b: 0.2, a: 0.35}
 --- !u!1 &361447774
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,7 +2802,7 @@ MonoBehaviour:
   defaultRotSpeed: 120
   defaultHover: 0.2
   defaultGridSnap: 1
-  defaultCellSize: 0.5
+  defaultCellSize: 2
   defaultIsRotationFixed: 1
   moveAction: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   toggleModeAction: {fileID: 7404107289777399439, guid: 289c1b55c9541489481df5cc06664110, type: 3}

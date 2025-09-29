@@ -12,11 +12,9 @@ public class PieceManipulator : MonoBehaviour
     public float rotationSpeedDegPerSec = 240f;
 
     [Header("Smoothing")]
-    [Tooltip("Tiempo de suavizado (mayor = más suave)")]
     public float positionSmoothTime = 0.07f;
 
     [Header("Placement / Hover")]
-    [Tooltip("Altura a la que flota la pieza mientras la manipulas")]
     public float hoverHeight = 0.2f;
 
     [Header("Grid (opcional)")]
@@ -24,10 +22,13 @@ public class PieceManipulator : MonoBehaviour
     public float cellSize = 0.5f;
 
     [Header("Rotation Mode")]
-    [Tooltip("Si true, rotará en pasos de 90°; si false, rotación libre suave")]
     public bool IsRotationFixed = false;          
-    public float snapAngle = 90f;                 // usado sólo si IsRotationFixed = true
-    public float snapRepeatDelay = 1f;//0.25f;         // repetición al mantener tecla (modo fijo)
+    public float snapAngle = 90f;
+    public float snapRepeatDelay = 1f;
+
+    [Header("Drop")]
+    public bool tetrisDrop = true;
+    public float dropFallSpeed = 10f;
 
     [NonSerialized] public ManipulationMode mode = ManipulationMode.Rotation;
 
@@ -36,16 +37,13 @@ public class PieceManipulator : MonoBehaviour
 
     BuildingZoneArea _zone;
 
-    // Destino interpolado
+
     Vector3 _targetPos;
     Quaternion _targetRot;
     Vector3 _posVelRef;
-
-    // Acumulador crudo para traslación
     Vector3 _rawTargetPos;
-
-    // Estado para rotación fija
     Vector2Int _lastSnapDir = Vector2Int.zero;
+
     float _snapCooldown = 0f;
 
     bool _active = false;
@@ -78,6 +76,11 @@ public class PieceManipulator : MonoBehaviour
         _targetPos.y = Mathf.Max(spawnPos.y, minY);
         _rawTargetPos.y = _targetPos.y;
         transform.position = _targetPos;
+
+        if (enableGridSnap)
+            _zone.ShowHighlightAt(_zone.SnapToGrid(_targetPos));
+        else
+            _zone.HideHighlight();
     }
 
     void SetPreDropPhysics()
@@ -111,22 +114,19 @@ public class PieceManipulator : MonoBehaviour
 
         if (mode == ManipulationMode.Translation)
         {
-            // 1) Acumular en crudo (XZ)
+
             Vector3 delta = new Vector3(arrows.x, 0f, arrows.y) * moveSpeed * deltaTime;
             _rawTargetPos += delta;
 
-            // 2) Destino visible (snap + clamp)
             Vector3 dest = _rawTargetPos;
 
             if (enableGridSnap && cellSize > 0.0001f)
             {
-                dest.x = Mathf.Round(dest.x / cellSize) * cellSize;
-                dest.z = Mathf.Round(dest.z / cellSize) * cellSize;
+                dest = _zone.SnapToGrid(dest);
             }
 
             dest = _zone.ClampInside(dest, GetHalfExtentsWorldXZ());
 
-            // Clamp Y usando extents de la pieza
             var b = _zone.WorldBounds;
             float halfY = GetHalfExtentsWorld().y;
             float yMin = b.min.y + halfY;
@@ -134,9 +134,21 @@ public class PieceManipulator : MonoBehaviour
             dest.y = Mathf.Clamp(dest.y, yMin, yMax);
 
             _targetPos = dest;
+
+            // Highlight de celda
+            if (enableGridSnap)
+                _zone.ShowHighlightAt(new Vector3(dest.x, 0f, dest.z));
+            else
+                _zone.HideHighlight();
+
         }
         else // Rotation
         {
+            if (enableGridSnap)
+                _zone.ShowHighlightAt(_zone.SnapToGrid(transform.position));
+            else
+                _zone.HideHighlight();
+
             if (!IsRotationFixed)
             {
                 float yaw = arrows.x * rotationSpeedDegPerSec * deltaTime;
@@ -187,22 +199,96 @@ public class PieceManipulator : MonoBehaviour
 
     public void SetMode(ManipulationMode newMode)
     {
+        if (mode == ManipulationMode.Rotation)
+            FinalizeRotation();
+
         mode = newMode;
+
         _targetPos = transform.position;
         _rawTargetPos = transform.position;
         _targetRot = transform.rotation;
         _lastSnapDir = Vector2Int.zero;
         _snapCooldown = 0f;
+
+        if (enableGridSnap)
+            _zone.ShowHighlightAt(_zone.SnapToGrid(transform.position));
+        else
+            _zone.HideHighlight();
     }
+
 
     public void BeginDrop()
     {
         if (!_active || _dropping) return;
+
+        FinalizeRotation();
+
+        _zone.HideHighlight();
         _dropping = true;
         _active = false;
-        SetPostDropPhysics();
-        StartCoroutine(WaitUntilRestCoroutine());
+
+        if (tetrisDrop)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DropStraightCoroutine());
+        }
+        else
+        {
+            SetPostDropPhysics();
+            StopAllCoroutines();
+            StartCoroutine(WaitUntilRestCoroutine());
+        }
     }
+
+    IEnumerator DropStraightCoroutine()
+    {
+        if (_zone == null)
+        {
+            SetPostDropPhysics();
+            yield return StartCoroutine(WaitUntilRestCoroutine());
+            yield break;
+        }
+
+        // 1) Calcula Y de aterrizaje
+        var b = _zone.WorldBounds;
+        float halfY = GetHalfExtentsWorld().y;
+        float landingY = b.min.y + halfY;
+
+        // 2) Asegura XZ actuales
+        Vector3 startPos = transform.position;
+        Vector3 finalPos = startPos;
+        finalPos.y = landingY;
+
+        // 3) Congela completamente mientras cae
+        if (_rb != null)
+        {
+            _rb.isKinematic = true;
+            _rb.useGravity = false;
+        }
+        if (_colliders != null) foreach (var c in _colliders) c.isTrigger = true;
+
+        // 4) Animación de caída recta
+        while (transform.position.y > landingY + 0.0001f)
+        {
+            float step = dropFallSpeed * Time.deltaTime;
+            float newY = Mathf.MoveTowards(transform.position.y, landingY, step);
+            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            yield return null;
+        }
+        transform.position = finalPos; // aterriza exacto
+
+        // 5) Fijar la pieza en escena
+        if (_colliders != null) foreach (var c in _colliders) c.isTrigger = false;
+        if (_rb != null)
+        {
+            _rb.isKinematic = true;   // se queda inmóvil
+            _rb.useGravity = false;   // sin gravedad para que no se mueva
+        }
+
+        // 6) Notifica que se colocó y spawnea la siguiente pieza
+        OnPlaced?.Invoke(this);
+    }
+
 
     IEnumerator WaitUntilRestCoroutine()
     {
@@ -253,5 +339,24 @@ public class PieceManipulator : MonoBehaviour
         var e = GetHalfExtentsWorld();
         return new Vector3(e.x, 0f, e.z);
     }
+
+    void FinalizeRotation()
+    {
+        if (!IsRotationFixed)
+        {
+            transform.rotation = _targetRot;
+        }
+        else
+        {
+            Vector3 e = transform.rotation.eulerAngles;
+            e.x = Mathf.Round(e.x / snapAngle) * snapAngle;
+            e.y = Mathf.Round(e.y / snapAngle) * snapAngle;
+            e.z = Mathf.Round(e.z / snapAngle) * snapAngle;
+            var snapped = Quaternion.Euler(e);
+            transform.rotation = snapped;
+            _targetRot = snapped;
+        }
+    }
+
 }
 
