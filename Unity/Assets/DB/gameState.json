@@ -1,8 +1,8 @@
 {
-    "unlockedLevels": 0,
+    "unlockedLevels": 1,
     "totalPlayTime": 0.0,
     "gameCompletion": 0.0,
     "unlockedCharacters": [
-        "Character1,12"
+        "Character1"
     ]
 }
