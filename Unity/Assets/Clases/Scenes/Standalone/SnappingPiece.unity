@@ -946,8 +946,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0.0.0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c72c813e77867c14ab2e846aeb995a50, type: 2}
-  m_sharedMaterial: {fileID: -178252288327130429, guid: c72c813e77867c14ab2e846aeb995a50, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
+  m_sharedMaterial: {fileID: 4208680921772286256, guid: 445a6f4651cca4242972ff697b620fdc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1172,6 +1172,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildingZoneArea
   gizmoColor: {r: 1, g: 1, b: 1, a: 0.15}
+  gridCellSize: 1
+  showGrid: 1
+  gridLineColor: {r: 1, g: 1, b: 1, a: 0.2}
+  highlightColor: {r: 1, g: 0.9, b: 0.2, a: 0.35}
 --- !u!114 &720584221
 MonoBehaviour:
   m_ObjectHideFlags: 0
