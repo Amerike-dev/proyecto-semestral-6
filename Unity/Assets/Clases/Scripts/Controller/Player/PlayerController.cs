@@ -57,6 +57,13 @@ public class PlayerController : MonoBehaviour
         foreach (var map in asset.actionMaps) map.Disable();
         asset.FindActionMap("Player", throwIfNotFound: true).Enable();
 
+        // Validar que exista la acción "Drop" en el mapa activo
+        var dropAction = asset.FindAction("Drop", throwIfNotFound: false);
+        if (dropAction == null)
+        {
+            Debug.LogWarning("[PlayerController] No se encontró la acción 'Drop' en el Action Map 'Player'. OnDrop no se llamará.");
+        }
+
         // Evita que cambie de scheme solo si no quieres autoswitch (opcional)
         playerInput.neverAutoSwitchControlSchemes = false;
 
@@ -129,6 +136,7 @@ public class PlayerController : MonoBehaviour
     // Si quieres acciones separadas para drop / throw, crea dos acciones llamadas "Drop" y "Throw"
     public void OnDrop(InputValue value)
     {
+        Debug.Log($"OnDrop input: {value.Get<float>()}");
         if (value.Get<float>() > 0.5f && objectInteraction != null)
         {
             bool result = objectInteraction.TryDrop(this);
