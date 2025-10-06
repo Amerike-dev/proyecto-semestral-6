@@ -11,44 +11,46 @@ public class SnappingPieceController : MonoBehaviour
     public float moveSpeed = 6f;
     public float rotationSpeedDegPerSec = 240f;
 
-    [Header("Smoothing")]
-    [Tooltip("Tiempo de suavizado (mayor = mas suave)")]
-    public float positionSmoothTime = 0.07f;
-
     [Header("Placement / Hover")]
-    [Tooltip("Altura a la que flota la pieza mientras la manipulas")]
     public float hoverHeight = 0.2f;
 
-    [Header("Grid (opcional)")]
+    [Header("Grid")]
     public bool enableGridSnap = true;
-    public float cellSize = 0.5f;
+    public float cellSize = 1f;
 
     [Header("Rotation Mode")]
-    [Tooltip("Si true, rotara en pasos de 90 grados; si false, rotacion libre suave")]
     public bool IsRotationFixed = false;
     public float snapAngle = 90f;
-    public float snapRepeatDelay = 1f;
+    public float snapRepeatDelay = 0.25f;
 
-    [NonSerialized] public ManipulationModeSnap mode = ManipulationModeSnap.Rotation;
+    [Header("References")]
+    public GridController gridVisual;
+
+    [Header("Snapping Boundaries")]
+    public Transform boundaryObject;
+
+
+    [NonSerialized] public ManipulationModeSnap mode = ManipulationModeSnap.Translation;
+
+    [NonSerialized] public SnapAssemblyPieceManager manager;
+    [NonSerialized] public BuildingZoneArea buildingZone;
 
     Rigidbody _rb;
     Collider[] _colliders;
 
-    BuildingZoneArea _zone;
-
     Vector3 _targetPos;
     Quaternion _targetRot;
     Vector3 _posVelRef;
-
     Vector3 _rawTargetPos;
 
-    Vector2Int _lastSnapDir = Vector2Int.zero;
-    float _snapCooldown = 0f;
 
     bool _active = false;
     bool _dropping = false;
 
     public event Action<SnappingPieceController> OnPlaced;
+
+    float inputCooldown = 0.15f; 
+    float inputTimer = 0f;
 
     void Awake()
     {
@@ -59,53 +61,29 @@ public class SnappingPieceController : MonoBehaviour
 
     public void Activate(BuildingZoneArea zone, Vector3 spawnPos, Quaternion spawnRot)
     {
-        _zone = zone;
+        buildingZone = zone;
         _active = true;
         _dropping = false;
 
         transform.SetPositionAndRotation(spawnPos, spawnRot);
 
-        _targetPos = spawnPos;
-        _rawTargetPos = spawnPos;
         _targetRot = spawnRot;
 
         SetPreDropPhysics();
 
-        float minY = _zone.WorldBounds.min.y + hoverHeight;
-        _targetPos.y = Mathf.Max(spawnPos.y, minY);
-        _rawTargetPos.y = _targetPos.y;
+        float yBase = zone.WorldBounds.max.y + hoverHeight;
+        _targetPos = new Vector3(spawnPos.x, yBase, spawnPos.z);
+        _rawTargetPos = _targetPos;
         transform.position = _targetPos;
-    }
 
-    void SetPreDropPhysics()
-    {
-        if (_rb != null)
-        {
-            _rb.isKinematic = true;
-            _rb.useGravity = false;
-        }
-        if (_colliders != null)
-        {
-            foreach (var c in _colliders) c.isTrigger = true;
-        }
-    }
-
-    void SetPostDropPhysics()
-    {
-        if (_rb != null)
-        {
-            _rb.isKinematic = false;
-            _rb.useGravity = true;
-        }
-        if (_colliders != null)
-        {
-            foreach (var c in _colliders) c.isTrigger = false;
-        }
     }
 
     public void HandleArrows(Vector2 arrows, float deltaTime)
     {
         if (!_active || _dropping) return;
+
+        inputTimer -= deltaTime;
+        if (inputTimer > 0f) return;
 
         if (mode == ManipulationModeSnap.Translation)
         {
@@ -114,87 +92,69 @@ public class SnappingPieceController : MonoBehaviour
 
             if (dx != 0 || dz != 0)
             {
+                inputTimer = inputCooldown;
                 Vector3 step = new Vector3(dx * cellSize, 0f, dz * cellSize);
-                _rawTargetPos += step;
-            }
+                Vector3 candidate = _rawTargetPos + step;
 
-            Vector3 dest = _rawTargetPos;
-
-            if (enableGridSnap && cellSize > 0.0001f)
-            {
-                dest.x = Mathf.Round(dest.x / cellSize) * cellSize;
-                dest.z = Mathf.Round(dest.z / cellSize) * cellSize;
-            }
-
-            dest = _zone.ClampInside(dest, GetHalfExtentsWorldXZ());
-
-            var b = _zone.WorldBounds;
-            float halfY = GetHalfExtentsWorld().y;
-            float yMin = b.min.y + halfY;
-            float yMax = b.max.y - halfY;
-            dest.y = Mathf.Clamp(dest.y, yMin, yMax);
-
-            _targetPos = dest;
-        }
-        else 
-        {
-            if (!IsRotationFixed)
-            {
-                float yaw = arrows.x * rotationSpeedDegPerSec * deltaTime;
-                float pitch = -arrows.y * rotationSpeedDegPerSec * deltaTime; 
-                _targetRot = Quaternion.Euler(pitch, yaw, 0f) * _targetRot;
-            }
-            else
-            {
-                int dx = arrows.x > 0.5f ? 1 : (arrows.x < -0.5f ? -1 : 0);
-                int dy = arrows.y > 0.5f ? 1 : (arrows.y < -0.5f ? -1 : 0);
-                Vector2Int dir = new Vector2Int(dx, dy);
-
-                if (_snapCooldown > 0f) _snapCooldown -= deltaTime;
-
-                if (dir == Vector2Int.zero)
+                Bounds b;
+                if (boundaryObject != null)
                 {
-                    _lastSnapDir = Vector2Int.zero;
-                    _snapCooldown = 0f;
+                    Renderer r = boundaryObject.GetComponent<Renderer>();
+                    if (r != null)
+                    {
+                        b = r.bounds;
+                    }
+                    else
+                    {
+                        b = buildingZone.WorldBounds;
+                    }
                 }
-                else if (_snapCooldown <= 0f || dir != _lastSnapDir)
+                else
                 {
-                    Quaternion step = Quaternion.identity;
-                    if (dx != 0) step = Quaternion.Euler(0f, dx * snapAngle, 0f) * step;  
-                    if (dy != 0) step = Quaternion.Euler(-dy * snapAngle, 0f, 0f) * step; 
+                    b = buildingZone.WorldBounds;
+                }
 
-                    _targetRot = step * _targetRot;
-                    _lastSnapDir = dir;
-                    _snapCooldown = snapRepeatDelay;
+                float gridOriginX = b.min.x;
+                float gridOriginZ = b.min.z;
+
+                if (enableGridSnap && cellSize > 0.0001f)
+                {
+                    candidate.x = Mathf.Round((candidate.x - gridOriginX) / cellSize) * cellSize + gridOriginX;
+                    candidate.z = Mathf.Round((candidate.z - gridOriginZ) / cellSize) * cellSize + gridOriginZ;
+                }
+
+                candidate.x = Mathf.Clamp(candidate.x, b.min.x, b.max.x);
+                candidate.z = Mathf.Clamp(candidate.z, b.min.z, b.max.z);
+                candidate.y = b.max.y + hoverHeight;
+
+                if (candidate != _targetPos)
+                {
+                    _targetPos = candidate;
+                    _rawTargetPos = _targetPos; 
                 }
             }
         }
     }
 
-    public void HandleVertical(float yInput, float deltaTime)
+    void SetPreDropPhysics()
     {
-        if (!_active || _dropping || mode != ManipulationModeSnap.Translation) return;
-        if (Mathf.Approximately(yInput, 0f)) return;
+        _rb.isKinematic = true;
+        _rb.useGravity = false;
+        foreach (var c in _colliders) c.isTrigger = true;
+    }
 
-        _rawTargetPos.y += yInput * moveSpeed * deltaTime;
+    void SetPostDropPhysics()
+    {
+        _rb.isKinematic = false;
+        _rb.useGravity = true;
+        foreach (var c in _colliders) c.isTrigger = false;
     }
 
     public void Tick(float deltaTime)
     {
         if (!_active) return;
-
-        transform.position = Vector3.SmoothDamp(transform.position, _targetPos, ref _posVelRef, positionSmoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, _targetPos, ref _posVelRef, 0.07f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRot, rotationSpeedDegPerSec * deltaTime);
-    }
-
-    public void SetMode(ManipulationModeSnap newMode)
-    {
-        mode = newMode;
-        _targetPos = transform.position;
-        _rawTargetPos = transform.position;
-        _targetRot = transform.rotation;
-        _lastSnapDir = Vector2Int.zero;
-        _snapCooldown = 0f;
     }
 
     public void BeginDrop()
@@ -214,7 +174,6 @@ public class SnappingPieceController : MonoBehaviour
 
         while (true)
         {
-            if (_rb == null) break;
             if (_rb.linearVelocity.sqrMagnitude < velThreshold * velThreshold)
             {
                 stableTimer += Time.fixedDeltaTime;
@@ -258,11 +217,5 @@ public class SnappingPieceController : MonoBehaviour
         }
 
         return new Vector3(0.25f, 0.25f, 0.25f);
-    }
-
-    Vector3 GetHalfExtentsWorldXZ()
-    {
-        var e = GetHalfExtentsWorld();
-        return new Vector3(e.x, 0f, e.z);
     }
 }

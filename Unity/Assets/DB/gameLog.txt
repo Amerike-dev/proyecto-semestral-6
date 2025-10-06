@@ -1,0 +1,147 @@
+29-09-2025:10:51:01 - Se actualizó el score del nivel 1 a 0
+29-09-2025:10:51:01 - Se actualizó el score del nivel 1 a 12
+29-09-2025:10:51:01 - Se agregaron 1 segundos al tiempo jugado. Total: 1
+29-09-2025:10:51:01 - Personaje desbloqueado: 12
+29-09-2025:10:51:44 - Se actualizó el score del nivel 12 a 0
+29-09-2025:10:51:49 - Se actualizó el score del nivel 10 a 0
+29-09-2025:10:51:55 - Se agregaron 10 segundos al tiempo jugado. Total: 11
+29-09-2025:10:52:03 - Se actualizó el score del nivel 1 a 100
+29-09-2025:10:52:03 - Se agregaron 10 segundos al tiempo jugado. Total: 21
+29-09-2025:10:52:04 - Se agregaron 10 segundos al tiempo jugado. Total: 31
+29-09-2025:10:52:04 - Se agregaron 10 segundos al tiempo jugado. Total: 41
+29-09-2025:10:52:05 - Se agregaron 10 segundos al tiempo jugado. Total: 51
+30-09-2025:01:02:57 - Nivel 1 actualizado con 434 puntos y 2 estrellas.
+30-09-2025:01:02:58 - Nivel 5 actualizado con 120 puntos y 1 estrellas.
+30-09-2025:01:02:58 - Tiempo jugado aumentado en 145 segundos. Total: 145
+30-09-2025:01:02:59 - Tiempo jugado aumentado en 185 segundos. Total: 330
+30-09-2025:01:02:59 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:02:59 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:02:59 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:03:00 - Personaje desbloqueado: Character2
+30-09-2025:01:03:01 - Personaje desbloqueado: Character5
+30-09-2025:01:03:02 - Tiempo jugado aumentado en 175 segundos. Total: 505
+30-09-2025:01:03:02 - Tiempo jugado aumentado en 143 segundos. Total: 648
+30-09-2025:01:03:02 - Tiempo jugado aumentado en 191 segundos. Total: 839
+30-09-2025:01:03:02 - Tiempo jugado aumentado en 108 segundos. Total: 947
+30-09-2025:01:03:02 - Tiempo jugado aumentado en 241 segundos. Total: 1188
+30-09-2025:01:03:03 - Tiempo jugado aumentado en 82 segundos. Total: 1270
+30-09-2025:01:03:33 - Tiempo jugado aumentado en 121 segundos. Total: 1391
+30-09-2025:01:03:33 - Tiempo jugado aumentado en 70 segundos. Total: 1461
+30-09-2025:01:03:33 - Tiempo jugado aumentado en 213 segundos. Total: 1674
+30-09-2025:01:03:33 - Tiempo jugado aumentado en 126 segundos. Total: 1800
+30-09-2025:01:03:33 - Tiempo jugado aumentado en 90 segundos. Total: 1890
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 73 segundos. Total: 1963
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 167 segundos. Total: 2130
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 141 segundos. Total: 2271
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 236 segundos. Total: 2507
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 260 segundos. Total: 2767
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 257 segundos. Total: 3024
+30-09-2025:01:03:34 - Tiempo jugado aumentado en 138 segundos. Total: 3162
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 236 segundos. Total: 3398
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 70 segundos. Total: 3468
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 155 segundos. Total: 3623
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 150 segundos. Total: 3773
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 196 segundos. Total: 3969
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 142 segundos. Total: 4111
+30-09-2025:01:03:35 - Tiempo jugado aumentado en 259 segundos. Total: 4370
+30-09-2025:01:03:52 - Personaje desbloqueado: Character4
+30-09-2025:01:03:53 - Personaje desbloqueado: Character3
+30-09-2025:01:04:43 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:04:43 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:04:43 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:04:44 - Tiempo jugado aumentado en 147 segundos. Total: 4517
+30-09-2025:01:04:44 - Tiempo jugado aumentado en 224 segundos. Total: 4741
+30-09-2025:01:04:44 - Tiempo jugado aumentado en 145 segundos. Total: 4886
+30-09-2025:01:04:45 - Nivel 3 actualizado con 646 puntos y 3 estrellas.
+30-09-2025:01:04:45 - Nivel 3 actualizado con 942 puntos y 1 estrellas.
+30-09-2025:01:04:45 - Nivel 3 actualizado con 750 puntos y 2 estrellas.
+30-09-2025:01:04:45 - Nivel 3 actualizado con 815 puntos y 2 estrellas.
+30-09-2025:01:04:45 - Nivel 5 actualizado con 304 puntos y 3 estrellas.
+30-09-2025:01:21:21 - Nivel 3 actualizado con 196 puntos y 2 estrellas.
+30-09-2025:01:21:21 - Nivel 3 actualizado con 861 puntos y 2 estrellas.
+30-09-2025:01:21:22 - Nivel 5 actualizado con 131 puntos y 2 estrellas.
+30-09-2025:01:21:22 - Nivel 3 actualizado con 511 puntos y 2 estrellas.
+30-09-2025:01:21:22 - Nivel 4 actualizado con 711 puntos y 2 estrellas.
+30-09-2025:01:21:22 - Nivel 5 actualizado con 575 puntos y 3 estrellas.
+30-09-2025:01:21:23 - Tiempo jugado aumentado en 265 segundos. Total: 5151
+30-09-2025:01:21:23 - Tiempo jugado aumentado en 91 segundos. Total: 5242
+30-09-2025:01:21:23 - Tiempo jugado aumentado en 219 segundos. Total: 5461
+30-09-2025:01:21:23 - Tiempo jugado aumentado en 170 segundos. Total: 5631
+30-09-2025:01:21:24 - Tiempo jugado aumentado en 279 segundos. Total: 5910
+30-09-2025:01:21:25 - Tiempo jugado aumentado en 209 segundos. Total: 6119
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 70 segundos. Total: 6189
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 234 segundos. Total: 6423
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 103 segundos. Total: 6526
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 86 segundos. Total: 6612
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 205 segundos. Total: 6817
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 150 segundos. Total: 6967
+30-09-2025:01:21:26 - Tiempo jugado aumentado en 235 segundos. Total: 7202
+30-09-2025:01:21:27 - Tiempo jugado aumentado en 125 segundos. Total: 7327
+30-09-2025:01:21:27 - Tiempo jugado aumentado en 133 segundos. Total: 7460
+30-09-2025:01:21:27 - Tiempo jugado aumentado en 228 segundos. Total: 7688
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:29 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:30 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:30 - Porcentaje de juego actualizado: 0%
+30-09-2025:01:21:32 - Juego reiniciado manualmente
+30-09-2025:01:21:32 - Juego reiniciado manualmente
+30-09-2025:01:21:32 - Juego reiniciado manualmente
+30-09-2025:01:21:32 - Juego reiniciado manualmente
+30-09-2025:01:21:33 - Juego reiniciado manualmente
+30-09-2025:01:21:33 - Juego reiniciado manualmente
+30-09-2025:01:21:34 - Nivel 5 actualizado con 416 puntos y 1 estrellas.
+30-09-2025:01:21:35 - Nivel 1 actualizado con 808 puntos y 3 estrellas.
+30-09-2025:01:21:35 - Nivel 1 actualizado con 620 puntos y 3 estrellas.
+30-09-2025:01:21:35 - Nivel 3 actualizado con 240 puntos y 3 estrellas.
+30-09-2025:01:21:35 - Nivel 4 actualizado con 956 puntos y 1 estrellas.
+30-09-2025:01:21:36 - Tiempo jugado aumentado en 191 segundos. Total: 191
+30-09-2025:01:21:36 - Tiempo jugado aumentado en 69 segundos. Total: 260
+30-09-2025:01:21:36 - Tiempo jugado aumentado en 222 segundos. Total: 482
+30-09-2025:01:21:36 - Tiempo jugado aumentado en 189 segundos. Total: 671
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 227 segundos. Total: 898
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 225 segundos. Total: 1123
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 197 segundos. Total: 1320
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 224 segundos. Total: 1544
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 77 segundos. Total: 1621
+30-09-2025:01:21:37 - Tiempo jugado aumentado en 77 segundos. Total: 1698
+30-09-2025:01:21:38 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:39 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:40 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:40 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:40 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:41 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:41 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:41 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:42 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:43 - Tiempo jugado aumentado en 254 segundos. Total: 1952
+30-09-2025:01:21:44 - Tiempo jugado aumentado en 272 segundos. Total: 2224
+30-09-2025:01:21:44 - Tiempo jugado aumentado en 84 segundos. Total: 2308
+30-09-2025:01:21:44 - Tiempo jugado aumentado en 121 segundos. Total: 2429
+30-09-2025:01:21:45 - Tiempo jugado aumentado en 233 segundos. Total: 2662
+30-09-2025:01:21:46 - Personaje desbloqueado: Character3
+30-09-2025:01:21:46 - Personaje desbloqueado: Character4
+30-09-2025:01:21:46 - Personaje desbloqueado: Character2
+30-09-2025:01:21:46 - Personaje desbloqueado: Character5
+30-09-2025:01:21:49 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:50 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:50 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:50 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:50 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:50 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:51 - Porcentaje de juego actualizado: 20%
+30-09-2025:01:21:52 - Juego reiniciado manualmente

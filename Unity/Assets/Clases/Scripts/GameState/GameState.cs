@@ -38,19 +38,22 @@ public class GameState
     {
         _dataPath = Path.Combine(Application.dataPath, "DB/gameState.json");
         _logPath = Path.Combine(Application.dataPath, "DB/gameLog.txt");
-        
+
         Directory.CreateDirectory(Path.GetDirectoryName(_dataPath));
         Directory.CreateDirectory(Path.GetDirectoryName(_logPath));
-        
+
         LoadGameState();
     }
 
+    // Para tests
     public void InitializeForTests(string dataPath, string logPath)
     {
         _dataPath = dataPath;
         _logPath = logPath;
+
         Directory.CreateDirectory(Path.GetDirectoryName(_dataPath));
         Directory.CreateDirectory(Path.GetDirectoryName(_logPath));
+
         LoadGameState();
     }
 
@@ -83,98 +86,101 @@ public class GameState
         File.AppendAllText(_logPath, logMessage);
     }
 
-    // M�todos p�blicos para actualizar el estado del juego
-    public void UpdateLevelScore(string level, int score, int stars = 0)
+    // =============================
+    // Métodos Set (para UI y pruebas)
+    // =============================
+    public void SetUnlockedLevels(int levels)
     {
-        string levelKey = $"level{level}";
-        
-        if (!_gameData.levelScores.ContainsKey(levelKey) || _gameData.levelScores[levelKey] < score)
-        {
-            _gameData.levelScores[levelKey] = score;
-            Log($"Se actualiza el score del nivel {level} a {score}");
-        }
-
-        if (stars > 0 && (!_gameData.levelStars.ContainsKey(levelKey) || _gameData.levelStars[levelKey] < stars))
-        {
-            _gameData.levelStars[levelKey] = stars;
-            Log($"Se actualizaron las estrellas del nivel {level} a {stars}");
-        }
-
+        _gameData.unlockedLevels = levels;
         SaveGameState();
     }
 
-    public void UpdateTimePlayed(float additionalTime)
+    public void SetTotalPlayTime(float time)
     {
-        _gameData.totalPlayTime += additionalTime;
-        Log($"Se agregaron {additionalTime} segundos al tiempo jugado. Total: {_gameData.totalPlayTime}");
+        _gameData.totalPlayTime = time;
         SaveGameState();
+    }
+
+    public void SetGameCompletion(float completion)
+    {
+        _gameData.gameCompletion = completion;
+        SaveGameState();
+    }
+
+    public void SetLevelStars(Dictionary<string, int> stars)
+    {
+        _gameData.levelStars = stars;
+        SaveGameState();
+    }
+
+    public void SetLevelScores(Dictionary<string, int> scores)
+    {
+        _gameData.levelScores = scores;
+        SaveGameState();
+    }
+
+    public void SetUnlockedCharacters(List<string> chars)
+    {
+        _gameData.unlockedCharacters = chars;
+        SaveGameState();
+    }
+
+    // =============================
+    // Métodos nuevos para GameStateDemo
+    // =============================
+    public void UpdateLevelScore(string level, int score, int stars)
+    {
+        _gameData.levelScores[level] = score;
+        _gameData.levelStars[level] = stars;
+        SaveGameState();
+        Log($"Nivel {level} actualizado con {score} puntos y {stars} estrellas.");
+    }
+
+    public void UpdateTimePlayed(float time)
+    {
+        _gameData.totalPlayTime += time;
+        SaveGameState();
+        Log($"Tiempo jugado aumentado en {time} segundos. Total: {_gameData.totalPlayTime}");
     }
 
     public void UpdateGamePercentage()
     {
-        int totalLevels = 10;
-
-        int completedLevels = 0;
-        foreach (var levelScore in _gameData.levelScores)
-        {
-            if (levelScore.Value > 0) completedLevels++;
-        }
-
-        float levelCompletion = (completedLevels / (float)totalLevels) * 0.7f;
-
-        float starsCompletion = 0f;
-        if (_gameData.levelStars.Count > 0)
-        {
-            int totalStars = 0;
-            int maxPossibleStars = totalLevels * 3;
-
-            foreach (var stars in _gameData.levelStars.Values)
-            {
-                totalStars += stars;
-            }
-
-            starsCompletion = (totalStars / (float)maxPossibleStars) * 0.3f;
-        }
-
-        _gameData.gameCompletion = (levelCompletion + starsCompletion) * 100f;
-        Log($"Porcentaje de juego actualizado a: {_gameData.gameCompletion}%");
+        // Ejemplo: calcular % en base a niveles desbloqueados (ajusta a tu lógica real)
+        _gameData.gameCompletion = (_gameData.unlockedLevels / 5f) * 100f;
         SaveGameState();
+        Log($"Porcentaje de juego actualizado: {_gameData.gameCompletion}%");
     }
 
-    public void UpdateUnlockables(string characterName = null)
+    public void UpdateUnlockables(string character)
     {
-        if (characterName != null && !_gameData.unlockedCharacters.Contains(characterName))
+        if (!_gameData.unlockedCharacters.Contains(character))
         {
-            _gameData.unlockedCharacters.Add(characterName);
-            Log($"Personaje desbloqueado: {characterName}");
+            _gameData.unlockedCharacters.Add(character);
+            SaveGameState();
+            Log($"Personaje desbloqueado: {character}");
         }
-        
-        int maxUnlocked = 1;
-        foreach (var level in _gameData.levelScores.Keys)
-        {
-            int levelNum = int.Parse(level.Replace("level", ""));
-            if (levelNum > maxUnlocked && _gameData.levelScores[level] > 0)
-            {
-                maxUnlocked = levelNum;
-            }
-        }
-        
-        if (maxUnlocked > _gameData.unlockedLevels)
-        {
-            _gameData.unlockedLevels = maxUnlocked;
-            Log($"Nivel {maxUnlocked} desbloqueado");
-        }
-        
+    }
+     public void ResetGameData()
+    {
+        _gameData = new GameData();
+        _gameData.unlockedCharacters.Add("Character1"); // personaje inicial
         SaveGameState();
+        Log("Juego reiniciado manualmente");
     }
 
-    // Metodos para obtener datos
+    public int GetLevelScore(string level) =>
+        _gameData.levelScores.ContainsKey(level) ? _gameData.levelScores[level] : 0;
+
+    public int GetLevelStars(string level) =>
+        _gameData.levelStars.ContainsKey(level) ? _gameData.levelStars[level] : 0;
+
+    // =============================
+    // Métodos Get (para UI y lógica)
+    // =============================
     public int GetUnlockedLevels() => _gameData.unlockedLevels;
     public float GetTotalPlayTime() => _gameData.totalPlayTime;
     public float GetGameCompletion() => _gameData.gameCompletion;
-    public int GetLevelScore(string level) => 
-        _gameData.levelScores.ContainsKey($"level{level}") ? _gameData.levelScores[$"level{level}"] : 0;
-    public int GetLevelStars(string level) => 
-        _gameData.levelStars.ContainsKey($"level{level}") ? _gameData.levelStars[$"level{level}"] : 0;
+    public Dictionary<string, int> GetLevelStars() => _gameData.levelStars;
+    public Dictionary<string, int> GetLevelScores() => _gameData.levelScores;
     public List<string> GetUnlockedCharacters() => _gameData.unlockedCharacters;
 }

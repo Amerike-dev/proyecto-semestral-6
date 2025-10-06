@@ -1,8 +1,8 @@
 {
-  "unlockedLevels": 1,
-  "totalPlayTime": 0.0,
-  "gameCompletion": 0.0,
-  "levelStars": {},
-  "levelScores": {},
-  "unlockedCharacters": ["Character1"]
+    "unlockedLevels": 1,
+    "totalPlayTime": 0.0,
+    "gameCompletion": 0.0,
+    "unlockedCharacters": [
+        "Character1"
+    ]
 }

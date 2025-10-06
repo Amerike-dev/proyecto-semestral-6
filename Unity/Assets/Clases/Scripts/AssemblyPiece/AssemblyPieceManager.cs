@@ -106,6 +106,10 @@ public class AssemblyPieceManager : MonoBehaviour
             return;
         }
 
+        // Asegura que la cuadrícula del área coincide con el tamaño de celda de las piezas
+        buildingZone.gridCellSize = defaultCellSize;
+
+
         GameObject prefab = randomOrder
             ? piecePrefabs[Random.Range(0, piecePrefabs.Count)]
             : piecePrefabs[_spawnIndex++ % piecePrefabs.Count];
