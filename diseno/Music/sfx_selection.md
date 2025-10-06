@@ -60,9 +60,9 @@ Primeros efectos de sonido esperados: **[15 de octubre de 2025]**
 
 ## Responsables
 
-**Diseño del documento:** [Tu nombre o alias]  
-**Contacto musical:** @TonyZierold  
-**Equipo de música:** [nombres si los tienes]  
+**Diseño del documento:** Alexis Constantino Bauchan  
+**Contacto musical:** Antonio 
+**Equipo de música:**   
 
 ---
 
