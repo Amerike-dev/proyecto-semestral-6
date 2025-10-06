@@ -56,7 +56,6 @@ public class PlayerManager : MonoBehaviour
 
                 case InputDeviceChange.Reconnected:
                     Debug.Log($"Gamepad reconectado: {gamepad.displayName}");
-                    // Puedes decidir si quieres reinstanciar al jugador aquí
                     break;
             }
         }

@@ -1,9 +1,9 @@
-//Este script va en un objeto vacio en la escena y luego tienes que asignar 
-//cual es el ModelRecipe y cual es el BuildArea que quieres evaluar
-//Luego asignas a un boton la funcion EvaluateAndPrint para que veas el resultado en consola
+/*Este script va en un objeto vacio en la escena y luego tienes que asignar 
+cual es el ModelRecipe y cual es el BuildArea que quieres evaluar
+Luego asignas a un boton la funcion EvaluateAndPrint para que veas el resultado en consola
 
-//Este escript evalua el area de construccion y compara los objetos colocados con los requeridos en la receta
-//Devuelve un porcentaje de cuan bien se hizo la construccion
+Este escript evalua el area de construccion y compara los objetos colocados con los requeridos en la receta
+Devuelve un porcentaje de cuan bien se hizo la construccion*/
 
 using UnityEngine;
 using System.Collections.Generic;

@@ -5,7 +5,6 @@ public class Player
 
     public Player(int playerId, string playerName = "")
     {
-        //Esto Identifica al jugador
         PlayerID = playerId;
         PlayerName = string.IsNullOrEmpty(playerName) ? $"Player {playerId}" : playerName;
     }

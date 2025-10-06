@@ -5,9 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // EVENTOS
-
-    // Flujo de navegación
     public event Action OnGameStart;
     public event Action OnMenuShown;
     public event Action OnLevelSelected;
@@ -16,15 +13,15 @@ public class GameManager : MonoBehaviour
     // Flujo de partida
     public event Action OnLevelLoading;
     public event Action OnLevelStarted;
-    public event Action<GameObject> OnObjectInteracted; // obj = ladrillo, madera, metal
-    public event Action<string> OnDesignAssigned;       // id del diseño
-    public event Action<string> OnDesignCompleted;      // id del diseño
-    public event Action<GameObject> OnTrashUsed;        // objeto que se desactivó
+    public event Action<GameObject> OnObjectInteracted; 
+    public event Action<string> OnDesignAssigned;       
+    public event Action<string> OnDesignCompleted;      
+    public event Action<GameObject> OnTrashUsed;    
 
     // Tiempo y puntuación
-    public event Action<float> OnTimeTick; // tiempo restante
+    public event Action<float> OnTimeTick; 
     public event Action<int> OnScoreUpdated;
-    public event Action<int> OnStarAchieved; // 1,2,3
+    public event Action<int> OnStarAchieved; 
 
     // Fin de partida
     public event Action OnLevelCompleted;
@@ -59,8 +56,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
-
-    //  MÉTODOS PÚBLICOS
 
     public void StartGame()
     {
@@ -118,7 +113,7 @@ public class GameManager : MonoBehaviour
     public void CompleteDesign(string designId)
     {
         OnDesignCompleted?.Invoke(designId);
-        AddScore(100); // ejemplo: cada diseño = 100 pts
+        AddScore(100); 
     }
 
     public void AddScore(int points)

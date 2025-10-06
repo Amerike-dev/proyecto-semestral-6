@@ -36,7 +36,6 @@ public class BuildArea : MonoBehaviour
 
             Debug.Log($"[BuildArea] Ladrillo ID={id} detectado. Total ahora: {objectCounts[id]}");
 
-            // Desactivamos el ladrillo después de registrarlo
             other.gameObject.SetActive(false);
         }
     }

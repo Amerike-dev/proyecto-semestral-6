@@ -1,8 +1,5 @@
 using UnityEngine;
 
-// Define los límites jugables del nivel y un punto de respawn.
-// Se puede configurar con un BoxCollider2D o con valores manuales.
-
 [RequireComponent(typeof(BoxCollider))]
 public class LevelBounds : MonoBehaviour
 {
@@ -22,13 +19,12 @@ public class LevelBounds : MonoBehaviour
         return boundsCollider.bounds.Contains(position);
     }
 
-    // Devuelve un punto de respawn.
     public Vector3 GetRespawnPoint()
     {
         if (respawnPoint != null)
             return respawnPoint.position;
 
-        Debug.LogWarning("No se asignó un respawnPoint en LevelBounds. Se usará el centro del mapa.");
+        Debug.LogWarning("No se asigno un respawnPoint en LevelBounds. Se usara el centro del mapa.");
         return boundsCollider.bounds.center;
     }
 }

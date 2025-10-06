@@ -8,7 +8,7 @@ public class CreditMoveController : MonoBehaviour
     void Update()
     {
 
-        if (transform.position.y <= maxHeight) // Adjust this value based on your needs
+        if (transform.position.y <= maxHeight) 
         {
         transform.Translate(Vector3.up * scrollSpeed * Time.deltaTime);
         }

@@ -22,14 +22,12 @@ public class SpawnerController : MonoBehaviour
 
     void Awake()
     {
-        // Inicializa el spawner y su lista
         spawner = new SpawnerGeneral
         {
             brickPrefab = brickPrefab,
             bricksList = new List<GameObject>()
         };
 
-        // Pre-cargar objetos en el pool
         for (int i = 0; i < poolSize; i++)
         {
             GameObject obj = Instantiate(brickPrefab, transform.position, Quaternion.identity);
@@ -40,14 +38,11 @@ public class SpawnerController : MonoBehaviour
 
     void Start()
     {
-        // Comienza el spawn automático
         StartCoroutine(AutoSpawn());
     }
     
-    //Pide un objeto del pool en la posición del spawner
     public GameObject SpawnObject()
     {
-        // Solo spawnea si hay espacio en la zona de spawn
         if (spawnZone == null || spawnZone.IsEmpty)
         {
             return spawner.AskForObject(transform.position);
@@ -55,7 +50,6 @@ public class SpawnerController : MonoBehaviour
         return null;
     }
 
-    // Corutina que genera objetos automáticamente
     private IEnumerator AutoSpawn()
     {
         while (true)

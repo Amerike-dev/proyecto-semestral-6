@@ -26,11 +26,9 @@ public class ConveyorController : MonoBehaviour
 
         conveyor = new Conveyor(col, initialSpeed, initialDirection);
 
-        // Obtener el PlayerInput y buscar la acción "Reverse"
         var playerInput = GetComponent<PlayerInput>();
         reverseAction = playerInput.actions["Reverse"];
 
-        // Si no se asignó manualmente, buscar el SpawnZone en hijos
         if (spawnZone == null)
         {
             spawnZone = GetComponentInChildren<SpawnZone>();
@@ -52,7 +50,6 @@ public class ConveyorController : MonoBehaviour
             }
         }
     }
-    // ...existing code...
 
     private void OnEnable()
     {
@@ -87,7 +84,6 @@ public class ConveyorController : MonoBehaviour
     {
         reversing = true;
 
-        // 1) Frenar hasta 0
         while (conveyor.Speed > 0.001f)
         {
             float newSpeed = Mathf.MoveTowards(conveyor.Speed, 0f, decelRate * Time.deltaTime);
@@ -96,10 +92,8 @@ public class ConveyorController : MonoBehaviour
         }
         conveyor.SetSpeed(0f);
 
-        // 2) Cambiar dirección
         conveyor.InvertDirection();
 
-        // 3) Acelerar hasta la velocidad inicial
         while (conveyor.Speed < initialSpeed - 0.001f)
         {
             float newSpeed = Mathf.MoveTowards(conveyor.Speed, initialSpeed, accelRate * Time.deltaTime);

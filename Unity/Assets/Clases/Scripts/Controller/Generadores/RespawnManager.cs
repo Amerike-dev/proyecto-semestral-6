@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Manager central para manejar respawns.
 public class RespawnManager : MonoBehaviour
 {
     public static RespawnManager Instance;
