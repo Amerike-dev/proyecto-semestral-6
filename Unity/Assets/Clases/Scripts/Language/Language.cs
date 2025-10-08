@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public enum SupportedLanguage
 {
     esp,
-    ing
+    ing,
+    por
 }
 
 public static class Language
@@ -30,27 +31,47 @@ public static class Language
         switch (lang)
         {
             case SupportedLanguage.ing:
-                dict["title"] = "Start Game";
+                dict["title"] = "Select Level";
                 dict["buttons"] = new Dictionary<string, string>
                 {
                     { "exit", "Exit" },
                     { "start", "Start" },
                     { "options", "Options" },
                     { "credits", "Credits" },
-                    { "addPlayer", "Add Player" }
+                    { "addPlayer", "Add Player" },
+                    { "pause", "Pause"},
+                    { "resume", "Resume" },
+                    { "reload", "Reload" }
                 };
                 break;
 
             case SupportedLanguage.esp:
             default:
-                dict["title"] = "Iniciar juego";
+                dict["title"] = "Selecciona Nivel";
                 dict["buttons"] = new Dictionary<string, string>
                 {
                     { "exit", "Salir" },
                     { "start", "Iniciar" },
                     { "options", "Opciones" },
                     { "credits", "Creditos" },
-                    { "addPlayer", "Añadir Jugadores" }
+                    { "addPlayer", "Añadir Jugadores" },
+                    { "pause", "Pausa"},
+                    { "resume", "Continuar" },
+                    { "reload", "Reiniciar" }
+                };
+                break;
+                case SupportedLanguage.por:
+                dict["title"] = "Seleciona Nível";
+                dict["buttons"] = new Dictionary<string, string>
+                {
+                    { "exit", "Fechar" },
+                    { "start", "Começar" },
+                    { "options", "Opições" },
+                    { "credits", "Creditos" },
+                    { "addPlayer", "Adicionar jogador" },
+                    { "pause", "Pausa"},
+                    { "resume", "Continuar" },
+                    { "reload", "Reiniciar" }
                 };
                 break;
         }
