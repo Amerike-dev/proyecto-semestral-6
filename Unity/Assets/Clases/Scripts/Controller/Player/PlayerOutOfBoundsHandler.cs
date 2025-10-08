@@ -1,7 +1,4 @@
 using UnityEngine;
-
-//Script unido al Player
-
 public class PlayerOutOfBoundsHandler : MonoBehaviour
 {
     private Rigidbody rb;
@@ -23,7 +20,6 @@ public class PlayerOutOfBoundsHandler : MonoBehaviour
     {
         if (levelBounds == null) return;
 
-        // Verificar si el jugador está fuera de los límites
         if (!levelBounds.IsInsideBounds(transform.position))
         {
             StartCoroutine(RespawnPlayer());
@@ -34,7 +30,6 @@ public class PlayerOutOfBoundsHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnDelay);
 
-        // Reposicionar al jugador en el SpawnPoint
         Vector3 safePos = levelBounds.GetRespawnPoint();
         rb.position = safePos;
         rb.linearVelocity = Vector3.zero;

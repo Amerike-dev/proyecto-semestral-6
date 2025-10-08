@@ -9,13 +9,11 @@ public class PauseController : MonoBehaviour
 
     void Update()
     {
-        // Detecta tecla ESC en teclado
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             Pause();
         }
 
-        // Detecta botón START en gamepad
         if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
         {
             Pause();
@@ -30,7 +28,6 @@ public class PauseController : MonoBehaviour
             PauseGame();
     }
 
-    // Pausar
     public void PauseGame()
     {
         pausePanel.SetActive(true);
@@ -38,7 +35,6 @@ public class PauseController : MonoBehaviour
         isPaused = true;
     }
 
-    // Continuar
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
@@ -46,14 +42,12 @@ public class PauseController : MonoBehaviour
         isPaused = false;
     }
 
-    // Salir
     public void QuitGame()
     {
         Debug.Log("Saliendo del juego...");
-        // Application.Quit();
+        Application.Quit();
     }
 
-    // Reiniciar
     public void RestartScene()
     {
         Time.timeScale = 1f;

@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     {
         if (piecePrefab == null)
         {
-            Debug.LogError("No se asignó prefab de pieza en GameController.");
+            Debug.LogError("No se asigno prefab de pieza en GameController.");
             return;
         }
 
@@ -38,7 +38,6 @@ public class GameController : MonoBehaviour
 
     public void OnPieceDropped(SnappingPieceController piece)
     {
-        //Debug.Log("Pieza soltada en celda: " + piece.GetCurrentCell());
         SpawnPiece();
     }
 }

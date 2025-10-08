@@ -1,4 +1,3 @@
-// PlayerController.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -33,11 +32,11 @@ public class PlayerController : MonoBehaviour
     // Internos de movimiento
     CharacterController controller;
     PlayerInput playerInput;
-    Vector2 moveInput;       // Move (Vector2)
-    Vector2 lookInput;       // Look (Vector2)
-    float verticalVel;       // gravedad acumulada
-    bool jumpQueued;         // se activa desde OnJump
-    bool devicePaired;       // si ya pareamos el gamepad asignado
+    Vector2 moveInput;       
+    Vector2 lookInput;       
+    float verticalVel;      
+    bool jumpQueued;         
+    bool devicePaired;       
 
     // NUEVO: reference al ObjectInteraction del jugador
     [HideInInspector] public ObjectInteraction objectInteraction;
@@ -56,6 +55,13 @@ public class PlayerController : MonoBehaviour
         var asset = playerInput.actions;
         foreach (var map in asset.actionMaps) map.Disable();
         asset.FindActionMap("Player", throwIfNotFound: true).Enable();
+
+        // Validar que exista la acción "Drop" en el mapa activo
+        var dropAction = asset.FindAction("Drop", throwIfNotFound: false);
+        if (dropAction == null)
+        {
+            Debug.LogWarning("[PlayerController] No se encontró la acción 'Drop' en el Action Map 'Player'. OnDrop no se llamará.");
+        }
 
         // Evita que cambie de scheme solo si no quieres autoswitch (opcional)
         playerInput.neverAutoSwitchControlSchemes = false;
@@ -129,6 +135,7 @@ public class PlayerController : MonoBehaviour
     // Si quieres acciones separadas para drop / throw, crea dos acciones llamadas "Drop" y "Throw"
     public void OnDrop(InputValue value)
     {
+        Debug.Log($"OnDrop input: {value.Get<float>()}");
         if (value.Get<float>() > 0.5f && objectInteraction != null)
         {
             bool result = objectInteraction.TryDrop(this);

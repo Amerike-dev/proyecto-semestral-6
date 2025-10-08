@@ -8,6 +8,7 @@ public class GameStateDemo : MonoBehaviour
     public Button updateTimeButton;
     public Button updatePercentageButton;
     public Button updateUnlockablesButton;
+    public Button resetButton;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class GameStateDemo : MonoBehaviour
         updateTimeButton.onClick.AddListener(TestUpdateTimePlayed);
         updatePercentageButton.onClick.AddListener(TestUpdateGamePercentage);
         updateUnlockablesButton.onClick.AddListener(TestUpdateUnlockables);
+        resetButton.onClick.AddListener(TestResetGameData);
 
         UpdateOutputText();
     }
@@ -66,4 +68,10 @@ public class GameStateDemo : MonoBehaviour
                               $"{GameState.Instance.GetLevelStars(i.ToString())} estrellas\n";
         }
     }
+    void TestResetGameData()
+    {
+    GameState.Instance.ResetGameData();
+    UpdateOutputText();
+    }
+   
 }

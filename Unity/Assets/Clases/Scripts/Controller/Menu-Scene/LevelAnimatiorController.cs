@@ -7,12 +7,12 @@ public class LevelAnimatiorController : MonoBehaviour
 {
 public GameObject startImage;
     public GameObject endImage;
-    public float levelDuration = 30f; // tiempo en segundos del nivel
+    public float levelDuration = 30f; 
     public TextMeshProUGUI timerText;
     public Animator uiAnimator;
 
     // Descomentar cuando se tenga el script de movimiento del jugador y cambiar por el nombre correcto
-    //public PlayerMovement player; // referencia al script de movimiento
+    //public PlayerMovement player;
 
     private float timeRemaining;
     private bool levelActive = false;
@@ -24,12 +24,10 @@ public GameObject startImage;
 
     IEnumerator StartLevelRoutine()
     {
-        // Mostrar animación de inicio
         startImage.SetActive(true);
         yield return new WaitForSeconds(2f);
         startImage.SetActive(false);
 
-        // Iniciar contador
         timeRemaining = levelDuration;
         levelActive = true;
     }

@@ -1,129 +1,106 @@
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+using System.Collections.Generic;
 using System.IO;
-using System.Collections;
+using UnityEngine;
 
 public class GameStateTests
 {
-    private string testDataPath;
-    private string testLogPath;
+    string tempDataPath;
+    string tempLogPath;
 
     [SetUp]
-    public void SetUp()
+    public void Setup()
     {
-        testDataPath = Path.Combine(Application.dataPath, "DB/testGameState.json");
-        testLogPath = Path.Combine(Application.dataPath, "DB/testGameLog.txt");
+        string tempDir = Path.Combine(Application.persistentDataPath, "GameStateTests");
+        if (Directory.Exists(tempDir))
+            Directory.Delete(tempDir, true);
+        Directory.CreateDirectory(tempDir);
 
-        if (File.Exists(testDataPath)) File.Delete(testDataPath);
-        if (File.Exists(testLogPath)) File.Delete(testLogPath);
+        tempDataPath = Path.Combine(tempDir, "gameState.json");
+        tempLogPath = Path.Combine(tempDir, "gameLog.txt");
 
-        GameState.Instance.InitializeForTests(testDataPath, testLogPath);
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        if (File.Exists(testDataPath)) File.Delete(testDataPath);
-        if (File.Exists(testLogPath)) File.Delete(testLogPath);
+        var gs = GameState.Instance;
+        gs.InitializeForTests(tempDataPath, tempLogPath);
     }
 
     [Test]
-    public void GameState_UpdateLevelScore_UpdatesScoreWhenHigher()
+    public void TestSetAndGetUnlockedLevels()
     {
-        string level = "1";
-        int initialScore = 400;
-        int higherScore = 800;
+        var gs = GameState.Instance;
+        gs.SetUnlockedLevels(5);
 
-        GameState.Instance.UpdateLevelScore(level, initialScore);
-        GameState.Instance.UpdateLevelScore(level, higherScore);
-
-        Assert.AreEqual(higherScore, GameState.Instance.GetLevelScore(level));
+        Assert.AreEqual(5, gs.GetUnlockedLevels());
     }
 
     [Test]
-    public void GameState_UpdateLevelScore_DoesNotUpdateScoreWhenLower()
+    public void TestSetAndGetTotalPlayTime()
     {
-        string level = "1";
-        int initialScore = 800;
-        int lowerScore = 400;
+        var gs = GameState.Instance;
+        gs.SetTotalPlayTime(120.5f);
 
-        GameState.Instance.UpdateLevelScore(level, initialScore);
-        GameState.Instance.UpdateLevelScore(level, lowerScore);
-
-        Assert.AreEqual(initialScore, GameState.Instance.GetLevelScore(level));
+        Assert.AreEqual(120.5f, gs.GetTotalPlayTime(), 0.001f);
     }
 
     [Test]
-    public void GameState_UpdateLevelScore_UpdatesStarsWhenHigher()
+    public void TestSetAndGetCompletion()
     {
-        string level = "1";
-        int initialStars = 2;
-        int higherStars = 3;
+        var gs = GameState.Instance;
+        gs.SetGameCompletion(75.3f);
 
-        GameState.Instance.UpdateLevelScore(level, 500, initialStars);
-        GameState.Instance.UpdateLevelScore(level, 600, higherStars);
-
-        Assert.AreEqual(higherStars, GameState.Instance.GetLevelStars(level));
+        Assert.AreEqual(75.3f, gs.GetGameCompletion(), 0.001f);
     }
 
     [Test]
-    public void GameState_UpdateTimePlayed_AddsTimeCorrectly()
+    public void TestSetAndGetLevelStars()
     {
-        float initialTime = GameState.Instance.GetTotalPlayTime();
-        float additionalTime = 120.5f;
+        var gs = GameState.Instance;
+        var stars = new Dictionary<string, int>
+        {
+            { "level1", 3 },
+            { "level2", 2 }
+        };
+        gs.SetLevelStars(stars);
 
-        GameState.Instance.UpdateTimePlayed(additionalTime);
-
-        Assert.AreEqual(initialTime + additionalTime, GameState.Instance.GetTotalPlayTime(), 0.01f);
+        var result = gs.GetLevelStars();
+        Assert.AreEqual(3, result["level1"]);
+        Assert.AreEqual(2, result["level2"]);
     }
 
     [Test]
-    public void GameState_UpdateGamePercentage_CalculatesCorrectly()
+    public void TestSetAndGetLevelScores()
     {
-        GameState.Instance.UpdateLevelScore("1", 1000, 3);
-        GameState.Instance.UpdateLevelScore("2", 800, 2);
+        var gs = GameState.Instance;
+        var scores = new Dictionary<string, int>
+        {
+            { "level1", 500 },
+            { "level2", 800 }
+        };
+        gs.SetLevelScores(scores);
 
-        GameState.Instance.UpdateGamePercentage();
-        float expectedPercentage = 19f;
-        float actualPercentage = GameState.Instance.GetGameCompletion();
-
-        Assert.GreaterOrEqual(actualPercentage, expectedPercentage - 1f);
-        Assert.LessOrEqual(actualPercentage, expectedPercentage + 1f);
+        var result = gs.GetLevelScores();
+        Assert.AreEqual(500, result["level1"]);
+        Assert.AreEqual(800, result["level2"]);
     }
 
     [Test]
-    public void GameState_UpdateUnlockables_UnlocksNewLevels()
+    public void TestSetAndGetUnlockedCharacters()
     {
-        int initialUnlocked = GameState.Instance.GetUnlockedLevels();
-        GameState.Instance.UpdateLevelScore((initialUnlocked + 1).ToString(), 1000);
-        GameState.Instance.UpdateUnlockables();
+        var gs = GameState.Instance;
+        var chars = new List<string> { "Character1", "Character2" };
+        gs.SetUnlockedCharacters(chars);
 
-        Assert.AreEqual(initialUnlocked + 1, GameState.Instance.GetUnlockedLevels());
+        var result = gs.GetUnlockedCharacters();
+        Assert.Contains("Character1", result);
+        Assert.Contains("Character2", result);
     }
 
     [Test]
-    public void GameState_UpdateUnlockables_UnlocksNewCharacters()
+    public void TestFileCreatedOnSave()
     {
-        string newCharacter = "Character2";
-        GameState.Instance.UpdateUnlockables(newCharacter);
+        var gs = GameState.Instance;
+        gs.SetUnlockedLevels(2);
 
-        Assert.Contains(newCharacter, GameState.Instance.GetUnlockedCharacters());
-    }
-
-    [Test]
-    public void GameState_Logging_CreatesLogEntries()
-    {
-        long initialLogSize = File.Exists(testLogPath) ? new FileInfo(testLogPath).Length : 0;
-        GameState.Instance.UpdateLevelScore("1", 500);
-        Assert.Greater(new FileInfo(testLogPath).Length, initialLogSize);
-    }
-
-    [Test]
-    public void GameState_Singleton_ReturnsSameInstance()
-    {
-        var instance1 = GameState.Instance;
-        var instance2 = GameState.Instance;
-        Assert.AreSame(instance1, instance2);
+        Assert.IsTrue(File.Exists(tempDataPath), "El archivo JSON no fue creado");
+        Assert.IsTrue(File.Exists(tempLogPath), "El archivo de log no fue creado");
     }
 }

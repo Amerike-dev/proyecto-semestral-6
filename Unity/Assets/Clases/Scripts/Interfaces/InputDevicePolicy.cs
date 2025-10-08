@@ -7,15 +7,16 @@ using UnityEngine.InputSystem.Users;
 public static class InputDevicePolicy
 {
     // CONFIG
-    const int MIN_GAMEPADS = 3;           // necesitas 3 controles minimo
+
+    // necesitas 3 controles minimo
+    const int MIN_GAMEPADS = 3;           
     const string SCHEME_KBM = "KeyboardMouse";
     const string SCHEME_PAD = "Gamepad";
 
     // Estado
-    static PlayerInput keyboardOwner;               // dueno exclusivo del teclado/mouse
-    static readonly HashSet<Gamepad> claimedPads = new HashSet<Gamepad>(); // pads usados
+    static PlayerInput keyboardOwner;              
+    static readonly HashSet<Gamepad> claimedPads = new HashSet<Gamepad>();
 
-    // --- API: Llama esto en Awake() del PlayerController ---
     public static void Assign(PlayerInput pi)
     {
         if (!IsValid(pi)) return;
@@ -37,10 +38,10 @@ public static class InputDevicePolicy
             }
             else
             {
-                // No hay suficientes mandos => no intentes nada (Quitar Warnings)
+                
                 SafeDisable(pi);
             }
-            return; // fin sin politicas
+            return; 
         }
 
         // Desde aqui: tenemos >= 3 mandos => aplica la politica completa
@@ -51,7 +52,6 @@ public static class InputDevicePolicy
 
         if (kbmJoin)
         {
-            // Si ya hay 4 pads reclamados, el teclado no toma nada extra
             if (CountClaimedPads() >= 4)
             {
                 UnpairIfPresent(Keyboard.current, pi);
@@ -69,14 +69,12 @@ public static class InputDevicePolicy
                 PairIfPresent(Mouse.current, pi);
                 ForceScheme(pi, SCHEME_KBM, Only(Keyboard.current, Mouse.current));
 
-                // Marca pads que ya tenga el owner
                 if (IsUserValid(pi))
                     foreach (var d in pi.user.pairedDevices)
                         if (d is Gamepad g) claimedPads.Add(g);
             }
             else
             {
-                // Ya hay dueno => este jugador NO usa teclado
                 UnpairIfPresent(Keyboard.current, pi);
                 UnpairIfPresent(Mouse.current, pi);
                 pi.neverAutoSwitchControlSchemes = true;
@@ -85,7 +83,6 @@ public static class InputDevicePolicy
         }
         else
         {
-            // Entro con mando => solo su mando
             pi.neverAutoSwitchControlSchemes = true;
             UnpairIfPresent(Keyboard.current, pi);
             UnpairIfPresent(Mouse.current, pi);
@@ -97,8 +94,6 @@ public static class InputDevicePolicy
             ForceGamepadIfHasOne(pi);
         }
     }
-
-    // --- API: PlayerController del dueno del teclado (si quiere usar un pad libre) ---
     public static void TryAdoptFreePadIfKeyboardOwner(PlayerInput pi)
     {
         if (!IsValid(pi) || pi != keyboardOwner) return;
@@ -111,12 +106,10 @@ public static class InputDevicePolicy
 
             PairIfPresent(g, pi);
             claimedPads.Add(g);
-            // El dueno tiene auto-switch
             return;
         }
     }
 
-    // ---------- helpers ----------
     static bool IsValid(PlayerInput pi) => pi != null && pi.isActiveAndEnabled;
     static bool IsUserValid(PlayerInput pi) => IsValid(pi) && pi.user.valid;
 
@@ -165,14 +158,12 @@ public static class InputDevicePolicy
 
     static void SafeDisable(PlayerInput pi)
     {
-        // Desactiva la entrada para evitar warnings. Es Reactivado cuando conecten los pads
         try { pi.DeactivateInput(); } catch { }
-        pi.enabled = false; // Podemos comentar esta linea / es opcional
+        pi.enabled = false;
     }
 
     static void NormalizeScheme(PlayerInput pi)
     {
-        // Si el scheme actual no es KBM ni Gamepad, se corrige
         string s = pi.currentControlScheme;
         if (s == SCHEME_KBM || s == SCHEME_PAD) return;
 

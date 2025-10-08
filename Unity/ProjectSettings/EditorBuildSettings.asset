@@ -6,22 +6,22 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Clases/Scenes/Standalone/Menu.unity
+    path: Assets/Scenes/Standalone/Menu.unity
     guid: 165bf06a15247764f98077aef9e71a69
   - enabled: 1
-    path: Assets/Clases/Scenes/Game/Main_Game.unity
+    path: Assets/Scenes/Game/Main_Game.unity
     guid: 8eedd64ff03da954ca349029175c1f6b
   - enabled: 1
-    path: Assets/Clases/Scenes/Game/Nivel1.unity
+    path: Assets/Scenes/Game/Nivel1.unity
     guid: f4cb716d20601e6438eee4351692b93f
   - enabled: 1
-    path: Assets/Clases/Scenes/Standalone/Settings.unity
+    path: Assets/Scenes/Standalone/Settings.unity
     guid: cb237efc4905ff84e915d6f62289021e
   - enabled: 1
-    path: Assets/Clases/Scenes/Standalone/Credits.unity
+    path: Assets/Scenes/Standalone/Credits.unity
     guid: 4c13c249b9d249244a4256ba6d09b899
   - enabled: 1
-    path: Assets/Clases/Scenes/Standalone/Players.unity
+    path: Assets/Scenes/Standalone/Players.unity
     guid: ae241f16560e5274eaf4b3e2854132e4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

@@ -5,7 +5,6 @@ public class SpawnerGeneral
 {
     public GameObject brickPrefab;
     
-    // Lista de objetos que se pueden reutilizar (Object Pooling)
     public List<GameObject> bricksList;
 
     public GameObject AskForObject(Vector3 position)
@@ -16,11 +15,9 @@ public class SpawnerGeneral
             {
                 GameObject brick = bricksList[i];
 
-                // Reiniciar transform
                 brick.transform.position = position;
                 brick.transform.rotation = Quaternion.identity;
 
-                // Reiniciar Rigidbody (si tiene)
                 Rigidbody rb = brick.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -31,7 +28,6 @@ public class SpawnerGeneral
                 return brick;
             }
         }
-        return null; // No hay objetos libres en el pool
+        return null;
     }
-
 }
