@@ -1,9 +1,11 @@
 # First Melody – Bosque Goblin
 
 ## Descripción General
+
 La música del primer nivel es un loop jugable de 60 segundos, ambientado en un bosque donde los goblins trabajan, discuten y se divierten con su característico caos. El tema combina música folklórica celta con matices de fantasía y humor travieso, reflejando el ambiente rústico y desenfadado del entorno.
 
 El tono debe transmitir una sensación de actividad frenética y vida constante: los goblins martillan, corren y se burlan entre sí mientras el jugador avanza por el bosque. El estilo musical mantiene una base modal mixolidia, evocando un aire medieval-folk, pero con un toque burlesco y juguetón.
+
 ---
 
 ## Instrumentación
