@@ -38,7 +38,7 @@ public class ObjectInteraction : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(transform.position, interactionRadius, interactableMask);
         foreach (var col in cols)
         {
-            var brick = col.GetComponent<Brick>();
+            var brick = col.GetComponent<BrickBehavior>();
             if (brick != null)
             {
                 PickUpObject(brick.gameObject, player);
@@ -61,7 +61,7 @@ public class ObjectInteraction : MonoBehaviour
     public void ForcePickup(GameObject obj, PlayerController player)
     {
         if (obj == null || player == null) return;
-        var brickComp = obj.GetComponent<Brick>();
+        var brickComp = obj.GetComponent<BrickBehavior>();
         if (brickComp != null && brickComp.IsHeld && brickComp.CurrentHolder != null)
         {
             var prevHolder = brickComp.CurrentHolder;
@@ -119,7 +119,7 @@ public class ObjectInteraction : MonoBehaviour
         pickedObject = obj;
         owner = player;
 
-        var brick = obj.GetComponent<Brick>();
+        var brick = obj.GetComponent<BrickBehavior>();
         if (brick != null) brick.OnPickedUp(player);
 
         if (player != null) player.CanJump = false;
@@ -138,7 +138,7 @@ public class ObjectInteraction : MonoBehaviour
 
         pickedObject.transform.SetParent(null);
 
-        var brick = pickedObject.GetComponent<Brick>();
+        var brick = pickedObject.GetComponent<BrickBehavior>();
         if (brick != null) brick.OnDropped();
 
         pickedObject = null;
@@ -162,7 +162,7 @@ public class ObjectInteraction : MonoBehaviour
             rb.useGravity = true;
         }
 
-        var brickComp = obj.GetComponent<Brick>();
+        var brickComp = obj.GetComponent<BrickBehavior>();
         if (brickComp != null) brickComp.OnDropped();
 
         Transform basis = player.cameraRoot ? player.cameraRoot : player.transform;
