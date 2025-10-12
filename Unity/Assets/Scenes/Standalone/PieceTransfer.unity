@@ -124,7 +124,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7522482001035022091, guid: 6629d2f4da442f146b880670e84e6eef, type: 3}
   m_PrefabInstance: {fileID: 614216129}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &445685962
+--- !u!114 &445685969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,9 +133,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 445685955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 573876023877b7e47a20467ed198952d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c8e48ca156a6364696f14d2870ac256, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Brick
+  m_EditorClassIdentifier: Assembly-CSharp::BrickBehavior
 --- !u!1001 &614216129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -214,7 +214,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7522482001035022091, guid: 6629d2f4da442f146b880670e84e6eef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 445685962}
+      addedObject: {fileID: 445685969}
   m_SourcePrefab: {fileID: 100100000, guid: 6629d2f4da442f146b880670e84e6eef, type: 3}
 --- !u!1 &935905552
 GameObject:
