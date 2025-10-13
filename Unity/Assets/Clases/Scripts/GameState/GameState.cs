@@ -22,6 +22,7 @@ public class GameState
     [System.Serializable]
     private class GameData
     {
+        public string playerName ;
         public int unlockedLevels = 1;
         public float totalPlayTime = 0.0f;
         public float gameCompletion = 0.0f;
@@ -89,6 +90,11 @@ public class GameState
     // =============================
     // Métodos Set (para UI y pruebas)
     // =============================
+    public void SetPlayerName(string name)
+    {
+        _gameData.playerName = name;
+        SaveGameState();
+    }
     public void SetUnlockedLevels(int levels)
     {
         _gameData.unlockedLevels = levels;
@@ -128,6 +134,12 @@ public class GameState
     // =============================
     // Métodos nuevos para GameStateDemo
     // =============================
+    public void UpdatePlayerName(string name)
+    {
+        _gameData.playerName = name;
+        SaveGameState();
+        Log($"Nombre del jugador actualizado a: {name}");
+    }
     public void UpdateLevelScore(string level, int score, int stars)
     {
         _gameData.levelScores[level] = score;
@@ -160,7 +172,7 @@ public class GameState
             Log($"Personaje desbloqueado: {character}");
         }
     }
-     public void ResetGameData()
+    public void ResetGameData()
     {
         _gameData = new GameData();
         _gameData.unlockedCharacters.Add("Character1"); // personaje inicial
@@ -177,6 +189,7 @@ public class GameState
     // =============================
     // Métodos Get (para UI y lógica)
     // =============================
+    public string GetPlayerName() => _gameData.playerName;
     public int GetUnlockedLevels() => _gameData.unlockedLevels;
     public float GetTotalPlayTime() => _gameData.totalPlayTime;
     public float GetGameCompletion() => _gameData.gameCompletion;
