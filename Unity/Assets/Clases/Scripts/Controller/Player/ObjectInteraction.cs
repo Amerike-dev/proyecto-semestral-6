@@ -7,16 +7,16 @@ public class ObjectInteraction : MonoBehaviour
     public Transform handPoint;
 
     [Header("Rangos y máscaras")]
-    public float interactionRadius = 1f;            
-    public float throwDistanceMultiplier = 2f;     
-    public float throwSphereCastRadius = 0.5f;   
-    public float throwForce = 8f;                  
-    public float throwUpwardBoost = 2f;           
-    public LayerMask interactableMask = ~0;        
-    public LayerMask playerMask = ~0;           
+    public float interactionRadius = 1f;
+    public float throwDistanceMultiplier = 2f;
+    public float throwSphereCastRadius = 0.5f;
+    public float throwForce = 8f;
+    public float throwUpwardBoost = 2f;
+    public LayerMask interactableMask = ~0;
+    public LayerMask playerMask = ~0;
 
-    GameObject pickedObject = null; 
-    PlayerController owner = null;  
+    GameObject pickedObject = null;
+    PlayerController owner = null;
 
     public GameObject PickedObject => pickedObject;
 
@@ -172,7 +172,6 @@ public class ObjectInteraction : MonoBehaviour
 
         float throwDistance = interactionRadius * throwDistanceMultiplier;
         Vector3 origin = handPoint != null ? handPoint.position : player.transform.position + Vector3.up * 1f;
-        Vector3 targetPoint = origin + dir * throwDistance;
 
         if (rb != null)
         {
@@ -184,35 +183,14 @@ public class ObjectInteraction : MonoBehaviour
         if (player != null) player.CanJump = true;
         owner = null;
 
-        RaycastHit hit;
-        // usamos SphereCast para "grosor" en la ruta
-        if (Physics.SphereCast(origin, throwSphereCastRadius, dir, out hit, throwDistance, playerMask))
-        {
-            var hitPlayer = hit.collider.GetComponentInParent<PlayerController>();
-            if (hitPlayer != null && hitPlayer != player)
-            {
-                // Si el jugador impactado no tiene pieza -> se la damos
-                var hitOI = hitPlayer.GetComponent<ObjectInteraction>();
-                if (hitOI != null)
-                {
-                    if (hitOI.PickedObject == null)
-                    {
-                        hitOI.ForcePickup(obj, hitPlayer);
-                        return;
-                    }
-                    else
-                    {
-                        hitOI.ForceDrop();
-                        if (rb != null)
-                        {
-                            rb.AddForce(dir * (throwForce * 0.5f), ForceMode.Impulse);
-                        }
-                        return;
-                    }
-                }
-            }
-        }
+        // === NUEVO: Añadir detección física real para recibir ===
+        var thrownPiece = obj.GetComponent<ThrownPiece>();
+        if (thrownPiece == null)
+            thrownPiece = obj.AddComponent<ThrownPiece>();
+
+        thrownPiece.Initialize(player);
     }
+
 
     void OnDrawGizmosSelected()
     {
