@@ -10,6 +10,10 @@ public class SceneController : MonoBehaviour
             SceneManager.LoadScene(sceneIndex);
         }
     }
+    public void ChangeSceneByName(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
 
     public void QuitGame()
     {
