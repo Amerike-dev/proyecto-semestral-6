@@ -6,19 +6,23 @@ using System.Collections.Generic;
 public class GameStateUI : MonoBehaviour
 {
     [Header("UI Inputs")]
+    public TMP_InputField playerName;
     public TMP_InputField unlockedLevelsInput;
     public TMP_InputField playTimeInput;
     public TMP_InputField completionInput;
     public TMP_InputField charactersInput;
 
     [Header("UI Output")]
+    public TextMeshProUGUI playerNameText;
     public TextMeshProUGUI outputText;
 
-    [Header("Botón de actualizacion")]
+    [Header("Botï¿½n de actualizacion")]
     public Button updateButton;
 
     void Start()
     {
+        if (playerNameText == null)
+            playerNameText = GameObject.Find("PlayerNameText")?.GetComponent<TextMeshProUGUI>();
         if (unlockedLevelsInput == null)
             unlockedLevelsInput = GameObject.Find("UnlockedLevelsInput")?.GetComponent<TMP_InputField>();
         if (playTimeInput == null)
