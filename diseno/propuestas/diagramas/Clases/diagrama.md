@@ -1,3 +1,4 @@
+```mermaid
 ---
 title: Propuesta de Arquitectura – Estado actual y crecimiento
 ---
