@@ -1,85 +1,67 @@
-
-
-```mermaid
 flowchart TB
-%% Propuesta de Arquitectura – Estado actual y crecimiento
 
-%% ====== ESTILOS ======
-classDef planned stroke-dasharray: 6 4,opacity:0.75
-classDef core fill:#0000,stroke:#888,color:#ddd
-classDef mech fill:#0000,stroke:#888,color:#ddd
-classDef comm fill:#0000,stroke:#888,color:#ddd
-classDef data fill:#0000,stroke:#888,color:#ddd
+classDef planned stroke-dasharray: 6 4
 
-%% ====== CORE (actual) ======
-subgraph Core[Core del Juego]
-  GM[GameManager\n• estados de juego\n• score / flujo de nivel]
-  SCN[SceneController\n• cambio de escenas\n• salir del juego]
+subgraph Core
+  GM[GameManager]
+  SCN[SceneController]
 end
-class GM,SCN core
 
-%% ====== JUGADOR (actual) ======
-subgraph PlayerDomain[Dominio Jugador]
-  PC[PlayerController\n• movimiento/acciones\n• input del jugador]
-  PD[Player\n• id, nombre]
+subgraph PlayerDomain
+  PC[PlayerController]
+  PD[Player]
 end
 PC --> PD
 
-%% ====== MECÁNICAS (actual) ======
-subgraph Mechanics[Mecánicas de Ensamblaje]
-  APM[AssemblyPieceManager\n• ciclo de vida de pieza\n• input actions (New Input System)]
-  PMAN[PieceManipulator\n• mover/rotar/soltar\n• OnPlaced event]
-  BZA[BuildingZoneArea\n• límites de construcción]
+subgraph Mechanics
+  APM[AssemblyPieceManager]
+  PMAN[PieceManipulator]
+  BZA[BuildingZoneArea]
 end
-class APM,PMAN,BZA mech
-APM -->|instancia/gestiona| PMAN
-APM -->|usa| BZA
-PMAN -->|ClampInside| BZA
+APM --> PMAN
+APM --> BZA
+PMAN --> BZA
 
-%% ====== COMUNICACIÓN (actual) ======
-subgraph Comm[Comunicación]
-  EV[C# Events / Delegados\n• OnPlaced, etc.]
+subgraph Comm
+  EV[Events Delegates]
 end
-class EV comm
-GM -. emite/escucha .- EV
-APM -. usa .- EV
-PMAN -. dispara .- EV
-PC -. puede suscribirse .- EV
+GM -.-> EV
+APM -.-> EV
+PMAN -.-> EV
+PC -.-> EV
 
-%% ====== CONFIG & DATOS ======
-subgraph Config[Configuración]
-  INP[(InputActionReference\n(New Input System))]
-  GCFG[(GameConfig)]:::planned
-  PCFG[(PieceConfig/SpawnTable)]:::planned
+subgraph Config
+  INP[InputActionReference]
+  GCFG[GameConfig]:::planned
+  PCFG[PieceConfig or SpawnTable]:::planned
 end
 APM --> INP
 
-subgraph Data[Datos / Persistencia]
-  SLOTS[(Saves / Slots)]:::planned
+subgraph Data
+  SLOTS[Saves Slots]:::planned
 end
-class SLOTS planned
 
-%% ====== FUTURO (planeado) ======
 IM[InputManager]:::planned
 SLM[SaveLoadManager]:::planned
 PFUSE[PieceFusionSystem]:::planned
 PMOVE[PieceMovementSystem]:::planned
 PSCORE[PieceScoringSystem]:::planned
 PSPAWN[PieceSpawner]:::planned
-BUS[EventBus\n(Observer central)]:::planned
+BUS[EventBus]:::planned
 
-GM -. coordina .- PSPAWN
-GM -. coordina .- PFUSE
-GM -. coordina .- PMOVE
-GM -. coordina .- PSCORE
-PSPAWN -. crea .- PMAN
-PFUSE -. opera .- PMAN
-PMOVE -. opera .- PMAN
-PSCORE -. consulta .- PMAN
-BUS -. reemplaza/agrupa .- EV
-SLM -. persiste .- SLOTS
-IM -. normaliza entradas .- PC
-IM -. entrega acciones .- APM
+GM -.-> PSPAWN
+GM -.-> PFUSE
+GM -.-> PMOVE
+GM -.-> PSCORE
 
-%% Relaciones Core
-SCN -->|ChangeScene| GM
+PSPAWN -.-> PMAN
+PFUSE -.-> PMAN
+PMOVE -.-> PMAN
+PSCORE -.-> PMAN
+
+BUS -.-> EV
+SLM -.-> SLOTS
+IM -.-> PC
+IM -.-> APM
+
+SCN --> GM
