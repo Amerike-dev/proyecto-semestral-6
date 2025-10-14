@@ -1,67 +1,84 @@
-flowchart TB
+```mermaid
+---
+title: Propuestas de Arquitectura
+---
+classDiagram
+direction LR
 
-classDef planned stroke-dasharray: 6 4
+%% ====== CORE (actual) ======
+class GameManager {
+  +StartGame()
+  +EndGame()
+  +AddScore(points:int)
+}
+class SceneController {
+  +ChangeSceneByIndex(index:int)
+  +QuitGame()
+}
+SceneController --> GameManager : changes state
 
-subgraph Core
-  GM[GameManager]
-  SCN[SceneController]
-end
+%% ====== PLAYER (actual) ======
+class Player {
+  +id:int
+  +name:string
+}
+class PlayerController {
+  +player: Player
+  +Move(dir:Vector2)
+  +Interact()
+  +Drop()
+  +Throw()
+}
+PlayerController --> Player : has
 
-subgraph PlayerDomain
-  PC[PlayerController]
-  PD[Player]
-end
-PC --> PD
+%% ====== MECANICAS (actual) ======
+class AssemblyPieceManager {
+  +Setup()
+  +OnPlaced()
+}
+class PieceManipulator {
+  +Place()
+  +Rotate()
+  +Drop()
+}
+class BuildingZoneArea {
+  +ClampInside(obj)
+}
+AssemblyPieceManager --> PieceManipulator : creates/controls
+AssemblyPieceManager --> BuildingZoneArea : uses
+PieceManipulator --> BuildingZoneArea : clamps
 
-subgraph Mechanics
-  APM[AssemblyPieceManager]
-  PMAN[PieceManipulator]
-  BZA[BuildingZoneArea]
-end
-APM --> PMAN
-APM --> BZA
-PMAN --> BZA
+%% ====== COMUNICACION (actual) ======
+class CSharpEvents
+GameManager ..> CSharpEvents : emits/listens
+AssemblyPieceManager ..> CSharpEvents : uses
+PieceManipulator ..> CSharpEvents : fires
+PlayerController ..> CSharpEvents : subscribes
 
-subgraph Comm
-  EV[Events Delegates]
-end
-GM -.-> EV
-APM -.-> EV
-PMAN -.-> EV
-PC -.-> EV
+%% ====== CONFIG (actual) ======
+class InputActionReference
+AssemblyPieceManager --> InputActionReference : uses
 
-subgraph Config
-  INP[InputActionReference]
-  GCFG[GameConfig]:::planned
-  PCFG[PieceConfig or SpawnTable]:::planned
-end
-APM --> INP
+%% ====== FUTURO (planeado) ======
+class InputManager
+class SaveLoadManager
+class PieceSpawner
+class PieceMovementSystem
+class PieceFusionSystem
+class PieceScoringSystem
+class EventBus
 
-subgraph Data
-  SLOTS[Saves Slots]:::planned
-end
+GameManager ..> PieceSpawner
+GameManager ..> PieceMovementSystem
+GameManager ..> PieceFusionSystem
+GameManager ..> PieceScoringSystem
 
-IM[InputManager]:::planned
-SLM[SaveLoadManager]:::planned
-PFUSE[PieceFusionSystem]:::planned
-PMOVE[PieceMovementSystem]:::planned
-PSCORE[PieceScoringSystem]:::planned
-PSPAWN[PieceSpawner]:::planned
-BUS[EventBus]:::planned
+PieceSpawner ..> PieceManipulator
+PieceMovementSystem ..> PieceManipulator
+PieceFusionSystem ..> PieceManipulator
+PieceScoringSystem ..> PieceManipulator
 
-GM -.-> PSPAWN
-GM -.-> PFUSE
-GM -.-> PMOVE
-GM -.-> PSCORE
-
-PSPAWN -.-> PMAN
-PFUSE -.-> PMAN
-PMOVE -.-> PMAN
-PSCORE -.-> PMAN
-
-BUS -.-> EV
-SLM -.-> SLOTS
-IM -.-> PC
-IM -.-> APM
-
-SCN --> GM
+EventBus ..> GameManager
+EventBus ..> AssemblyPieceManager
+EventBus ..> PlayerController
+EventBus ..> PieceManipulator
