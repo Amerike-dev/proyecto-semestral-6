@@ -1,6 +1,9 @@
-// Este script es un singleton que busca a los objetos con LocalizedText y les dice que actualicen su texto
+// Este script es un singleton que controla el idioma global del juego,
+// actualiza todos los textos LocalizedText y guarda la preferencia del jugador.
+
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class LanguageManager : MonoBehaviour
 {
@@ -10,6 +13,7 @@ public class LanguageManager : MonoBehaviour
 
     void Awake()
     {
+        // Singleton: evita duplicados
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -20,33 +24,70 @@ public class LanguageManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Cambiar idioma (se conecta a botones en el inspector)
-    public void SetLanguageEsp()
+    void Start()
     {
-        SetLanguage(SupportedLanguage.esp);
+        // Cargar idioma guardado o detectar automáticamente
+        if (PlayerPrefs.HasKey("language"))
+        {
+            string savedLang = PlayerPrefs.GetString("language");
+            if (System.Enum.TryParse(savedLang, out SupportedLanguage lang))
+            {
+                SetLanguage(lang);
+            }
+        }
+        else
+        {
+            // Detección automática del idioma del sistema (opcional)
+            switch (Application.systemLanguage)
+            {
+                case SystemLanguage.English:
+                    SetLanguage(SupportedLanguage.ing);
+                    break;
+                case SystemLanguage.Portuguese:
+                    SetLanguage(SupportedLanguage.por);
+                    break;
+                default:
+                    SetLanguage(SupportedLanguage.esp);
+                    break;
+            }
+        }
     }
 
-    public void SetLanguageIng()
+    void OnEnable()
     {
-        SetLanguage(SupportedLanguage.ing);
-    }
-    public void SetLanguagePor()
-    {
-        SetLanguage(SupportedLanguage.por);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Cuando se carga una nueva escena, actualiza todos los textos automáticamente
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateAllLocalizedTexts();
+    }
+
+    // === Métodos públicos para botones ===
+    public void SetLanguageEsp() => SetLanguage(SupportedLanguage.esp);
+    public void SetLanguageIng() => SetLanguage(SupportedLanguage.ing);
+    public void SetLanguagePor() => SetLanguage(SupportedLanguage.por);
+
+    // === Cambiar idioma ===
     public void SetLanguage(SupportedLanguage lang)
     {
         currentLanguage = lang;
+        PlayerPrefs.SetString("language", lang.ToString());
+        PlayerPrefs.Save();
+
         Language.SetLanguage(lang); // sincroniza con la clase Language
         UpdateAllLocalizedTexts();
     }
 
-    public SupportedLanguage GetLanguage()
-    {
-        return currentLanguage;
-    }
+    public SupportedLanguage GetLanguage() => currentLanguage;
 
+    // === Obtener texto traducido por ID ===
     public string GetText(string id)
     {
         var dict = Language.GetMainMenuText(currentLanguage);
@@ -57,11 +98,9 @@ public class LanguageManager : MonoBehaviour
             string[] parts = id.Split('.');
             if (parts.Length == 2 && dict.ContainsKey(parts[0]))
             {
-                var subDict = dict[parts[0]] as System.Collections.Generic.Dictionary<string, string>;
+                var subDict = dict[parts[0]] as Dictionary<string, string>;
                 if (subDict != null && subDict.ContainsKey(parts[1]))
-                {
                     return subDict[parts[1]];
-                }
             }
         }
         else
@@ -70,10 +109,11 @@ public class LanguageManager : MonoBehaviour
                 return dict[id].ToString();
         }
 
-        return $"#{id}"; // fallback
+        return $"#{id}"; // fallback si no se encuentra
     }
 
-    private void UpdateAllLocalizedTexts()
+    // === Actualizar todos los textos localizados de la escena actual ===
+    public void UpdateAllLocalizedTexts()
     {
         foreach (var localizedText in FindObjectsByType<LocalizedText>(FindObjectsSortMode.None))
         {
