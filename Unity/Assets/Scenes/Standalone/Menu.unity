@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 95398971}
   - component: {fileID: 95398970}
   - component: {fileID: 95398969}
+  - component: {fileID: 95398973}
   m_Layer: 0
   m_Name: Portugues
   m_TagString: Untagged
@@ -363,6 +364,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95398967}
   m_CullTransparentMesh: 1
+--- !u!114 &95398973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95398967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1dc6b9784d9f742a3b4ce4a781035d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanguageButton
+  language: 2
 --- !u!1 &110288067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,6 +1363,7 @@ GameObject:
   - component: {fileID: 534996651}
   - component: {fileID: 534996650}
   - component: {fileID: 534996653}
+  - component: {fileID: 534996654}
   m_Layer: 0
   m_Name: "Espa\xF1ol"
   m_TagString: Untagged
@@ -1419,19 +1434,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 534996651}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 802547379}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: SetLanguageEsp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &534996651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1483,6 +1486,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIButton
   highlightImage: {fileID: 534996651}
+--- !u!114 &534996654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534996648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1dc6b9784d9f742a3b4ce4a781035d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanguageButton
+  language: 0
 --- !u!1 &545008768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1858,7 +1874,7 @@ GameObject:
   - component: {fileID: 802547380}
   - component: {fileID: 802547379}
   m_Layer: 0
-  m_Name: SingleTon
+  m_Name: LenguajeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3097,6 +3113,7 @@ GameObject:
   - component: {fileID: 1769674157}
   - component: {fileID: 1769674156}
   - component: {fileID: 1769674155}
+  - component: {fileID: 1769674159}
   m_Layer: 0
   m_Name: Ingles
   m_TagString: Untagged
@@ -3231,6 +3248,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769674153}
   m_CullTransparentMesh: 1
+--- !u!114 &1769674159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769674153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1dc6b9784d9f742a3b4ce4a781035d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanguageButton
+  language: 1
 --- !u!1001 &5061478179027252489
 PrefabInstance:
   m_ObjectHideFlags: 0
