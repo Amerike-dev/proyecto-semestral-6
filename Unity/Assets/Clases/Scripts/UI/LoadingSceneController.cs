@@ -130,6 +130,7 @@ public class LoadingSceneController : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.StartGame();
+            
         }
         else
         {
