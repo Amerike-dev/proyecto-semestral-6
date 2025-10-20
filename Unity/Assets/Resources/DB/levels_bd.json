@@ -4,16 +4,16 @@
       "id": 1,
       "plane": "basic",
       "objects": [
-        { "prefab": "Stage",  "position": [0, 0, 0],"rotation": [0, 0, 0], "type": "static" },
-        { "prefab": "BuildingZone",   "position": [3, 0.1, 2.5],  "type": "interactive" }
+        { "prefab": "Stage", "position": [0, 0, 0], "rotation": [0, 0, 0], "type": "static" },
+        { "prefab": "BuildingZone", "position": [3, 0.1, 2.5], "type": "interactive" }
       ]
     },
     {
       "id": 2,
-      "plane": "basic",
+      "plane": "ruins",
       "objects": [
-        { "prefab": "Stage",  "position": [0, 0, 0], "rotation": [0, 90, 0],"type": "static" },
-        { "prefab": "BuildingZone",   "position": [3, 0.1, 2.5],  "type": "interactive" }
+        { "prefab": "Stage", "position": [0, 0, 0], "rotation": [0, 90, 0], "type": "static" },
+        { "prefab": "BuildingZone", "position": [2, 0.1, 0], "rotation": [0, 0, 0], "type": "interactive" }
       ]
     }
   ]
