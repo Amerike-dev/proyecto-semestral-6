@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users; // <--- NUEVO: para InputUser
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
@@ -36,7 +37,8 @@ public class PlayerController : MonoBehaviour
     Vector2 lookInput;       
     float verticalVel;      
     bool jumpQueued;         
-    bool devicePaired;       
+    bool controlsBound;       // <--- NUEVO: indica si ya emparejamos dispositivos
+    InputUser inputUser;      // <--- NUEVO: usuario del Input System para este Player
 
     // NUEVO: reference al ObjectInteraction del jugador
     [HideInInspector] public ObjectInteraction objectInteraction;
@@ -51,20 +53,30 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         PlayerData = new Player(playerID, playerName);
 
+        // Asegurar que el asset de acciones esté asignado (cargado desde Resources si falta)
+        if (playerInput.actions == null)
+        {
+            var asset = Resources.Load<InputActionAsset>("InputSystem_Actions");
+            if (asset != null)
+                playerInput.actions = ScriptableObject.Instantiate(asset); // instancia propia por jugador
+            else
+                Debug.LogError("[PlayerController] No se pudo cargar InputSystem_Actions desde Resources.");
+        }
+
         // Asegura que sólo el map "Player" esté activo
-        var asset = playerInput.actions;
-        foreach (var map in asset.actionMaps) map.Disable();
-        asset.FindActionMap("Player", throwIfNotFound: true).Enable();
+        var assetRef = playerInput.actions;
+        foreach (var map in assetRef.actionMaps) map.Disable();
+        assetRef.FindActionMap("Player", throwIfNotFound: true).Enable();
 
         // Validar que exista la acción "Drop" en el mapa activo
-        var dropAction = asset.FindAction("Drop", throwIfNotFound: false);
+        var dropAction = assetRef.FindAction("Drop", throwIfNotFound: false);
         if (dropAction == null)
         {
             Debug.LogWarning("[PlayerController] No se encontró la acción 'Drop' en el Action Map 'Player'. OnDrop no se llamará.");
         }
 
-        // Evita que cambie de scheme solo si no quieres autoswitch (opcional)
-        playerInput.neverAutoSwitchControlSchemes = false;
+        // Bloquear autoswitch de schemes para que este jugador solo escuche su(s) dispositivo(s)
+        playerInput.neverAutoSwitchControlSchemes = true;
 
         // Obtener ObjectInteraction (debe existir porque pusimos RequireComponent)
         objectInteraction = GetComponent<ObjectInteraction>();
@@ -74,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        TryPairAssignedGamepad();
+        // Emparejamiento ahora se hace explícitamente vía AssignDevice() desde PlayerManager
 
         //Rotación
         float yawDelta = lookInput.x * lookSensitivity * Time.deltaTime;
@@ -110,8 +122,7 @@ public class PlayerController : MonoBehaviour
     public void OnLook(InputValue value) { lookInput = value.Get<Vector2>(); }
     public void OnJump(InputValue value)
     {
-            Debug.Log("OnJump fue llamado");
-
+        Debug.Log("OnJump fue llamado");
         if (value.Get<float>() > 0.5f) jumpQueued = true;
     }
 
@@ -152,24 +163,35 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Intento de emparejar gamepad si se asignó desde PlayerManager
-    void TryPairAssignedGamepad()
+    // Reemplazo de TryPairAssignedGamepad: empareja/desempareja el dispositivo de este jugador
+    public void AssignDevice(Gamepad newGamepad)
     {
-        if (devicePaired) return;
-        if (gamepad == null) return;
-        if (playerInput == null) return;
+        gamepad = newGamepad;
 
-        try
+        // Tomar el usuario de este PlayerInput y limpiar emparejamientos previos
+        inputUser = playerInput.user;
+        if (inputUser.valid)
+            inputUser.UnpairDevices();
+
+        if (gamepad != null)
         {
+            InputUser.PerformPairingWithDevice(gamepad, inputUser);
             playerInput.SwitchCurrentControlScheme("Gamepad", gamepad);
+            controlsBound = true;
+            Debug.Log($"[Player {PlayerData.PlayerID}] emparejado a gamepad: {gamepad.displayName}");
         }
-        catch
+        else
         {
-            Debug.LogWarning("No pude cambiar al scheme Gamepad");
+            controlsBound = false;
+            Debug.Log($"[Player {PlayerData.PlayerID}] sin gamepad asignado.");
         }
+    }
 
-        devicePaired = true;
-        Debug.Log($"[Player {PlayerData.PlayerID}] usando gamepad: {gamepad.displayName}");
+    void OnDestroy()
+    {
+        // Liberar dispositivos cuando el jugador se destruye
+        if (inputUser.valid)
+            inputUser.UnpairDevices();
     }
 
     // Util: saber si estoy sosteniendo algo
