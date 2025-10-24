@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a31b339b9af6e91419627468f62fb956
+timeCreated: 1459347247
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59543
+  packageName: Goblins Pack
+  packageVersion: 1.0
+  assetPath: Assets/Goblins Pack/Prefabs/Golbin Archer Normal.prefab
+  uploadId: 121351
