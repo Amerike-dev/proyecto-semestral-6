@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: 21d076cb9a4ec214a8cb820e69657bc3
+PluginImporter:
+  serializedVersion: 1
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  platformData:
+    Any:
+      enabled: 0
+      settings: {}
+    Editor:
+      enabled: 1
+      settings:
+        DefaultValueInitialized: true
+    WindowsStoreApps:
+      enabled: 0
+      settings:
+        CPU: AnyCPU
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59543
+  packageName: Goblins Pack
+  packageVersion: 1.0
+  assetPath: Assets/Goblins Pack/Editor/Editor.ReorderableList.dll
+  uploadId: 121351

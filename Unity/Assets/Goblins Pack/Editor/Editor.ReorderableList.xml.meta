@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 087430efbff5ee54a8c8273aee1508fc
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59543
+  packageName: Goblins Pack
+  packageVersion: 1.0
+  assetPath: Assets/Goblins Pack/Editor/Editor.ReorderableList.xml
+  uploadId: 121351

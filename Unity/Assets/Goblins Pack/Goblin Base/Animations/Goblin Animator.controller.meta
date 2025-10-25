@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dad1b18695e08c049b903320225f229a
+timeCreated: 1458833260
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59543
+  packageName: Goblins Pack
+  packageVersion: 1.0
+  assetPath: Assets/Goblins Pack/Goblin Base/Animations/Goblin Animator.controller
+  uploadId: 121351

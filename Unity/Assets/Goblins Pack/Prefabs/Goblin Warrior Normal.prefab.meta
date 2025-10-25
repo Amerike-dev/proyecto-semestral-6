@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fe842b71ced1f9843921a1d1e3e4c535
+timeCreated: 1459347695
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 59543
+  packageName: Goblins Pack
+  packageVersion: 1.0
+  assetPath: Assets/Goblins Pack/Prefabs/Goblin Warrior Normal.prefab
+  uploadId: 121351
