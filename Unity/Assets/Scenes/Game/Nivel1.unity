@@ -194,6 +194,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 220345157}
   m_CullTransparentMesh: 1
+--- !u!1 &466878503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 466878505}
+  - component: {fileID: 466878504}
+  m_Layer: 0
+  m_Name: playermanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &466878504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466878503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7626ef9c614a7ab4097541b49b64d508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  modelos:
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+  - {fileID: 1174402220511385578, guid: 8d0d966afc2df4646809715df6ec5117, type: 3}
+--- !u!4 &466878505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466878503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 208.32713, y: 212.2059, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &643364679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,3 +1380,4 @@ SceneRoots:
   - {fileID: 1974056324}
   - {fileID: 1143774002}
   - {fileID: 2141535326}
+  - {fileID: 466878505}
