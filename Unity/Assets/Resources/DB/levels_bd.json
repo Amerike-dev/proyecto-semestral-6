@@ -64,6 +64,24 @@
           "type": "decorative"
         }
       ]
+    },
+    {
+      "id": 6,
+      "plane": "Cueva",
+      "objects": [
+        {
+          "prefab": "Nivel6",
+          "position": [ 0, 0, 0 ],
+          "rotation": [ 0, 0, 0 ],
+          "type": "static"
+        },
+        {
+          "prefab": "BuildingZone",
+          "position": [ 0.6848, 11.9, 12.09 ],
+          "rotation": [ 0, 0, 0 ],
+          "type": "interactive"
+        }
+      ]
     }
   ]
 }

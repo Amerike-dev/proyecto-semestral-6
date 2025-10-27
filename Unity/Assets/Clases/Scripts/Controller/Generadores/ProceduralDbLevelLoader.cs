@@ -60,14 +60,14 @@ public class ProceduralDbLevelLoader : MonoBehaviour
         var ta = Resources.Load<TextAsset>(jsonResourcePath);
         if (ta == null)
         {
-            Debug.LogError($"[ProceduralDbLevelLoader] No se encontró JSON en Resources: {jsonResourcePath}");
+            Debug.LogError($"[ProceduralDbLevelLoader] No se encontrï¿½ JSON en Resources: {jsonResourcePath}");
             return;
         }
 
         LevelsDb db = JsonUtility.FromJson<LevelsDb>(ta.text);
         if (db == null || db.levels == null || db.levels.Count == 0)
         {
-            Debug.LogError("[ProceduralDbLevelLoader] JSON inválido o sin niveles.");
+            Debug.LogError("[ProceduralDbLevelLoader] JSON invï¿½lido o sin niveles.");
             return;
         }
 
