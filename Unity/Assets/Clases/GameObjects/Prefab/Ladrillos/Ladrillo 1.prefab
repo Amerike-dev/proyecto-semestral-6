@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5309641875736513766}
   - component: {fileID: 249586198181729773}
   - component: {fileID: 8993964478159338637}
+  - component: {fileID: 5508556983760904816}
   m_Layer: 0
   m_Name: Ladrillo 1
   m_TagString: Object
@@ -154,3 +155,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5508556983760904816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7522482001035022091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f173d9d0727cf0746831cf77b8e2025b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrownPiece
