@@ -6,13 +6,13 @@
       "objects": [
         {
           "prefab": "Stage",
-          "position": [ 0, 0, 0 ],
-          "rotation": [ 0, 0, 0 ],
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0],
           "type": "static"
         },
         {
           "prefab": "BuildingZone",
-          "position": [ 3, 0.1, 2.5 ],
+          "position": [3, 0.1, 2.5],
           "type": "interactive"
         }
       ]
@@ -23,14 +23,14 @@
       "objects": [
         {
           "prefab": "Stage",
-          "position": [ 0, 0, 0 ],
-          "rotation": [ 0, 90, 0 ],
+          "position": [0, 0, 0],
+          "rotation": [0, 90, 0],
           "type": "static"
         },
         {
           "prefab": "BuildingZone",
-          "position": [ 2, 0.1, 0 ],
-          "rotation": [ 0, 0, 0 ],
+          "position": [2, 0.1, 0],
+          "rotation": [0, 0, 0],
           "type": "interactive"
         }
       ]
@@ -41,27 +41,69 @@
       "objects": [
         {
           "prefab": "Stage",
-          "position": [ 0, 0, 0 ],
-          "rotation": [ 0, 180, 0 ],
+          "position": [0, 0, 0],
+          "rotation": [0, 180, 0],
           "type": "static"
         },
         {
           "prefab": "BuildingZone",
-          "position": [ 4, 0.1, -1.5 ],
-          "rotation": [ 0, 45, 0 ],
+          "position": [4, 0.1, -1.5],
+          "rotation": [0, 45, 0],
           "type": "interactive"
         },
         {
           "prefab": "Tree",
-          "position": [ -2, 0, 3 ],
-          "rotation": [ 0, 0, 0 ],
+          "position": [-2, 0, 3],
+          "rotation": [0, 0, 0],
           "type": "decorative"
         },
         {
           "prefab": "Rock",
-          "position": [ 1, 0, -2 ],
-          "rotation": [ 0, 0, 0 ],
+          "position": [1, 0, -2],
+          "rotation": [0, 0, 0],
           "type": "decorative"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "plane": "workshop",
+      "objects": [
+        {
+          "prefab": "Stage",
+          "position": [0, 0, 0],
+          "rotation": [0, 270, 0],
+          "type": "static"
+        },
+        {
+          "prefab": "BuildingZone",
+          "position": [3, 0.1, 2],
+          "rotation": [0, 0, 0],
+          "type": "interactive"
+        },
+        {
+          "prefab": "Workbench",
+          "position": [-2, 0, 1],
+          "rotation": [0, 90, 0],
+          "type": "interactive"
+        },
+        {
+          "prefab": "Crate",
+          "position": [1, 0, -1],
+          "rotation": [0, 0, 0],
+          "type": "decorative"
+        },
+        {
+          "prefab": "Lamp",
+          "position": [0, 2, 0],
+          "rotation": [0, 0, 0],
+          "type": "decorative"
+        },
+        {
+          "prefab": "Shelf",
+          "position": [4, 0, -2],
+          "rotation": [0, 180, 0],
+          "type": "interactive"
         }
       ]
     }
