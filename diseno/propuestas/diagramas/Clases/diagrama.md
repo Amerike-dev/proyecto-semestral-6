@@ -5,80 +5,205 @@ title: Propuestas de Arquitectura
 classDiagram
 direction LR
 
-%% ====== CORE (actual) ======
+%% =====================================
+%% ====== CORE ========================
+%% =====================================
 class GameManager {
   +StartGame()
   +EndGame()
   +AddScore(points:int)
 }
+
 class SceneController {
   +ChangeSceneByIndex(index:int)
   +QuitGame()
 }
-SceneController --> GameManager : changes state
 
-%% ====== PLAYER (actual) ======
-class Player {
-  +id:int
-  +name:string
+SceneController --> GameManager : controla estado
+
+class TimerController {
+  +startertime: float
+  +SceneIndex: int
+  -RemainingTime: float
+  +Start()
+  +Update()
 }
+
+SceneController --> TimerController : usa para cambiar escena por tiempo
+
+%% =====================================
+%% ====== PLAYER ======================
+%% =====================================
+class Player {
+  +id: int
+  +name: string
+}
+
 class PlayerController {
   +player: Player
-  +Move(dir:Vector2)
-  +Interact()
-  +Drop()
-  +Throw()
+  +moveSpeed: float
+  +jumpHeight: float
+  +lookSensitivity: float
+  +cameraRoot: Transform
+  +CanJump: bool
+  +HasPiece(): bool
+  +OnMove(value:InputValue)
+  +OnLook(value:InputValue)
+  +OnJump(value:InputValue)
+  +OnInteract(value:InputValue)
+  +OnDrop(value:InputValue)
+  +OnThrow(value:InputValue)
 }
-PlayerController --> Player : has
 
-%% ====== MECANICAS (actual) ======
+PlayerController --> Player : posee
+PlayerController --> GameManager : se comunica con
+PlayerController --> ObjectInteraction : usa
+
+%% =====================================
+%% ====== MECÁNICAS ====================
+%% =====================================
 class AssemblyPieceManager {
   +Setup()
   +OnPlaced()
 }
+
 class PieceManipulator {
   +Place()
   +Rotate()
   +Drop()
 }
+
 class BuildingZoneArea {
   +ClampInside(obj)
 }
-AssemblyPieceManager --> PieceManipulator : creates/controls
-AssemblyPieceManager --> BuildingZoneArea : uses
-PieceManipulator --> BuildingZoneArea : clamps
 
-%% ====== COMUNICACION (actual) ======
-class CSharpEvents
-GameManager ..> CSharpEvents : emits/listens
-AssemblyPieceManager ..> CSharpEvents : uses
-PieceManipulator ..> CSharpEvents : fires
-PlayerController ..> CSharpEvents : subscribes
+AssemblyPieceManager --> PieceManipulator : crea/controla
+AssemblyPieceManager --> BuildingZoneArea : usa
+PieceManipulator --> BuildingZoneArea : limita posición
 
-%% ====== CONFIG (actual) ======
-class InputActionReference
-AssemblyPieceManager --> InputActionReference : uses
+%% =====================================
+%% ====== OBJETOS E INTERACCIÓN =======
+%% =====================================
+class ObjectInteraction {
+  +handPoint: Transform
+  +interactionRadius: float
+  +throwDistanceMultiplier: float
+  +throwSphereCastRadius: float
+  +throwForce: float
+  +throwUpwardBoost: float
+  +interactableMask: LayerMask
+  +playerMask: LayerMask
+  -pickedObject: GameObject
+  -owner: PlayerController
+  +PickedObject: GameObject
+  +TryInteract(player:PlayerController): bool
+  +ForcePickup(obj:GameObject, player:PlayerController)
+  +ForceDrop()
+  +TryDrop(player:PlayerController): bool
+  +TryThrow(player:PlayerController): bool
+  -PickUpObject(obj:GameObject, player:PlayerController)
+  -DropObject(player:PlayerController)
+  -ThrowObject(player:PlayerController)
+  +OnDrawGizmosSelected()
+}
 
-%% ====== FUTURO (planeado) ======
-class InputManager
-class SaveLoadManager
-class PieceSpawner
-class PieceMovementSystem
-class PieceFusionSystem
-class PieceScoringSystem
-class EventBus
+class BrickBehavior {
+  +IsHeld: bool
+  +CurrentHolder: PlayerController
+  +Interact(player:PlayerController)
+  +OnPickedUp(player:PlayerController)
+  +OnDropped()
+}
 
-GameManager ..> PieceSpawner
-GameManager ..> PieceMovementSystem
-GameManager ..> PieceFusionSystem
-GameManager ..> PieceScoringSystem
+class ObjectController {
+  +objectID: int
+}
 
-PieceSpawner ..> PieceManipulator
-PieceMovementSystem ..> PieceManipulator
-PieceFusionSystem ..> PieceManipulator
-PieceScoringSystem ..> PieceManipulator
+ObjectInteraction --> BrickBehavior : detecta/interactúa con
+ObjectInteraction --> ObjectController : puede manipular
+ObjectInteraction --> ThrownPiece : agrega componente al lanzar
+BrickBehavior --> PlayerController : referencia al jugador que la sostiene
 
-EventBus ..> GameManager
-EventBus ..> AssemblyPieceManager
-EventBus ..> PlayerController
-EventBus ..> PieceManipulator
+class ThrownPiece {
+  -thrower: PlayerController
+  -canBeCaught: bool
+  +Initialize(player:PlayerController)
+  -EnableCatch()
+  -OnCollisionEnter(collision:Collision)
+}
+
+ThrownPiece --> PlayerController : referencia a
+
+%% =====================================
+%% ====== SISTEMA DE FUSIÓN ============
+%% =====================================
+class FusionManager {
+  +areaDeFusion: FusionZone
+  +mergeAction: InputActionReference
+  +OnEnable()
+  +OnDisable()
+  -OnFusionar(context:InputAction.CallbackContext)
+  -FusionarPiezas()
+  -CalcularCentro(piezas:List<GameObject>): Vector3
+}
+
+class FusionZone {
+  +pieces: List<GameObject>
+}
+
+FusionManager --> FusionZone : contiene piezas
+FusionManager --> InputActionReference : usa para input
+
+%% =====================================
+%% ====== SISTEMA DE TRASLADO ==========
+%% =====================================
+class SpawnZone {
+  -objectsInZone: HashSet<GameObject>
+  +IsEmpty: bool
+  +OnTriggerEnter(collider:Collider)
+  +OnTriggerExit(collider:Collider)
+}
+
+class Conveyor {
+  +Speed: float
+  +Direction: Vector3
+  +ApplyConveyorEffect(rb:Rigidbody)
+  +SetSpeed(speed:float)
+  +InvertDirection()
+}
+
+class ConveyorController {
+  +spawnZone: SpawnZone
+  +baseSpawnZoneLength: float
+  +initialSpeed: float
+  +initialDirection: Vector3
+  +decelRate: float
+  +accelRate: float
+  -conveyor: Conveyor
+  -reversing: bool
+  -reverseAction: InputAction
+  +Awake()
+  +Update()
+  +OnEnable()
+  +OnDisable()
+  +OnTriggerStay(collider:Collider)
+  -OnReverse(context:InputAction.CallbackContext)
+  -ChangeDirectionSmoothly(): IEnumerator
+}
+
+ConveyorController --> Conveyor : controla
+ConveyorController --> SpawnZone : contiene
+ConveyorController --> PlayerInput : maneja entrada de usuario
+
+%% =====================================
+%% ====== ESCENAS ======================
+%% =====================================
+class SceneIndex {
+  <<enum>>
+  MENU
+  LEVEL_1
+  LEVEL_2
+  GAME_OVER
+}
+
+SceneController --> SceneIndex : usa
