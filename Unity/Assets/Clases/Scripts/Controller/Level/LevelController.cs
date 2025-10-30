@@ -26,15 +26,21 @@ public class LevelController : MonoBehaviour
             Transform pieza = mapaTemp.transform.GetChild(i);
 
             Instantiate(pieza.gameObject, pieza.localPosition, pieza.localRotation);
-
             barraCarga.value = (float)(i + 1) / totalPiezas;
 
-            yield return new WaitForSeconds(0.05f); 
+            yield return new WaitForSeconds(0.05f);
         }
 
         Destroy(mapaTemp);
-
         pantallaCarga.gameObject.SetActive(false);
         Debug.Log("Mapa generado con progreso real.");
+
+        yield return new WaitForSeconds(0.2f); 
+
+        LevelTimerManager timer = FindAnyObjectByType<LevelTimerManager>();
+        if (timer != null)
+        {
+            StartCoroutine(timer.StartCountdownExternally());
+        }
     }
 }
