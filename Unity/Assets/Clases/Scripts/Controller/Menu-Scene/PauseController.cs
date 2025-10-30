@@ -1,26 +1,35 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+
 public class PauseController : MonoBehaviour
 {
-   public GameObject pausePanel;
+    public GameObject pausePanel;
+    public GameObject settingsPanel;
+    public GameObject confirmPanel;
 
     private bool isPaused = false;
 
-    void Update()
-    {
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            Pause();
-        }
+    // Referencia a la acción de pausa
+    private InputAction pauseAction;
 
-        if (Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame)
-        {
-            Pause();
-        }
+    void OnEnable()
+    {
+        // Crea una instancia temporal si no usas PlayerInput
+        var inputActions = new InputActionMap("UI");
+        pauseAction = inputActions.AddAction("Pause", binding: "<Keyboard>/escape");
+        pauseAction.AddBinding("<Gamepad>/start");
+
+        pauseAction.performed += ctx => TogglePause();
+        pauseAction.Enable();
     }
 
-    private void Pause()
+    void OnDisable()
+    {
+        pauseAction.Disable();
+    }
+
+    private void TogglePause()
     {
         if (isPaused)
             ResumeGame();
@@ -44,8 +53,19 @@ public class PauseController : MonoBehaviour
 
     public void QuitGame()
     {
-        Debug.Log("Saliendo del juego...");
-        Application.Quit();
+        confirmPanel.SetActive(true);
+    }
+
+    public void ConfirmQuitGame()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+        pausePanel.SetActive(false);
+    }
+
+    public void CancelQuitGame()
+    {
+        confirmPanel.SetActive(false);
     }
 
     public void RestartScene()
@@ -53,5 +73,15 @@ public class PauseController : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         pausePanel.SetActive(false);
+    }
+
+    public void Settings()
+    {
+        settingsPanel.SetActive(true);
+    }
+
+    public void BackFromSettings()
+    {
+        settingsPanel.SetActive(false);
     }
 }
