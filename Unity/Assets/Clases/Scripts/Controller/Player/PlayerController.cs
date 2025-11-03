@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     // Internos de movimiento
     CharacterController controller;
     PlayerInput playerInput;
+    InputAction pauseAction;
     Vector2 moveInput;       
     Vector2 lookInput;       
     float verticalVel;      
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
         AudioSource = GetComponent<AudioSource>();
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        pauseAction = playerInput.actions["Pause"];
+        pauseAction.performed += ctx => NotifyPause();
         PlayerData = new Player(playerID, playerName);
 
         // Asegurar que el asset de acciones esté asignado (cargado desde Resources si falta)
@@ -198,5 +201,10 @@ public class PlayerController : MonoBehaviour
     public bool HasPiece()
     {
         return objectInteraction != null && objectInteraction.PickedObject != null;
+    }
+
+    void NotifyPause()
+    {
+        PauseMenu.Instance.TogglePause(); // Llama al manejador central
     }
 }
