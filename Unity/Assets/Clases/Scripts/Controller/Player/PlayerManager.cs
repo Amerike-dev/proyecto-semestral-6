@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject[] modelos;
+    public GameObject modeloVisualPrefab; // solo modelo, sin PlayerInput
+    public Transform[] posicionesSpawn;
 
-    private Dictionary<Gamepad, GameObject> jugadoresActivos = new Dictionary<Gamepad, GameObject>();
-    // Límite de jugadores a spawnear, leído desde el menú (Player.SelectedPlayersCount)
-    private int maxPlayersToSpawn = 1;
+    private Dictionary<Gamepad, GameObject> jugadoresVisuales = new Dictionary<Gamepad, GameObject>();
+    private int maxPlayersToSpawn = 4;
 
     void OnEnable()
     {
@@ -22,38 +22,34 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        // Limitar por la cantidad seleccionada y por la cantidad de modelos disponibles
-        maxPlayersToSpawn = Mathf.Min(Mathf.Max(Player.SelectedPlayersCount, 1), modelos.Length);
-        // Spawnear inmediatamente al entrar a la escena
-        TrySpawnMissingPlayers();
+        maxPlayersToSpawn = Mathf.Min(4, posicionesSpawn.Length);
+        TrySpawnVisuales();
     }
 
     void Update()
     {
-        // Completar jugadores faltantes si entran gamepads nuevos
-        TrySpawnMissingPlayers();
+        TrySpawnVisuales();
     }
 
-    private void TrySpawnMissingPlayers()
+    private void TrySpawnVisuales()
     {
         foreach (var gamepad in Gamepad.all)
         {
-            if (jugadoresActivos.Count >= maxPlayersToSpawn) break;
-            if (!jugadoresActivos.ContainsKey(gamepad))
+            if (jugadoresVisuales.Count >= maxPlayersToSpawn) break;
+            if (!jugadoresVisuales.ContainsKey(gamepad))
             {
-                CrearJugador(gamepad, jugadoresActivos.Count);
+                CrearVisual(gamepad, jugadoresVisuales.Count);
             }
         }
     }
 
-    void CrearJugador(Gamepad gamepad, int index)
+    void CrearVisual(Gamepad gamepad, int index)
     {
-        Vector3 posicion = new Vector3(index * 3, 0, 0);
-        GameObject modelo = Instantiate(modelos[index], posicion, Quaternion.identity);
-        var controller = modelo.AddComponent<PlayerController>();
-        controller.AssignDevice(gamepad);
+        Vector3 posicion = posicionesSpawn[index].position;
+        GameObject visual = Instantiate(modeloVisualPrefab, posicion, Quaternion.identity);
 
-        jugadoresActivos.Add(gamepad, modelo);
+        jugadoresVisuales.Add(gamepad, visual);
+        JugadorPersistente.Instancia?.RegistrarJugador(gamepad, index);
     }
 
     void OnDeviceChange(InputDevice device, InputDeviceChange change)
@@ -63,20 +59,16 @@ public class PlayerManager : MonoBehaviour
             switch (change)
             {
                 case InputDeviceChange.Disconnected:
-                    if (jugadoresActivos.ContainsKey(gamepad))
+                    if (jugadoresVisuales.ContainsKey(gamepad))
                     {
-                        Destroy(jugadoresActivos[gamepad]);
-                        jugadoresActivos.Remove(gamepad);
-                        Debug.Log($"Jugador con {gamepad.displayName} desconectado.");
-                        // Intentar llenar el cupo con otro gamepad disponible
-                        TrySpawnMissingPlayers();
+                        Destroy(jugadoresVisuales[gamepad]);
+                        jugadoresVisuales.Remove(gamepad);
+                        TrySpawnVisuales();
                     }
                     break;
 
                 case InputDeviceChange.Reconnected:
-                    Debug.Log($"Gamepad reconectado: {gamepad.displayName}");
-                    // Si hay cupo disponible, crear jugador para este gamepad
-                    TrySpawnMissingPlayers();
+                    TrySpawnVisuales();
                     break;
             }
         }
