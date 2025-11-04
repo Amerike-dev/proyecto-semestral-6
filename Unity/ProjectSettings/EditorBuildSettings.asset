@@ -41,6 +41,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/Nivel1-7.unity
     guid: 2e983ed4626a2ab408a7d587e05b9bb0
+  - enabled: 1
+    path: Assets/Scenes/Game/1-5 Propuestas Levels/Nivel1.unity
+    guid: 73cdb64cfec0fbc41af9a1510b16d7cb
+  - enabled: 1
+    path: Assets/Scenes/Game/1-5 Propuestas Levels/Nivel2.unity
+    guid: d871bc0f199336843b7a3e7dfb9a9c71
+  - enabled: 1
+    path: Assets/Scenes/Game/1-5 Propuestas Levels/Nivel3.unity
+    guid: 78a0d24c63a966548a0495ef8f9a26e0
+  - enabled: 1
+    path: Assets/Scenes/Game/1-5 Propuestas Levels/Nivel4.unity
+    guid: c877e72eb0aaa1f45b2cc307102d7445
+  - enabled: 1
+    path: Assets/Scenes/Game/1-5 Propuestas Levels/Nivel5.unity
+    guid: df87adc30cbd28f40b4f56dabe82d674
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
