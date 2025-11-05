@@ -81,6 +81,9 @@ public class FusionManager : MonoBehaviour
         uiText.text = "";
         startTime = Time.time;
         isFusionActive = false;
+
+        // Enviar calificación al LevelScoreManager
+        LevelScoreManager.Instance.RegistrarRank(rank);
     }
 
     private string CalcularRango(float time)
